@@ -7,12 +7,10 @@ import net.masterthought.cucumber.ReportBuilder;
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.runner.RunWith;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
