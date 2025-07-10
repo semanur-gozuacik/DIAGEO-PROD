@@ -12,6 +12,7 @@ Feature: Asset Management Test Cases- Asset Home Page Edit
     And   The User clicks on the Asset element
     And   The User gets the current URL and stores it in "itemType=Asset" Asset page
 
+
   Scenario Outline: Edit item status "<ItemStatus>" Item Statuses - cancel button-Asset
     And The user enters "TEST123456" into Code field
     And the user clicks on Search button
