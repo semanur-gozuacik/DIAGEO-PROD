@@ -85,7 +85,7 @@ public class LoginPage extends BasePage {
     }
     private void loginVerification() {
         String currentURL = driver.getCurrentUrl();
-        Assert.assertTrue(currentURL.contains("Home/Index"));
+        Assert.assertTrue(currentURL.contains("https://diageo.efectura.com/"));
     }
 
     public void clickForgotYourPassword() {

@@ -346,23 +346,3 @@ Feature: Sales Organization Management Test Cases- Connector Home Page
     And The user clicks "Satış Organizasyonu Kullanıcı" tab
     And The user Assocaited No filter
     Then The user verify No Filter
-
-  #Scenario:Connector Edit item status Passive Item Status-cancel button
-    #And The user enters "randomSKU" into Code field
-   # And the user clicks on Search button
-    #And The user clicks on Edit Button
-  #  And the user selects "Active"
-   # And the user clicks on unsaved change button
-   # And The user enters "-------" in  comment area
-   # And The user clicks cancel button
-   # And the user verifies item status not change
-
-  #Scenario:Connector Edit item status Passive  Item Status- save button
-   # And The user enters "randomSKU" into Code field
-  #  And the user clicks on Search button
-   # And The user clicks on Edit Button
-   # And the user selects "Active"
-   # And the user clicks on unsaved change button
-   # And The user enters "-------" in  comment area
-  #  And The user clicks save button
-   # And the user verifies item status success message

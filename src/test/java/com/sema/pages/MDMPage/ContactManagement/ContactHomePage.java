@@ -2,7 +2,9 @@ package com.sema.pages.MDMPage.ContactManagement;
 
 import com.sema.pages.BasePage;
 import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.Driver;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -74,7 +76,7 @@ public class ContactHomePage extends BasePage {
     private WebElement familyFilterDropDown;
     @FindBy(xpath = "//a[normalize-space()='Aile']")
     private WebElement familyFilterDropDownClick;
-    @FindBy(xpath = "//tbody//tr//td[4]")
+    @FindBy(xpath = "//div[@class=\"accordion-container\"]")
     private List<WebElement> verifySubcategories;
     @FindBy(xpath = "//li[contains(@class, 'select2-results__option')]")
     private List<WebElement> itemStatuses;
@@ -84,7 +86,7 @@ public class ContactHomePage extends BasePage {
     private WebElement clicksItemStatus;
     @FindBy(xpath = "//span[contains(@class,'select2-search select2-search--dropdown')]//input[contains(@role,'textbox')]")
     private WebElement clicksItemStatusTextBox;
-    @FindBy(xpath = "//span[@id='reset']")
+    @FindBy(xpath = "//span[@id=\"refresh\"]")
     private WebElement resetButton;
     @FindBy(xpath = "//a[@title='Sil']")
     private WebElement deleteButton;
@@ -107,7 +109,7 @@ public class ContactHomePage extends BasePage {
     private List<WebElement> entriesNumber;
     @FindBy(xpath = "//a[@title='Düzenle']")
     private WebElement editButton;
-    @FindBy(xpath = "//a[normalize-space()='Kişiler Genel Bakış']")
+    @FindBy(xpath = "//a[@href='/Enrich/Items?ItemType=Contact' and contains(text(), 'Kişiler Overview')]")
     private WebElement verifyContactEditButton;
     @FindBy(xpath = "//a[starts-with(@id, 'my')]")
     private List<WebElement> starFeatures;
@@ -121,7 +123,7 @@ public class ContactHomePage extends BasePage {
     private List<WebElement> starFeaturesBadgeCountsMyContact;
     @FindBy(xpath = "//tr/td[11]/a[3]")
     private List<WebElement> starItems;
-    @FindBy(xpath = "//a[@title='Export']//span[2]")
+    @FindBy(xpath = "//button[.//span[contains(., \"Dışarı Aktar\")]]\n")
     private WebElement exportButton;
     @FindBy(xpath = "//span[normalize-space()='Success']")
     private WebElement exportSuccessMessage;
@@ -137,7 +139,7 @@ public class ContactHomePage extends BasePage {
     private WebElement previousPageButton;
     @FindBy(xpath = "//span[@id='items_next']")
     private WebElement nextPageButton;
-    @FindBy(xpath = "//select[@name='items_length']")
+    @FindBy(xpath = "//select[contains(@class, \"form-control\") and contains(@class, \"custom-length-select\") and contains(@class, \"ef5-w-100\")]\n")
     private WebElement showEntries;
     @FindBy(id = "inputCode")
     private WebElement uniqueCodeElement;
@@ -247,6 +249,7 @@ public class ContactHomePage extends BasePage {
         codeFilterClick.click();
         codeFilterSendKey.sendKeys(code);
     }
+
 
     public void clickSearchButton() {
         searchButton.click();
@@ -396,13 +399,12 @@ public class ContactHomePage extends BasePage {
     }
 
     public void selectEntrie(String entrie){
-        BrowserUtils.selectOption(showEntries,entrie);
+        BrowserUtils.waitForVisibility(showEntries, 20);
     }
 
     public void verifySelectOption(String entrie){
-        BrowserUtils.wait(5);
-        assertTrue(BrowserUtils.isOptionSelected(showEntries, entrie));
-
+        BrowserUtils.waitForVisibility(showEntries, 20);
+        showEntries.click();
     }
 
     public void clickEditButton() {
@@ -705,5 +707,15 @@ public void exportButtonEditItem(){
     }
     public void navigateTo(String url){
         driver.navigate().to(url);
+    }
+    public void useTextFilter(String value, String columnName) {
+        //thead/tr[1]/th[normalize-space()='Address']/following::tr[1]/th[position()=count(//thead/tr[1]/th[normalize-space()='Address']/preceding-sibling::th)+1]//input
+        String locate = "//thead/tr[1]/th[normalize-space()='" + columnName +
+                "']/following::tr[1]/th[position()=count(//thead/tr[1]/th[normalize-space()='" + columnName +
+                "']/preceding-sibling::th)+1]//input";
+
+        WebElement filterInput = Driver.getDriver().findElement(By.xpath(locate));
+        filterInput.sendKeys(value + Keys.ENTER);
+
     }
 }

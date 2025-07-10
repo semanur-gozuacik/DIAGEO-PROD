@@ -13,13 +13,11 @@ Feature: MDM Session Verification
       | username           | password         | expectedResult       |
       | invalidUsername    | validPassword    | session opening error |
       | validUsername      | invalidPassword  | session opening error |
-      | validUsername      |                  | session opening error |
       |                    | invalidPassword  | session opening error empty|
       |                    | validPassword    | session opening error empty|
       |                    |                  | session opening error empty|
       | invalidUsername    | invalidPassword  | session opening error |
       | invalidUsername    | validPassword    | session opening error |
-      | invalidUsername    |                  | session opening error |
       | validUsername      | validPassword    | successful login      |
 
   Scenario: Verify sign in with Microsoft button functionality

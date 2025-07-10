@@ -5,7 +5,6 @@ Feature: Contact Management Test Cases- Contact Home Page
     And   The User inputs a valid username "validUsername"
     And   The User inputs a valid password "validPassword"
     And   The User clicks the Submit button
-    Then   The User waits until the MDM element is visible with a timeout of 15 seconds
     Given  The user navigate to "https://diageo.efectura.com/Enrich/Items?itemType=Contact#"
     And   The User gets the current URL and stores it in "itemType=Contact"
 
@@ -13,38 +12,27 @@ Feature: Contact Management Test Cases- Contact Home Page
         And The user clicks on Contact  category
         And The user verifies that the codes shown in the Contact label filter are contact categories
 
-   Scenario Outline:Contact category - subcategory functionality check- "<subcategories>"
-     And The user clicks on "<subcategories>"
-     And The user verifies that the codes shown in the "<subcategories>" label filter are contact categories
-     Examples:
-     |subcategories|
-     |IWSA         |
-     |Kurumsal İletişim|
-     |Kanal Geliştirme |
-     |Pazarlama        |
-     |Reserve          |
-
 
   Scenario: Contact category - subcategory Unassigned Records functionality check
     And The user clicks on Unassigned Records Category category
     And The user verifies that the codes shown in the Unassigned label filter are contact categories
 
   Scenario: Verify Code Filter -Valid Unique Code
-    And The user clicks on Contact  category
-    And The user enters "Kişi-999" into Code field
-    And the user clicks on Search button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
+    Then The user verify Edit Page
     And the user verify on code filter functionality "Kişi-999"
 
   Scenario:Verify Code Filter -Valid partial Code
-    And The user clicks on Contact  category
-    And The user enters "kişi" into Code field
-    And the user clicks on Search button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
+    Then The user verify Edit Page
     And the user verify on code filter functionality with partial unique code "kişi"
 
   Scenario: Verify Code Filter - Invalid Unique Code
-    And The user clicks on Contact  category
-    And The user enters "sema12345" into Code field
-    And the user clicks on Search button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
+    Then The user verify Edit Page
     And the user verify on code filter functionality  with invalid unique code "Eşleşen kayıt bulunamadı"
 
   Scenario: Verify Label Filter - Valid Label

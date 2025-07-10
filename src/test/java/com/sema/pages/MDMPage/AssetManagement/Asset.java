@@ -117,7 +117,9 @@ public class Asset extends BasePage {
         BrowserUtils.wait(5);
         deleteButtonAsset.click();
     }
-
+    public void onTheUserPage(){
+        driver.navigate().to("https://dia-preprod-ui.efectura.com/Enrich/Items?ItemType=Asset");
+    }
     public void clickCancelButtonInPopup() {
         cancelButtonAssetPopup.click();
     }

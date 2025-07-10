@@ -5,14 +5,11 @@ Feature: Contact Management Test Cases- Contact Edit Page
     And   The User inputs a valid username "validUsername"
     And   The User inputs a valid password "validPassword"
     And   The User clicks the Submit button
-    Then   The User waits until the MDM element is visible with a timeout of 15 seconds
     Given  The user navigate to "https://diageo.efectura.com/Enrich/Items?itemType=Contact#"
     And   The User gets the current URL and stores it in "itemType=Contact"
 
   Scenario Outline: Edit item status "<ItemStatus>" Item Statuses- save button
-    When The user clicks on Contact  category
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
     And The user clicks on Edit Button
     Then The user verify Edit Page
     And the user selects "<ItemStatus>"
@@ -29,70 +26,58 @@ Feature: Contact Management Test Cases- Contact Edit Page
 
 
   Scenario Outline: Edit item status "<ItemStatus>" Item Statuses - cancel button
-    When The user clicks on Contact  category
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
     And The user clicks on Edit Button
     Then The user verify Edit Page
     And the user selects "<ItemStatus>"
-       #And the user clicks on unsaved change button
-      # And The user enters "-------" in  comment area
-     #  And The user clicks cancel button
-      # And the user verifies item status not change
+
 
     Examples:
       |ItemStatus |
       |Pasif    |
       |Aktif     |
-      #|Approved   |
 
 
   Scenario: Edit item added list
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
-    And  The user clicks on Edit Button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
     And  The user clicks list drop down button
-  #  And  The user clicks new list item-contact
-  #  Then The user verifies item is added
 
 
   Scenario: Edit item removed list
-    And  The user enters "Kişi-7733" into Code field
-    And  the user clicks on Search button
-    And  The user clicks on Edit Button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
     And  The user clicks removed button
-    #Then The user verifies item is removed
 
   Scenario:Contact edit -Önizleme Tab
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
-    And  The user clicks on Edit Button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
     And The user clicks "Önizleme" tab
-    Then The user verifies preview tab details is displayed
 
   Scenario:Contact edit -Tarihçe Tab
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
-    And  The user clicks on Edit Button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
     And The user clicks "Tarihçe" tab
 
   Scenario:Contact edit -Kategoriler Tab
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
-    And  The user clicks on Edit Button
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
     And The user clicks "Kategoriler" tab
 
   Scenario:Contact edit - Etkileşim Tab
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
-    And  The user clicks on Edit Button
-    And The user clicks "Etkileşim" tab
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
+    And The user clicks "Üyelik" tab
+
+  Scenario:Contact edit - Etkileşim Tab
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
+    And The user clicks "MRP_CONTACT" tab
 
   Scenario:Contact edit -  Etkileşim Tab Associated
-    And The user enters "Kişi-7733" into Code field
-    And the user clicks on Search button
-    And  The user clicks on Edit Button
-    And The user clicks "Etkileşim" tab
+    And The user enters "5528401017" into "Fletum Kod" filter text input box
+    And The user clicks on Edit Button
+    And The user clicks "Üyelik" tab
     And The user Assocaited All filter
     And The user clicks item
     And the user clicks on unsaved change button

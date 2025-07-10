@@ -18,6 +18,11 @@ public class MDMAssetStepDefs extends BaseStep {
     public void the_user_clicks_on_the_asset_element() {
         pages.homePage().clicksOnTheAssetElement();
     }
+    @Given("The user is on the Asset item home page")
+    public void the_user_is_on_the_Asset_item_home_page() {
+        pages.asset().onTheUserPage();
+    }
+
     @Then("The User gets the current URL and stores it in {string} Asset page")
     public void the_user_gets_the_current_url_and_stores_it_in_asset_page(String partialUrl) {
         pages.homePage().currentUrlAndStoresItInUrl(partialUrl);
