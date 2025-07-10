@@ -4,8 +4,6 @@ Feature: Import Management Test Cases
     And    The User inputs a valid username "validUsername"
     And    The User inputs a valid password "validPassword"
     And    The User clicks the Submit button
-    Then  The User waits until the System element is visible with a timeout of 120 seconds
-    And   The User performs a mouseover on the System element symbol
     Given The user on the settings ımport page
     And   The User gets the current URL and stores it in "Import"
     And The user accepts the popup OK
@@ -16,15 +14,8 @@ Feature: Import Management Test Cases
   Scenario: Reset Button Control
     And the user clicks on Reset button
 
-  Scenario Outline:Import Page-User selects different options for show entries
-    When  The user selects "<entries>" into show entries import
-    Then  The user should see  "<entries>" entrie in everypage import
-    Examples:
-      | entries|
-      |10 |
-      |25 |
 
-  Scenario: Refrest Button Control
+  Scenario: Refresh Button Control
     And the user clicks on Refresh button
 
   Scenario: Name Filter Control

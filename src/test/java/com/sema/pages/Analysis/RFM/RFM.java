@@ -13,7 +13,7 @@ public class RFM extends BasePage {
     private WebElement rfmVerifies;
     @FindBy(xpath = "//a[@id='_posm-tab']")
     private WebElement POSM;
-    @FindBy(xpath = "//span[contains(text(), 'Search')]/input")
+    @FindBy(xpath = "//div[@class=\"block-items-info\"]")
     private WebElement verifiesPOSM;
 
     public void onTheRFMPage() {
