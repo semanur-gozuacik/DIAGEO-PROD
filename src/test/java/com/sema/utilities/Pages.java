@@ -2,6 +2,7 @@ package com.sema.utilities;
 
 import com.sema.pages.Analysis.Cocpit.CocpitGeneralDashboard;
 import com.sema.pages.Analysis.RFM.RFM;
+import com.sema.pages.Analysis.SalesDashboards;
 import com.sema.pages.HomePage;
 import com.sema.pages.LoginPage;
 import com.sema.pages.MDMPage.AccountManagement.AccountHomePage;
@@ -57,6 +58,7 @@ public class Pages {
     private Import importPage;
     private CocpitGeneralDashboard cocpitGeneralDashboard;
     private RFM rfm;
+    private SalesDashboards salesDashboards;
 
 
     public Pages() {
@@ -87,6 +89,7 @@ public class Pages {
             this.importPage=new Import();
              this.cocpitGeneralDashboard = new CocpitGeneralDashboard();
              this.rfm= new RFM();
+             this.salesDashboards = new SalesDashboards();
 
     }
     // Getter metotları
@@ -120,6 +123,7 @@ public class Pages {
     public Import importPage(){return importPage;}
     public CocpitGeneralDashboard cocpit() {return cocpitGeneralDashboard;}
     public RFM rfm() {return rfm;}
+    public SalesDashboards salesDashboards() {return  salesDashboards;}
 
 
 }

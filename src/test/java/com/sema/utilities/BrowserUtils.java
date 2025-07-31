@@ -328,6 +328,25 @@ public class BrowserUtils {
         return select.getFirstSelectedOption().getAttribute("value").equals(value);
     }
 
+    /**
+     * Checks if the given WebElement is displayed on the page.
+     *
+     * @param element the WebElement to check
+     * @return true if the element is displayed, false if the element is not found or not displayed
+     */
+    public static boolean isElementDisplayed(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public static boolean isButtonActive(WebElement button) {
+        String classAttribute = button.getAttribute("class");
+        return !classAttribute.contains("disabled");
+    }
+
 }
 
 
