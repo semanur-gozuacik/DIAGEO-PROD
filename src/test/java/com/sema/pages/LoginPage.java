@@ -5,12 +5,14 @@ import com.sema.utilities.BrowserUtils;
 import com.sema.utilities.ConfigurationReader;
 import com.sema.utilities.Constants;
 import com.sema.utilities.Pages;
+import lombok.Getter;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.concurrent.RecursiveTask;
 
+@Getter
 public class LoginPage extends BasePage {
     @FindBy(xpath = "//iframe[@id='nr-ext-rsicon']")
     private WebElement iframe;
@@ -118,6 +120,12 @@ public class LoginPage extends BasePage {
     public void clickSignInWithMicrosoftButton(){
         BrowserUtils.waitForVisibility(signInWithMicrosoftButton,20);
         signInWithMicrosoftButton.click();
+    }
+
+    public void loginWith(String username) {
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(ConfigurationReader.getProperty("flowsPassword"));
+        loginButton.click();
     }
 
 }

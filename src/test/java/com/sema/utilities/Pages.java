@@ -3,6 +3,8 @@ package com.sema.utilities;
 import com.sema.pages.Analysis.Cocpit.CocpitGeneralDashboard;
 import com.sema.pages.Analysis.RFM.RFM;
 import com.sema.pages.Analysis.SalesDashboards;
+import com.sema.pages.BPM.ModulFlows;
+import com.sema.pages.BPM.Panel;
 import com.sema.pages.HomePage;
 import com.sema.pages.LoginPage;
 import com.sema.pages.MDMPage.AccountManagement.AccountHomePage;
@@ -59,6 +61,8 @@ public class Pages {
     private CocpitGeneralDashboard cocpitGeneralDashboard;
     private RFM rfm;
     private SalesDashboards salesDashboards;
+    private ModulFlows modulFlows;
+    private Panel panel;
 
 
     public Pages() {
@@ -87,18 +91,18 @@ public class Pages {
             this.giftHomePage=new GiftHomePage();
             this.tagsPage=new TagsPage();
             this.importPage=new Import();
-             this.cocpitGeneralDashboard = new CocpitGeneralDashboard();
-             this.rfm= new RFM();
-             this.salesDashboards = new SalesDashboards();
+            this.cocpitGeneralDashboard = new CocpitGeneralDashboard();
+            this.rfm= new RFM();
+            this.salesDashboards = new SalesDashboards();
+            this.modulFlows = new ModulFlows();
+            this.panel = new Panel();
 
     }
     // Getter metotları
     public HomePage homePage() {
         return homePage;
     }
-    public LoginPage loginPage(){
-        return loginPage;
-    }
+    public LoginPage loginPage(){return loginPage;}
     public Contract contract(){ return contract;}
     public Asset asset() {return asset;}
     public Gift gift(){return gift;}
@@ -124,6 +128,8 @@ public class Pages {
     public CocpitGeneralDashboard cocpit() {return cocpitGeneralDashboard;}
     public RFM rfm() {return rfm;}
     public SalesDashboards salesDashboards() {return  salesDashboards;}
+    public ModulFlows modulFlows() {return modulFlows;}
+    public Panel panel() {return panel;}
 
 
 }

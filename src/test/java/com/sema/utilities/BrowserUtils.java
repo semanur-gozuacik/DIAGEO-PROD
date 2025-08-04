@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import static java.time.Duration.*;
@@ -345,6 +346,68 @@ public class BrowserUtils {
     public static boolean isButtonActive(WebElement button) {
         String classAttribute = button.getAttribute("class");
         return !classAttribute.contains("disabled");
+    }
+
+    public static String getSelectedOption(WebElement dropdown) {
+        Select select = new Select(dropdown);
+        return select.getFirstSelectedOption().getText();
+    }
+
+    public static void scrollToElement(WebDriver driver, WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        // Elementi hem yatayda hem dikeyde görünür hale getirir
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    // JavaScript kullanarak zoom seviyesini %80 yap
+    public static void adjustScreenSize(int size, WebDriver driver) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.body.style.zoom='" + size + "%'");
+    }
+
+    public static String getValueInInputBox(WebElement inputBox) {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        return (String) js.executeScript("return arguments[0].value;", inputBox);
+    }
+
+    public static void switchToTabByTitleAndCloseOld(String expectedTitle) {
+        WebDriver driver = Driver.getDriver();
+        String originalWindow = driver.getWindowHandle();
+
+        // Yeni tab açılana kadar bekle (toplam pencere sayısı 2 olmalı)
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.numberOfWindowsToBe(2));
+
+        // Belirtilen title'a sahip yeni tab'e geç
+        for (String handle : driver.getWindowHandles()) {
+            driver.switchTo().window(handle);
+            if (driver.getTitle().equals(expectedTitle)) {
+                // Doğru tab bulundu
+                // Eski tab'ı kapat
+                driver.switchTo().window(originalWindow);
+                driver.close();
+
+                // Yeni tab'e tekrar geç
+                driver.switchTo().window(handle);
+                return;
+            }
+        }
+
+        throw new RuntimeException("Expected tab with title '" + expectedTitle + "' was not found.");
+    }
+
+
+
+    public static void scrollToRightEnd(WebDriver driver) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        // Sayfanın toplam genişliği kadar sağa kaydır
+        js.executeScript("window.scrollTo(document.body.scrollWidth, 0)");
+    }
+
+    public static void waitForAttribute(WebElement element, String attribute) {
+        while (element.getAttribute(attribute) == null) {
+            BrowserUtils.wait(1);
+        }
     }
 
 }
