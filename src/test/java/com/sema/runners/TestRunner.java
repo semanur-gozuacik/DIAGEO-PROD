@@ -23,7 +23,9 @@ import java.util.List;
                 "rerun:target/rerun.txt"
         },
         // Hangi senaryoların çalıştırılacağını belirten etiket
-        tags ="@dia_smoke_prod",
+       // tags ="@dia_smoke_prod",
+        System.getProperty("cucumber.options", "").contains("--tags")
+          ? "" : "@dia_smoke_prod",
         features ="src/test/java/com/sema/features",
         glue  = "com/sema/stepDefs",
         dryRun = false
