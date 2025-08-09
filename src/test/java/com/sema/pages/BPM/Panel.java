@@ -32,6 +32,9 @@ public class Panel extends BasePage {
     @FindBy(xpath = "//h4[contains(text(),'Akış Detayları')]")
     private WebElement processListDetailModalHeader;
 
+    @FindBy(xpath = "//table[@id='process-detail']")
+    private WebElement processDetailTable;
+
 
     public void goInFlow(String formName) {
         BrowserUtils.wait(1);

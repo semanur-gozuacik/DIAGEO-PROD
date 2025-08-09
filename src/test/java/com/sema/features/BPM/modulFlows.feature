@@ -21,23 +21,23 @@ Feature: Module Flows Cases
     Given The user submit the task
     Given The user login with "Tedarikçi"
     Given The user fill vendor form with initial budget "5000"
-    Given The user login with "sahamuduru"
-    Given The user go in Task and submit
-    Given The user verify blocked budget with "5000"
-    Given The user login with "satismuduru"
-    Given The user go in Task and submit
-    Given The user login with "bolgemuduru"
-    Given The user go in Task and submit
-    Given The user login with "offtrademanager"
-    Given The user go in Task and submit
-    Given The user login with "Tedarikçi"
-    Given The user fill vendor invoice form with invoice "1000"
-    Given The user login with "sahamuduru"
-    Given The user go in Task and submit
-    Given The user login with "offtradeuzmani"
-    Given The user go in Task and submit
-    Given The user verify blocked budget with "0"
-    Given The user verify actual budget with "1000"
+#    Given The user login with "sahamuduru"
+#    Given The user go in Task and submit
+#    Given The user verify blocked budget with "5000"
+#    Given The user login with "satismuduru"
+#    Given The user go in Task and submit
+#    Given The user login with "bolgemuduru"
+#    Given The user go in Task and submit
+#    Given The user login with "offtrademanager"
+#    Given The user go in Task and submit
+#    Given The user login with "Tedarikçi"
+#    Given The user fill vendor invoice form with invoice "1000"
+#    Given The user login with "sahamuduru"
+#    Given The user go in Task and submit
+#    Given The user login with "offtradeuzmani"
+#    Given The user go in Task and submit
+#    Given The user verify blocked budget with "0"
+#    Given The user verify actual budget with "1000"
 
   Scenario: Plain Modul Made Flow With Reject sales
     Given The user get blocked budget

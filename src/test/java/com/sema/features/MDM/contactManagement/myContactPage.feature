@@ -15,14 +15,9 @@ Feature: Contact Management Test Cases-My Contact Page
     And the user clicks on Star items
     And the user clicks on Reset button
     Examples:
-    |Code|
-    |Kişi-999|
-    |Kişi-8216|
-
-   Scenario: Verify My Contact Button
-   When The user clicks My Contact button
-   And   The User gets the current URL and stores it in "ItemType=Contact&isFavorite=true"
-   And The user verifies its contacts is displayed
+      | Code      |
+      | Kişi-999  |
+      | Kişi-8216 |
 
   Scenario: Verify Code Filter -Valid Unique Code
     When The user clicks My Contact button

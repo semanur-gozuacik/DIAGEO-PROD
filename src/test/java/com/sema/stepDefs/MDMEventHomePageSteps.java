@@ -1,7 +1,13 @@
 package com.sema.stepDefs;
 
+import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class MDMEventHomePageSteps extends BaseStep {
     @Then("The User performs a mouseover on the Event Management element")
@@ -37,4 +43,29 @@ pages.eventHomePage().onTheEventPage();
         pages.eventHomePage().selectAssociatedFilter(status);
     }
 
+    @When("The user click event tab")
+    public void theUserClickEventTab() {
+        pages.eventHomePage().getCalendarTab().click();
+    }
+
+    @Then("The user verify calendar is visible")
+    public void theUserVerifyCalendarIsVisible() {
+//        Driver.getDriver().switchTo().frame(pages.accountHomePage().getMapFrame());
+        BrowserUtils.waitForVisibility(pages.eventHomePage().getCalendarContainer(),30);
+        Assert.assertTrue("Harita bulunamadı", BrowserUtils.isElementDisplayed(pages.eventHomePage().getCalendarContainer()));
+    }
+
+    @When("The user go to Calendar page")
+    public void theUserGoToCalendarPage() {
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EmbedDashboardCalendar");
+    }
+
+    @Then("The user verify calendar page is open")
+    public void theUserVerifyCalendarPageIsOpen() {
+        WebElement mainFrame = Driver.getDriver().findElement(By.xpath("//iframe[@src='/Enrich/EmbedDashboard?dashboardName=preview-general-events&expand_filters=0&baslangic_tarih_from=20240701']"));
+        Driver.getDriver().switchTo().frame(mainFrame);
+        Driver.getDriver().switchTo().frame(pages.eventHomePage().getEventCalendarIframe());
+        Assert.assertTrue(BrowserUtils.isElementDisplayed
+                (Driver.getDriver().findElement(By.xpath("//span[text()='Etkinlikler Genel']"))));
+    }
 }

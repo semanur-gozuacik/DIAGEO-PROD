@@ -3,6 +3,7 @@ package com.sema.pages.MDMPage.ContactManagement;
 import com.sema.pages.BasePage;
 import com.sema.utilities.BrowserUtils;
 import com.sema.utilities.Driver;
+import lombok.Getter;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertTrue;
 
+@Getter
 public class ContactHomePage extends BasePage {
     @FindBy(xpath = "//a[@id='40']")
     private WebElement contactCategories;
@@ -129,7 +131,7 @@ public class ContactHomePage extends BasePage {
     private WebElement exportSuccessMessage;
     @FindBy(xpath = "//div[@id='details']/div[@id='title-area']/a[@id='file-link']")
     private WebElement exportedContactFile;
-    @FindBy(xpath = "//a[@id='myContacts']//span[@class='text']")
+    @FindBy(xpath = "//span[contains(text(),'MY_Contact')]")
     private WebElement myContactButton;
     @FindBy(xpath = "//button[@id='lastPageTable']")
     private WebElement lastPageButton;
@@ -169,6 +171,7 @@ public class ContactHomePage extends BasePage {
     private WebElement birthdateTab;
     @FindBy(xpath = "//td[10]")
     private List<WebElement> birthdateTabSorting;
+
     public ContactHomePage() {
     }
 
@@ -193,8 +196,7 @@ public class ContactHomePage extends BasePage {
         if (family.equalsIgnoreCase("Ekosystem")) {
             BrowserUtils.waitForVisibility(selectEkosystemFamily, 20);
             selectEkosystemFamily.click();
-        }
-        else {
+        } else {
             BrowserUtils.waitForVisibility(selectIWSAFamily, 20);
             selectIWSAFamily.click();
         }
@@ -216,17 +218,17 @@ public class ContactHomePage extends BasePage {
 
     public void verifyContactCategory() {
         BrowserUtils.wait(5);
-        Assert.assertTrue(verifyContactCategory.size()==0);
+        Assert.assertTrue(verifyContactCategory.size() == 0);
     }
-    public void clickSubCategories(String subcategories){
-        for (int i =0; i<verifyContactCategory.size();i++){
+
+    public void clickSubCategories(String subcategories) {
+        for (int i = 0; i < verifyContactCategory.size(); i++) {
             if (verifyContactCategory.get(i).getText().contains(subcategories)) {
                 verifyContactCategory.get(i).click();
                 break;
             }
         }
     }
-
 
 
     public void VerifysubCategories(String subcategories) {
@@ -270,9 +272,9 @@ public class ContactHomePage extends BasePage {
     }
 
     public void verifyPartialCodeFilters(String partialCode) {
-            System.out.println(verifyPartialCodeFilters.size());
-            assertTrue(verifyPartialCodeFilters.size()>1);
-        }
+        System.out.println(verifyPartialCodeFilters.size());
+        assertTrue(verifyPartialCodeFilters.size() > 1);
+    }
 
 
     public void verifyNoContentTextInvalidUniqueCode(String text) {
@@ -288,13 +290,14 @@ public class ContactHomePage extends BasePage {
 
     public void verifyPartialLabelFilters(String partialLabel) {
         BrowserUtils.wait(2);
-            System.out.println();
-            assertTrue(verifyPartialCodeFilters.size()>=1);
-        }
+        System.out.println();
+        assertTrue(verifyPartialCodeFilters.size() >= 1);
+    }
+
     public void selectKurumsalİletişimFilter() {
         BrowserUtils.wait(10);
         familyFilterDropDownClick.click();
-        familyFilterDropDown.sendKeys("Kurumsal İletişim"+ Keys.ENTER);
+        familyFilterDropDown.sendKeys("Kurumsal İletişim" + Keys.ENTER);
     }
 
     public void verifyFamilyFilter() {
@@ -308,13 +311,15 @@ public class ContactHomePage extends BasePage {
     public void selectIWSAFamilyFilter() {
         BrowserUtils.wait(10);
         familyFilterDropDownClick.click();
-        familyFilterDropDown.sendKeys("IWSA"+ Keys.ENTER);
+        familyFilterDropDown.sendKeys("IWSA" + Keys.ENTER);
     }
+
     public void selectReserveFamilyFilter() {
         BrowserUtils.wait(10);
         familyFilterDropDownClick.click();
-        familyFilterDropDown.sendKeys("Reserve"+ Keys.ENTER);
+        familyFilterDropDown.sendKeys("Reserve" + Keys.ENTER);
     }
+
     public void verifyIReserveFamilyFilter() {
         for (int i = 0; i < verifyIReserveFamilyFilter.size(); i++) {
             System.out.println("");
@@ -328,6 +333,7 @@ public class ContactHomePage extends BasePage {
             assertTrue(verifyIWSAFamilyFilter.get(i).getText().equalsIgnoreCase("IWSA"));
         }
     }
+
     public void clicksItemStatuses(String itemStatus) {
         if (clicksItemStatusTextBox.equals("Aktif")) {
             clicksItemStatusTextBox.sendKeys("Aktif" + Keys.ENTER);
@@ -398,11 +404,11 @@ public class ContactHomePage extends BasePage {
         showEntrieButton.click();
     }
 
-    public void selectEntrie(String entrie){
+    public void selectEntrie(String entrie) {
         BrowserUtils.waitForVisibility(showEntries, 20);
     }
 
-    public void verifySelectOption(String entrie){
+    public void verifySelectOption(String entrie) {
         BrowserUtils.waitForVisibility(showEntries, 20);
         showEntries.click();
     }
@@ -436,6 +442,7 @@ public class ContactHomePage extends BasePage {
             assertTrue(false);
         }
     }
+
     public void verifyStarFeatureBadgeCount() {
         BrowserUtils.wait(5);
       /* for (int i = 0; i <starFeaturesBadgeCounts.size(); i++) {
@@ -455,6 +462,7 @@ public class ContactHomePage extends BasePage {
        */
         assertTrue(true);
     }
+
     private static String extractNumberBeforeEntries(String text) {
         Pattern pattern = Pattern.compile("(\\d+)\\s+entries");
         Matcher matcher = pattern.matcher(text);
@@ -515,10 +523,6 @@ public class ContactHomePage extends BasePage {
         driver.navigate().back();
     }
 
-    public void clickMyContactButton() {
-        myContactButton.click();
-    }
-
     public void clickLastPageButton() {
         BrowserUtils.wait(8);
         lastPageButton.click();
@@ -531,6 +535,7 @@ public class ContactHomePage extends BasePage {
         // boolean isDisabled = classes.contains("disabled");
         assertTrue(true);
     }
+
     public void verifypreviousPageButtonUnClickability() {
         BrowserUtils.wait(10);
         String classes = previousPageButton.getAttribute("class");
@@ -555,13 +560,16 @@ public class ContactHomePage extends BasePage {
             }
         }
 
-    }    public void verifyFirstPageButtonClickable() {
+    }
+
+    public void verifyFirstPageButtonClickable() {
         BrowserUtils.wait(5);
         //String classes = firstPageButton.getAttribute("class");
         //System.out.println(classes);
         //boolean isDisabled = classes.contains("disabled");
         Assert.assertFalse(false);
     }
+
     public void verifyPreviousPageButtonClickable() {
         BrowserUtils.wait(12);
         String classes = previousPageButton.getAttribute("class");
@@ -569,6 +577,7 @@ public class ContactHomePage extends BasePage {
         boolean isDisabled = classes.contains("disabled");
         Assert.assertFalse(isDisabled);
     }
+
     public void verifyNextPageButtonClickable() {
         BrowserUtils.wait(5);
         String classes = nextPageButton.getAttribute("class");
@@ -576,6 +585,7 @@ public class ContactHomePage extends BasePage {
         boolean isDisabled = classes.contains("disabled");
         Assert.assertFalse(isDisabled);
     }
+
     public void verifyLastPageButtonClickable() {
         BrowserUtils.wait(5);
         String classes = lastPageButton.getAttribute("class");
@@ -583,33 +593,41 @@ public class ContactHomePage extends BasePage {
         boolean isDisabled = classes.contains("disabled");
         Assert.assertFalse(isDisabled);
     }
-    public void setUniqueCodeElement(String code){
+
+    public void setUniqueCodeElement(String code) {
         uniqueCodeElement.sendKeys(code);
     }
-      public void clickEditItemTab(String tabName){
+
+    public void clickEditItemTab(String tabName) {
         BrowserUtils.wait(5);
-        for (int i =0; i <editItemTabs.size(); i++) {
-            if (editItemTabs.get(i).getText().contains(tabName)){
+        for (int i = 0; i < editItemTabs.size(); i++) {
+            if (editItemTabs.get(i).getText().contains(tabName)) {
                 editItemTabs.get(i).click();
                 BrowserUtils.wait(4);
             }
+        }
     }
-}     public void verifyPreviewTab(){
-        BrowserUtils.waitForVisibility(verifyPreviewTab,25);
+
+    public void verifyPreviewTab() {
+        BrowserUtils.waitForVisibility(verifyPreviewTab, 25);
         assertTrue(verifyPreviewTab.isDisplayed());
     }
-    public void verifyItemCommentTab(){
-        BrowserUtils.waitForVisibility(verifyItemCommentTab,25);
+
+    public void verifyItemCommentTab() {
+        BrowserUtils.waitForVisibility(verifyItemCommentTab, 25);
         assertTrue(verifyItemCommentTab.isDisplayed());
     }
-    public void verifyMyAccountTab(){
-        BrowserUtils.waitForVisibility(verifyMyAccountTab,25);
+
+    public void verifyMyAccountTab() {
+        BrowserUtils.waitForVisibility(verifyMyAccountTab, 25);
         assertTrue(verifyMyAccountTab.isDisplayed());
     }
-public void exportButtonEditItem(){
-        BrowserUtils.waitForVisibility(exportButton,20);
+
+    public void exportButtonEditItem() {
+        BrowserUtils.waitForVisibility(exportButton, 20);
         exportButton.click();
-}
+    }
+
     public void clickUpdateOn() {
         BrowserUtils.waitForVisibility(updateOnTab, 25);
         updateOnTab.click();
@@ -697,7 +715,7 @@ public void exportButtonEditItem(){
                 Date dateTime1 = sdf.parse(dateString1);
 
                 Date dateTime2 = sdf.parse(dateString2);
-                if (dateTime1.compareTo(dateTime2)< 0) {
+                if (dateTime1.compareTo(dateTime2) < 0) {
                     assertTrue(false);
                 }
             } catch (Exception e) {
@@ -705,9 +723,11 @@ public void exportButtonEditItem(){
         }
 
     }
-    public void navigateTo(String url){
+
+    public void navigateTo(String url) {
         driver.navigate().to(url);
     }
+
     public void useTextFilter(String value, String columnName) {
         //thead/tr[1]/th[normalize-space()='Address']/following::tr[1]/th[position()=count(//thead/tr[1]/th[normalize-space()='Address']/preceding-sibling::th)+1]//input
         String locate = "//thead/tr[1]/th[normalize-space()='" + columnName +

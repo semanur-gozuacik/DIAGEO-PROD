@@ -2,6 +2,7 @@ package com.sema.pages.MDMPage.EventManagement;
 
 import com.sema.pages.BasePage;
 import com.sema.utilities.BrowserUtils;
+import lombok.Getter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
+@Getter
 public class EventHomePage extends BasePage {
     @FindBy(xpath = "//li[contains(text(),'WSET') and @role='treeitem']")
     private WebElement WSETFamilyFılter;
@@ -20,6 +22,16 @@ public class EventHomePage extends BasePage {
     private WebElement editListItem;
     @FindBy (xpath = "//select[@id='filter-IsAssociated']")
     private WebElement associatedStatus;
+
+    @FindBy(xpath = "//a[@id='event-calendar-tab']")
+    private WebElement calendarTab;
+
+    @FindBy(xpath = "//div[@id='calendar-container']")
+    private WebElement calendarContainer;
+
+    @FindBy(xpath = "//iframe[contains(@src,'https://dia-dashboard.efectura.com/embedded/')]")
+    private WebElement eventCalendarIframe;
+
     public EventHomePage() {
     }
     public void selectIWSAFamilyFilter() {

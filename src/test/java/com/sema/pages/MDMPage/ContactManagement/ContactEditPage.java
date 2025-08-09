@@ -12,9 +12,9 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 
 public class ContactEditPage extends BasePage {
-    @FindBy(xpath ="//label[@id='buttonSubmitFileAvatar']")
+    @FindBy(xpath ="//button[@id='floatingSaveButton']")
     private WebElement uploadButton;
-    @FindBy(xpath = "//textarea[@id='UploadImageCommentAvatar']")
+    @FindBy(xpath = "//textarea[@id='comment']")
     private WebElement uploadCommentArea;
     @FindBy(xpath = "//a[@id='uploadImageButtonAvatar']//i[@class='fa fa-check']")
     private WebElement uploadPhotoSaveButton;

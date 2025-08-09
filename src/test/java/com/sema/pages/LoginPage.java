@@ -54,7 +54,7 @@ public class LoginPage extends BasePage {
         } else if (username.equalsIgnoreCase("invalidUsername")) {
             usernameField.sendKeys(ConfigurationReader.getProperty("invalidUsername"));
         } else {
-            usernameField.sendKeys("");
+            usernameField.sendKeys(ConfigurationReader.getProperty(username));
         }
     }
 
@@ -65,7 +65,7 @@ public class LoginPage extends BasePage {
         } else if (password.equalsIgnoreCase("invalidPassword")) {
             passwordField.sendKeys(ConfigurationReader.getProperty("invalidPassword"));
         } else {
-            passwordField.sendKeys("");
+            passwordField.sendKeys(ConfigurationReader.getProperty(password));
         }
         //  driver.switchTo().defaultContent();
     }

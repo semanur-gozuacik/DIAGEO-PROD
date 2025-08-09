@@ -1,6 +1,7 @@
 package com.sema.stepDefs;
 
 import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -62,6 +63,7 @@ public class MDMContactHomePageStepDef extends BaseStep {
     public void the_user_verifies_that_the_codes_shown_in_the_new_node_label_filter_are_contact_categories(String subcategories) {
         pages.contactHomePage().VerifysubCategories(subcategories);
     }
+
     @Then("The user clicks on Unassigned Records Category category")
     public void the_user_clicks_on_unassigned_records_category_category() {
         pages.contactHomePage().clickUnassignedRecords();
@@ -71,6 +73,7 @@ public class MDMContactHomePageStepDef extends BaseStep {
     public void the_user_verifies_that_the_codes_shown_in_the_unassigned_label_filter_are_contact_categories() {
 
     }
+
     @Then("The User performs a mouseover on the Kisiler element")
     public void the_user_performs_a_mouseover_on_the_kisiler_element() {
         pages.homePage().mouseoverOnTheKisilerElement();
@@ -81,14 +84,11 @@ public class MDMContactHomePageStepDef extends BaseStep {
 
     }
 
-    @And("The user enters {string} into {string} filter text input box")
-    public void vatheUserEntersIntoFilterTextInputBox(String value, String columnName) {
-        pages.contactHomePage().useTextFilter(value,columnName);
-    }
     @Then("The User inputs the {string} from cont into the inputCode field")
     public void the_user_inputs_the_from_cont_into_the_input_code_field(String code) {
         pages.contactHomePage().setUniqueCodeElement(code);
     }
+
     @Then("the user clicks on Search button")
     public void the_user_clicks_on_search_button() {
         BrowserUtils.wait(5);
@@ -187,56 +187,69 @@ public class MDMContactHomePageStepDef extends BaseStep {
 
     @Then("The user should see the message")
     public void the_user_should_see_the_message() {
-       pages.contactHomePage().verifyDeleteMessage();
+        pages.contactHomePage().verifyDeleteMessage();
     }
+
     @Given("The user clicks show entries button")
     public void the_user_clicks_show_entries_button() {
         pages.contactHomePage().clickShowEntrie();
     }
+
     @When("The user selects {string} into show entries")
     public void the_user_selects_into_show_entries(String entrie) {
-  pages.contactHomePage().selectEntrie(entrie);
+        pages.contactHomePage().selectEntrie(entrie);
     }
+
     @Then("The user should see  {string} entrie in everypage")
     public void the_user_should_see_entrie_in_everypage(String entrie) {
-      pages.contactHomePage().verifySelectOption(entrie);
+        pages.contactHomePage().verifySelectOption(entrie);
     }
+
     @Then("The user clicks on Edit Button")
     public void the_user_clicks_on_editButton() {
         pages.contactHomePage().clickEditButton();
     }
+
     @Then("The user verify Edit Page")
     public void the_user_verify_edit_page() {
         pages.contactHomePage().verifyEditPage();
     }
+
     @Then("The user verifies that {string} is visible")
     public void the_user_verifies_that_is_visible(String starFeature) {
-      pages.contactHomePage().verifyStarFeatures(starFeature);
+        pages.contactHomePage().verifyStarFeatures(starFeature);
     }
+
     @Then("The user verifies that the badge count for feature is correct")
     public void the_user_verifies_that_the_badge_count_for_is_correct() {
-      pages.contactHomePage().verifyStarFeatureBadgeCount();
+        pages.contactHomePage().verifyStarFeatureBadgeCount();
     }
+
     @Then("the user clicks on Star items")
     public void the_user_clicks_on_star_items() {
-       pages.contactHomePage().clickStarItems();
+        pages.contactHomePage().clickStarItems();
     }
+
     @Then("the user verify My Count badge count is correct")
     public void the_user_verify_my_count_badge_count_is_correct() {
-      pages.contactHomePage().verifyMyCountsBadgeCount();
+        pages.contactHomePage().verifyMyCountsBadgeCount();
     }
+
     @When("The user clicks on Export button")
     public void the_user_clicks_on_export_button() {
-     pages.contactHomePage().clickExportButton();
+        pages.contactHomePage().clickExportButton();
     }
+
     @Then("The user verify that the export was {string}")
     public void the_user_verify_that_the_export_was(String successMessage) {
-      pages.contactHomePage().verifyExportSuccessMessage(successMessage);
+        pages.contactHomePage().verifyExportSuccessMessage(successMessage);
     }
+
     @Then("The user verify that the file is located in the downloads folder")
     public void the_user_verify_that_the_file_is_located_in_the_downloads_folder() {
         pages.contactHomePage().verifyExportedFile();
     }
+
     @Then("The user verify that the file is in the correct format")
     public void the_user_verify_that_the_file_is_in_the_correct_format() {
         pages.contactHomePage().verifyExportedFileFormat();
@@ -244,24 +257,29 @@ public class MDMContactHomePageStepDef extends BaseStep {
 
     @When("The user clicks My Contact button")
     public void the_user_clicks_my_contact_button() {
-      pages.contactHomePage().clickMyContactButton();
+        pages.contactHomePage().getMyContactButton().click();
     }
+
     @When("The user clicks last page button")
     public void the_user_clicks_last_page_button() {
         pages.contactHomePage().clickLastPageButton();
     }
+
     @Then("The user verifies first page button is not clickable")
     public void the_user_verifies_first_page_button_is_not_clickable() {
         pages.contactHomePage().verifyFirstPageButtonUnClickable();
     }
+
     @Then("The user verifies previous page button is not clickable")
     public void the_user_verifies_previous_page_button_is_not_clickable() {
-pages.contactHomePage().verifypreviousPageButtonUnClickability();
+        pages.contactHomePage().verifypreviousPageButtonUnClickability();
     }
+
     @Then("The user verifies last page button is not clickable")
     public void the_user_verifies_last_page_button_is_not_clickable() {
         pages.contactHomePage().verifyLastPageButtonClickability();
     }
+
     @Given("The user clicks {string}")
     public void the_user_clicks(String starFeature) {
         pages.contactHomePage().clicksStarFeatures(starFeature);
@@ -270,38 +288,45 @@ pages.contactHomePage().verifypreviousPageButtonUnClickability();
 
     @When("The user verifies first page button is clickable")
     public void the_user_verifies_first_page_button_is_clickable() {
-       pages.contactHomePage().verifyFirstPageButtonClickable();
+        pages.contactHomePage().verifyFirstPageButtonClickable();
     }
+
     @When("The user verifies previous page button is clickable")
     public void the_user_verifies_previous_page_button_is_clickable() {
         pages.contactHomePage().verifyPreviousPageButtonClickable();
     }
+
     @When("The user verifies next button is clickable")
     public void the_user_verifies_next_button_is_clickable() {
         pages.contactHomePage().verifyNextPageButtonClickable();
     }
+
     @When("The user verifies last page button is clickable")
     public void the_user_verifies_last_page_button_is_clickable() {
-      pages.contactHomePage().verifyLastPageButtonClickable();
+        pages.contactHomePage().verifyLastPageButtonClickable();
     }
 
     @Then("The user clicks {string} tab")
     public void the_user_clicks_tab(String tabName) {
-     pages.contactHomePage().clickEditItemTab(tabName);
+        BrowserUtils.adjustScreenSize(50, Driver.getDriver());
+        pages.contactHomePage().clickEditItemTab(tabName);
     }
 
     @Then("The user verifies preview tab details is displayed")
     public void the_user_verifies_preview_tab_details_is_displayed() {
-     pages.contactHomePage().verifyPreviewTab();
+        pages.contactHomePage().verifyPreviewTab();
     }
+
     @Then("The user verifies itemComment tab details is displayed")
     public void the_user_verifies_itemComment_tab_details_is_displayed() {
         pages.contactHomePage().verifyItemCommentTab();
     }
+
     @Then("The user verifies My Account tab details is displayed")
     public void the_user_verifies_My_Account_tab_details_is_displayed() {
         pages.contactHomePage().verifyMyAccountTab();
     }
+
     @When("The user clicks on Export button ediitem")
     public void the_user_clicks_on_export_button_ediitem() {
         pages.contactHomePage().exportButtonEditItem();
@@ -309,13 +334,14 @@ pages.contactHomePage().verifypreviousPageButtonUnClickability();
 
     @Then("The user selects deleted element-asset")
     public void the_user_selects_deleted_element_asset() {
-       pages.asset().clickDeleteButtonOtomasyon();
+        pages.asset().clickDeleteButtonOtomasyon();
     }
 
     @Then("The user clicks cancel button in delete popup-asset")
     public void the_user_clicks_cancel_button_in_delete_popup_asset() {
-      pages.asset().clickCancelButtonPopUpOtomasyon();
+        pages.asset().clickCancelButtonPopUpOtomasyon();
     }
+
     @Then("The user clicks update on tab")
     public void the_user_clicks_update_on_tab() {
         pages.contactHomePage().clickUpdateOn();
@@ -325,16 +351,19 @@ pages.contactHomePage().verifypreviousPageButtonUnClickability();
     public void the_user_verifies_that_dates_are_sorted_from(String sorting) {
         pages.contactHomePage().updateOnSorting(sorting);
     }
+
     @Then("The user clicks create on tab")
     public void the_user_clicks_create_on_tab() {
         pages.contactHomePage().clickCreateOn();
     }
+
     @Then("The user verifies that dates are sorted from {string} create on")
     public void the_user_verifies_that_dates_are_sorted_from_create_on(String sorting) {
         pages.contactHomePage().createOnSorting(sorting);
     }
+
     @Then("The user clicks id tab")
-    public void the_user_clicks_id_tab( ) {
+    public void the_user_clicks_id_tab() {
         pages.contactHomePage().clickIdTabSorting();
     }
 
@@ -347,6 +376,7 @@ pages.contactHomePage().verifypreviousPageButtonUnClickability();
     public void the_user_clicks_birthdate_on_tab() {
         pages.contactHomePage().clickBirthdateTabSorting();
     }
+
     @Then("The user verifies that birthdate are sorted from {string}")
     public void the_user_verifies_that_birthdate_are_sorted_from(String sorting) {
         pages.contactHomePage().birthdateSorting(sorting);
@@ -374,7 +404,7 @@ pages.contactHomePage().verifypreviousPageButtonUnClickability();
 
     @And("The user clicks on Pazarlama Filtre")
     public void theUserClicksOnPazarlamaFiltre() {
-        
+
     }
 
     @And("the user verify on family filter Pazarlama functionality")

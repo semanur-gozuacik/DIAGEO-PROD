@@ -1,12 +1,12 @@
 package com.sema.utilities;
 
+import com.sema.pages.*;
 import com.sema.pages.Analysis.Cocpit.CocpitGeneralDashboard;
 import com.sema.pages.Analysis.RFM.RFM;
 import com.sema.pages.Analysis.SalesDashboards;
 import com.sema.pages.BPM.ModulFlows;
 import com.sema.pages.BPM.Panel;
-import com.sema.pages.HomePage;
-import com.sema.pages.LoginPage;
+import com.sema.pages.BPM.TaskList;
 import com.sema.pages.MDMPage.AccountManagement.AccountHomePage;
 import com.sema.pages.MDMPage.AssetManagement.Asset;
 import com.sema.pages.MDMPage.AssetManagement.AssetEditPage;
@@ -63,6 +63,11 @@ public class Pages {
     private SalesDashboards salesDashboards;
     private ModulFlows modulFlows;
     private Panel panel;
+    private GeneralPage generalPage;
+    private ItemOverviewPage itemOverviewPage;
+    private EditItemPage editItemPage;
+    private TaskList taskList;
+    private ReportsPage reportsPage;
 
 
     public Pages() {
@@ -96,6 +101,11 @@ public class Pages {
             this.salesDashboards = new SalesDashboards();
             this.modulFlows = new ModulFlows();
             this.panel = new Panel();
+            this.generalPage = new GeneralPage();
+            this.itemOverviewPage = new ItemOverviewPage();
+            this.editItemPage = new EditItemPage();
+            this.taskList = new TaskList();
+            this.reportsPage = new ReportsPage();
 
     }
     // Getter metotları
@@ -130,7 +140,11 @@ public class Pages {
     public SalesDashboards salesDashboards() {return  salesDashboards;}
     public ModulFlows modulFlows() {return modulFlows;}
     public Panel panel() {return panel;}
-
+    public GeneralPage generalPage() {return generalPage;}
+    public ItemOverviewPage itemOverviewPage() {return itemOverviewPage;}
+    public EditItemPage editItemPage() {return editItemPage;}
+    public TaskList taskList() {return taskList;}
+    public ReportsPage reportsPage() {return reportsPage;}
 
 }
 

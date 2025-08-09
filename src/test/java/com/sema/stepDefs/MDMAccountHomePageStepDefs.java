@@ -1,8 +1,12 @@
 package com.sema.stepDefs;
 
+import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.Driver;
 import com.sema.utilities.Pages;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class MDMAccountHomePageStepDefs extends BaseStep{
     @Given("The user is on the Account item home page")
@@ -137,4 +141,20 @@ public class MDMAccountHomePageStepDefs extends BaseStep{
     }
 
 
+    @When("The user click map tab")
+    public void theUserClickMapTab() {
+        pages.accountHomePage().getMapContentTab().click();
+    }
+
+    @Then("The user verify map is visible")
+    public void theUserVerifyMapIsVisible() {
+        Driver.getDriver().switchTo().frame(pages.accountHomePage().getMapFrame());
+        BrowserUtils.waitForVisibility(pages.accountHomePage().getMapDiv(),30);
+        Assert.assertTrue("Harita bulunamadı", BrowserUtils.isElementDisplayed(pages.accountHomePage().getMapDiv()));
+    }
+
+    @Given("The user verify category tree is visible")
+    public void theUserVerifyCategoryTreeIsVisible() {
+        Assert.assertTrue("Category Tree Bulunamadı", BrowserUtils.isElementDisplayed(pages.accountHomePage().getCategoryTree()));
+    }
 }

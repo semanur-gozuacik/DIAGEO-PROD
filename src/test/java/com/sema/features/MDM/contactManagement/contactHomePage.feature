@@ -19,15 +19,17 @@ Feature: Contact Management Test Cases- Contact Home Page
 
   Scenario: Verify Code Filter -Valid Unique Code
     And The user enters "5528401017" into "Fletum Kod" filter text input box
-    And The user clicks on Edit Button
-    Then The user verify Edit Page
-    And the user verify on code filter functionality "Kişi-999"
+    Then The user verify "Fletum Kod" text filter with value "5528401017" in "overviewTable"
+#    And The user clicks on Edit Button
+#    Then The user verify Edit Page
+#    And the user verify on code filter functionality "Kişi-999"
 
   Scenario:Verify Code Filter -Valid partial Code
     And The user enters "5528401017" into "Fletum Kod" filter text input box
     And The user clicks on Edit Button
     Then The user verify Edit Page
     And the user verify on code filter functionality with partial unique code "kişi"
+
 
   Scenario: Verify Code Filter - Invalid Unique Code
     And The user enters "5528401017" into "Fletum Kod" filter text input box

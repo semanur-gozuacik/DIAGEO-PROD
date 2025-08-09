@@ -5,6 +5,7 @@ import com.sema.utilities.ConfigurationReader;
 import com.sema.utilities.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class ModuleFlowsStepDefs extends BaseStep {
@@ -134,4 +135,29 @@ public class ModuleFlowsStepDefs extends BaseStep {
         Assert.assertTrue(pages.panel().getFormTypeSelect().isDisplayed());
     }
 
+    @When("The user go to task list")
+    public void theUserGoToTaskList() {
+        Driver.getDriver().get("https://diageo.efectura.com/Task/TaskList");
+    }
+
+    @When("The user enters {string} into search all")
+    public void theUserEntersAhmetKayaIntoSearchAll(String filterInput) {
+        BrowserUtils.wait(3);
+        BrowserUtils.waitForVisibility(pages.taskList().getSearchAllFilterInput(),50);
+        pages.taskList().getSearchAllFilterInput().sendKeys(filterInput);
+        BrowserUtils.wait(5);
+    }
+
+    @When("The user click first row")
+    public void theUserClickFirstRow() {
+        pages.taskList().getFirstColumn().click();
+        BrowserUtils.wait(1);
+        BrowserUtils.switchToTabByTitleAndCloseOld("DIA: ConfirmationForm");
+        BrowserUtils.wait(2);
+    }
+
+    @Then("The user verify form is open")
+    public void theUserVerifyFormIsOpen() {
+        Assert.assertEquals("Form Açılmadı", "DIA: ConfirmationForm",Driver.getDriver().getTitle());
+    }
 }

@@ -23,8 +23,8 @@ import java.util.List;
                 "rerun:target/rerun.txt"
         },
         // Hangi senaryoların çalıştırılacağını belirten etiket
-        tags ="@sales",
-        features ="src/test/java/com/sema/features/Superset",
+        tags ="@dia_smoke_prod",
+        features ="src/test/java/com/sema/features",
         glue  = "com/sema/stepDefs",
         dryRun = false
 )

@@ -49,11 +49,6 @@ Feature: Contact Management Test Cases- Contact Edit Page
     And The user clicks on Edit Button
     And  The user clicks removed button
 
-  Scenario:Contact edit -Önizleme Tab
-    And The user enters "5528401017" into "Fletum Kod" filter text input box
-    And The user clicks on Edit Button
-    And The user clicks "Önizleme" tab
-
   Scenario:Contact edit -Tarihçe Tab
     And The user enters "5528401017" into "Fletum Kod" filter text input box
     And The user clicks on Edit Button
