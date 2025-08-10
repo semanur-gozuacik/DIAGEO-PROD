@@ -138,9 +138,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
+                    
                     <!-- Run only test files that match the pattern /TestRunner.java -->
                     <includes>
-                        <include>/com/sema/runners/TestRunner.java</include>
+                        <include>**/TestRunner.java</include>
                     </includes>
                     <!-- Continue running tests even if some of them fail -->
                     <testFailureIgnore>true</testFailureIgnore>
