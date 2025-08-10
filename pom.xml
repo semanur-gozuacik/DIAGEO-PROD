@@ -93,11 +93,14 @@
             <version>5.3.1</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.10.1</version>
+            <scope>test</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -138,7 +141,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    
+
                     <!-- Run only test files that match the pattern /TestRunner.java -->
                     <includes>
                         <include>**/TestRunner.java</include>
