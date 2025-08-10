@@ -132,15 +132,15 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-            <plugin>
+          <plugin>
                 <!-- Maven Surefire Plugin for running tests -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.plugin.version}</version>
                 <configuration>
-                    <!-- Run only test files that match the pattern **/TestRunner.java -->
+                    <!-- Run only test files that match the pattern /TestRunner.java -->
                     <includes>
-                        <include>**/com/sema/runners/TestRunner.java</include>
+                        <include>/com/sema/runners/TestRunner.java</include>
                     </includes>
                     <!-- Continue running tests even if some of them fail -->
                     <testFailureIgnore>true</testFailureIgnore>
