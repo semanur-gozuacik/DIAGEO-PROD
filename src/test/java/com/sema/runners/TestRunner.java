@@ -25,7 +25,7 @@ import java.util.List;
         // Hangi senaryoların çalıştırılacağını belirten etiket
         tags ="@dia_smoke_prod",
         //features ="src/test/java/com/sema/features",
-        features = "src/test/java/features",
+        features = "src/test/java/com/sema/features",
         glue  = "com/sema/stepDefs",
         dryRun = false
 )
