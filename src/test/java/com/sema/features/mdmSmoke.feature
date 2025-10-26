@@ -2,7 +2,7 @@
 Feature: MDM Smoke
 
   Background:
-    When   The User opens the browser with the given url
+    When  The User opens the browser with the given url
     And   The User inputs a valid username "fatihUsername"
     And   The User inputs a valid password "fatihPassword"
     And   The User clicks the Submit button
