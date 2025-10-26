@@ -8,7 +8,7 @@ public class Database {
 
     private static Database instance = null;
     private Connection connection = null;
-    private final String DB_URL = "jdbc:sqlserver://;serverName=192.168.129.2;databaseName=DEV_MDM;encrypt=true;trustServerCertificate=true;";
+    private final String DB_URL = "jdbc:sqlserver://;serverName=212.68.49.16;databaseName=DEV_MDM;encrypt=true;trustServerCertificate=true;";
 //    private final String DB_URL = "jdbc:clickhouse://192.168.129.7:8180/my_database";
     private final String DB_USERNAME = "dev_hero";
     private final String DB_PASSWORD = "6KQlSamV4D2x7T9179STCK";

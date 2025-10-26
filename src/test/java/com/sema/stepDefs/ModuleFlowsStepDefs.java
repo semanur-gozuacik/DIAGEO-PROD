@@ -108,6 +108,7 @@ public class ModuleFlowsStepDefs extends BaseStep {
 
     @Given("The user reject the task")
     public void theUserRejectTheTask() {
+        BrowserUtils.adjustScreenSize(75,Driver.getDriver());
         BrowserUtils.wait(2);
         pages.modulFlows().rejectTask();
     }
@@ -127,6 +128,7 @@ public class ModuleFlowsStepDefs extends BaseStep {
 
     @Given("The user fill invoice form with amount {string}")
     public void theUserFillInvoiceFormWithAmount(String invoiceAmount) {
+        BrowserUtils.adjustScreenSize(75,Driver.getDriver());
         pages.modulFlows().fillInvoiceForm(invoiceAmount);
     }
 

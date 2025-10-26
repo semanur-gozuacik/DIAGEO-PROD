@@ -9,7 +9,6 @@ Feature: Sales Dashboards Caseleri
     And   The User clicks the Submit button
     Then  The User waits until the Analysis element is visible with a timeout of 120 seconds
 
-
   Scenario: Region Manager Check name and mail
     When The user impersonate region manager
     When The user go to Sales Dashboard

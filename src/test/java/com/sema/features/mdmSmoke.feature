@@ -289,3 +289,8 @@ Feature: MDM Smoke
   Scenario: Jobs Screen Control
     Given The user go to Jobs page
     Then The user verify job page is open
+
+  Scenario: AI Assistance
+    Given The user go to edit item
+    When The user click ai button
+    Then The user verify ai modal

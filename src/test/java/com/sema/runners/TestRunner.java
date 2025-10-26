@@ -1,5 +1,7 @@
 package com.sema.runners;
 
+import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.ReportPathResolver;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import net.masterthought.cucumber.Configuration;
@@ -8,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.testng.annotations.AfterSuite;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +22,7 @@ import java.util.List;
                 "json:target/cucumber-reports/cucumber.json",
                 "rerun:target/rerun.txt"
         },
-        tags = "@dia_smoke_prod",
+        tags = "@widget",
         features = "src/test/java/com/sema/features",
         glue = "com/sema/stepDefs",
         dryRun = false
@@ -30,6 +33,34 @@ public class TestRunner extends AbstractTestNGCucumberTests {
     public void teardown() {
         File reportOutputDirectory = new File("target/cucumber-reports");
         generateReport(reportOutputDirectory.getAbsolutePath());
+
+        // 1) Raporun orijinal lokasyonunu bul
+        Path originalReport = ReportPathResolver.resolveCucumberHtml();
+
+        // 2) Yeniden adlandır ve yeni yolu al
+        Path renamedReport = BrowserUtils.renameFile(
+                originalReport.toString(),
+                "dia-prod.html"
+        );
+
+        // Eğer rename başarısızsa fallback olarak orijinal raporu dene
+        Path finalReportPath = (renamedReport != null) ? renamedReport : originalReport;
+
+        // 3) Var mı, boş mu kontrol et
+        if (!ReportPathResolver.isReportReady(finalReportPath)) {
+            System.err.println("Cucumber HTML raporu bulunamadı ya da boş: " + finalReportPath);
+            return;
+        }
+
+        // 4) Telegram'a gönder
+        BrowserUtils.sendFileToTelegram(finalReportPath.toString(), "-1002156506449");
+
+        BrowserUtils.wait(1);
+        BrowserUtils.renameFile(
+                renamedReport.toString(),
+                "cucumber.html"
+        );
+
     }
 
     private void generateReport(String cucumberOutputPath) {

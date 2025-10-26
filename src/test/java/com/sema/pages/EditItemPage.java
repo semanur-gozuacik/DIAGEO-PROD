@@ -31,6 +31,15 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//button[@id='import-redirect']")
     private WebElement importRedirectButton;
 
+    @FindBy(xpath = "//span[@id='ai-assistance']")
+    private WebElement aiAssistanceButton;
+
+    @FindBy(xpath = "//div[@class='ai-section']")
+    private List<WebElement> aiSections;
+
+    @FindBy(xpath = "//div[contains(@id,'ai-summary-body')]")
+    private WebElement aiSummaryBody;
+
     int itemIdToBeAssociated;
     public void selectItemAtOrderInAssociationTab(int assocCheckboxOrder) {
         BrowserUtils.wait(2);

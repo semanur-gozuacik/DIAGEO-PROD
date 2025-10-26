@@ -3,6 +3,7 @@ package com.sema.stepDefs;
 import com.sema.utilities.BrowserUtils;
 import com.sema.utilities.Driver;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -53,5 +54,26 @@ public class EditItemStepDefs extends BaseStep {
     public void theUserVerifyImportPageIsOpen() {
         Assert.assertEquals("Import Sayfası açılmadı",
                 "https://diageo.efectura.com/Import", Driver.getDriver().getCurrentUrl());
+    }
+
+    @Given("The user go to edit item")
+    public void theUserGoToEditItem() {
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/2795893");
+    }
+
+    @When("The user click ai button")
+    public void theUserClickAiButton() {
+        pages.editItemPage().getAiAssistanceButton().click();
+        BrowserUtils.wait(30);
+    }
+
+    @Then("The user verify ai modal")
+    public void theUserVerifyAiModal() {
+        boolean isModalVisible = BrowserUtils.isElementDisplayed(pages.editItemPage().getAiSummaryBody());
+        Assert.assertTrue("AI Modalı açılmadı",isModalVisible);
+
+        boolean isAiModalSectionsVisible = pages.editItemPage().getAiSections().size() > 0;
+        Assert.assertTrue("AI Modal bölümleri gelmedi",isAiModalSectionsVisible);
+
     }
 }

@@ -238,10 +238,10 @@ public class ModulFlows extends BasePage {
             docDateInput.click();
             todayDate.click();
             fileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DIAGEO-PROD\\src\\test\\java\\com\\sema\\pages\\BPM\\ModulFlows.java");
-//            BrowserUtils.wait(2);
+            BrowserUtils.wait(2);
 
             WebElement file = driver.findElement(By.xpath("//td[contains(text(),'" + docTypes.get(i) +"')]"));
-            BrowserUtils.waitForVisibility(file,30);
+            BrowserUtils.waitForVisibility(file,60);
 
         }
         BrowserUtils.waitForVisibility(tadbUploadInfo,60);
@@ -253,7 +253,7 @@ public class ModulFlows extends BasePage {
 
     public boolean verifyBlockedBudget(String budget) {
         String query = "SELECT * FROM DEV_MDM.dbo.vw_ModuleFlowTransactionTotals vmftt \n" +
-                "WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F25'";
+                "WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F26'";
 
         int totalBlockedBudget = 0;
         try (Connection conn = Database.getInstance();
@@ -275,7 +275,7 @@ public class ModulFlows extends BasePage {
     int firstBlockedBudget;
     public void getBlockedBudget() {
         String query = "SELECT * FROM DEV_MDM.dbo.vw_ModuleFlowTransactionTotals vmftt \n" +
-                "WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F25'";
+                "WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F26'";
 
         int totalBlockedBudget = 0;
         try (Connection conn = Database.getInstance();
@@ -393,7 +393,7 @@ public class ModulFlows extends BasePage {
 
     int actualBudgetBeforeFlow;
     public void getActualBudget() {
-        String query = "SELECT * FROM DEV_MDM.dbo.vw_ModuleFlowTransactionTotals vmftt WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F25'";
+        String query = "SELECT * FROM DEV_MDM.dbo.vw_ModuleFlowTransactionTotals vmftt WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F26'";
 
         int totalActualBudget = 0;
         try (Connection conn = Database.getInstance();
@@ -412,7 +412,7 @@ public class ModulFlows extends BasePage {
     }
 
     public boolean verifyActualBudget(String expectedActualBudget) {
-        String query = "SELECT * FROM DEV_MDM.dbo.vw_ModuleFlowTransactionTotals vmftt WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F25'";
+        String query = "SELECT * FROM DEV_MDM.dbo.vw_ModuleFlowTransactionTotals vmftt WHERE MudurlukAdi = 'BolgeMuduru' AND ButceYili = 'F26'";
 
         int totalActualBudget = 0;
         try (Connection conn = Database.getInstance();
@@ -556,7 +556,7 @@ public class ModulFlows extends BasePage {
 
         }
 
-        BrowserUtils.waitForVisibility(meyInvoiceUploadInfo,20);
+        BrowserUtils.waitForVisibility(meyInvoiceUploadInfo,50);
         BrowserUtils.scrollToElement(Driver.getDriver(), modulBudgetFlowSubmitButton);
         modulBudgetFlowSubmitButton.click();
         BrowserUtils.waitForVisibility(moduleBudgetInvoiceInfoMessage,60);
