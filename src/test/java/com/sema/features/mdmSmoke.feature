@@ -294,3 +294,9 @@ Feature: MDM Smoke
     Given The user go to edit item
     When The user click ai button
     Then The user verify ai modal
+
+  Scenario: NBA Tables
+    Given The user go to edit item
+    When The user click 'NBA' tab
+    When The user take screenshot
+

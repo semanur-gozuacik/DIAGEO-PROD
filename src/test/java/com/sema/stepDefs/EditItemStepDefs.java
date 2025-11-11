@@ -7,6 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 public class EditItemStepDefs extends BaseStep {
 
@@ -58,7 +59,7 @@ public class EditItemStepDefs extends BaseStep {
 
     @Given("The user go to edit item")
     public void theUserGoToEditItem() {
-        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/2795893");
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/2451749");
     }
 
     @When("The user click ai button")
@@ -76,4 +77,45 @@ public class EditItemStepDefs extends BaseStep {
         Assert.assertTrue("AI Modal bölümleri gelmedi",isAiModalSectionsVisible);
 
     }
+
+    @When("The user click {string} tab")
+    public void theUserClickNBATab(String tabName) {
+        pages.editItemPage().getEditItemSubTabs().stream()
+                .filter(el -> el.getText().trim().contains(tabName))
+                .findFirst()
+                .ifPresent(WebElement::click);
+    }
+
+
+    @When("The user take screenshot")
+    public void theUserTakeScreenshot() {
+//        BrowserUtils.setZoom(Driver.getDriver(),60);
+
+        BrowserUtils.adjustScreenSize(50,Driver.getDriver());
+        String testChatId = "-1002156506449";
+        BrowserUtils.wait(20);
+        String path = BrowserUtils.getScreenshot("Tamamlayıcı Ürün");
+        System.out.println("Path: " + path);
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+
+//        Driver.getDriver().switchTo().frame(pages.formsPage().getCardReportDashboard());
+//        Driver.getDriver().switchTo().frame(0);
+
+        for (int i = 1; i < 5; i++) {
+            pages.editItemPage().getNbaTabs().get(i).click();
+            BrowserUtils.wait(4);
+
+            path = BrowserUtils.getScreenshot(pages.editItemPage().getNbaTabs().get(i).getText());
+            System.out.println("Path: " + path);
+            BrowserUtils.sendFileToTelegram(path,testChatId);
+
+        }
+
+
+        Driver.getDriver().switchTo().parentFrame(); // içten dışa
+        Driver.getDriver().switchTo().defaultContent();
+
+
+    }
+
 }

@@ -40,6 +40,12 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//div[contains(@id,'ai-summary-body')]")
     private WebElement aiSummaryBody;
 
+    @FindBy(xpath = "//ul[contains(@class,'preview-tabs')]/li/a")
+    private List<WebElement> editItemSubTabs;
+
+    @FindBy(xpath = "//div[@id='preview-nba']/div/ul/li/a")
+    private List<WebElement> nbaTabs;
+
     int itemIdToBeAssociated;
     public void selectItemAtOrderInAssociationTab(int assocCheckboxOrder) {
         BrowserUtils.wait(2);

@@ -37,7 +37,7 @@ public class BrowserUtils {
      */
     public static String getScreenshot(String name) {
         // Adding date and time to the screenshot name to make it unique
-        name = new Date().toString().replace(" ", "_").replace(":", "-") + "_" + name;
+//        name = new Date().toString().replace(" ", "_").replace(":", "-") + "_" + name;
         String path;
         // Determining the file path based on the operating system
         if (System.getProperty("os.name").toLowerCase().contains("mac")) {
