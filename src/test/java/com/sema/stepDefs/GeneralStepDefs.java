@@ -153,4 +153,46 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserGoToUserManagePage() {
         Driver.getDriver().get("https://diageo.efectura.com/UserManage");
     }
+
+    @Given("The user go to karne screen")
+    public void theUserGoToKarneScreen() {
+        Driver.getDriver().get("https://diageo.efectura.com:8112/KarnePilotMY.html?token=eZeHsIqYiiKBuydOq1DOBKU9WCbQ1KZXVTWHY8pTxhSq6BcJw2dlr76rduAhpnp44DvlyFaGnYQgmc2pLedbGFJYyD%2bJ5r33UgnZqZCE02P49kfkRsTI6cku2e57J6rvle1HMNnwBYVkkcG4xFkXZD7sTD1ioGr%2fNBqe7aqf3XeFDO1fot6OaTWlhmRgSf99&type=Offtrade");
+        BrowserUtils.wait(2);
+    }
+
+    @When("The user click excel export button")
+    public void theUserClickExcelExportButton() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='export-reserve']/span")).click();
+        BrowserUtils.wait(1);
+    }
+
+    @Then("The user verify {string} file is downloaded")
+    public void theUserVerifyExcelFileIsDownloaded(String fileType) {
+        if (fileType.equals("excel")) {
+            Assert.assertTrue("Dosya indirilemedi!",
+                    BrowserUtils.isNewExcelDownloaded(System.getProperty("user.home") + "/Downloads",5));
+        } else if (fileType.equals("pdf")) {
+            Assert.assertTrue("Dosya indirilemedi!",
+                    BrowserUtils.isNewPdfDownloaded(System.getProperty("user.home") + "/Downloads",8));
+        }
+    }
+
+    @When("The user click pdf export button")
+    public void theUserClickPdfExportButton() {
+        Driver.getDriver().findElement(By.xpath("//span[contains(text(),'PDF Olarak İndir')]")).click();
+        BrowserUtils.wait(1);
+    }
+
+    @When("The user click siralamalar tab")
+    public void theUserClickSiralamalarTab() {
+        Driver.getDriver().findElement(By.xpath("//button[contains(.,'Sıralamalar')]")).click();
+        BrowserUtils.wait(1);
+    }
+
+    @When("The user click excel button")
+    public void theUserClickExcelButton() {
+        BrowserUtils.wait(6);
+        Driver.getDriver().findElement(By.xpath("//span[.='Excel']")).click();
+        BrowserUtils.wait(1);
+    }
 }

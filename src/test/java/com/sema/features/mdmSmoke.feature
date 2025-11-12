@@ -300,3 +300,5 @@ Feature: MDM Smoke
     When The user click 'NBA' tab
     When The user take screenshot
 
+
+

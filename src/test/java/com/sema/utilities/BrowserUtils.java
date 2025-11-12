@@ -18,6 +18,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import static java.time.Duration.*;
@@ -533,6 +535,48 @@ public class BrowserUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static boolean isNewExcelDownloaded(String downloadDirPath, long maxAgeSeconds) {
+        File dir = new File(downloadDirPath);
+        File[] xlsxFiles = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".xlsx"));
+
+        if (xlsxFiles == null || xlsxFiles.length == 0) {
+            return false;
+        }
+
+        File latestFile = Arrays.stream(xlsxFiles)
+                .max(Comparator.comparingLong(File::lastModified))
+                .orElse(null);
+
+        if (latestFile == null) return false;
+
+        long currentTime = System.currentTimeMillis();
+        long lastModified = latestFile.lastModified();
+
+        long ageInSeconds = (currentTime - lastModified) / 1000;
+        return ageInSeconds <= maxAgeSeconds;
+    }
+
+    public static boolean isNewPdfDownloaded(String downloadDirPath, long maxAgeSeconds) {
+        File dir = new File(downloadDirPath);
+        File[] xlsxFiles = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".pdf"));
+
+        if (xlsxFiles == null || xlsxFiles.length == 0) {
+            return false;
+        }
+
+        File latestFile = Arrays.stream(xlsxFiles)
+                .max(Comparator.comparingLong(File::lastModified))
+                .orElse(null);
+
+        if (latestFile == null) return false;
+
+        long currentTime = System.currentTimeMillis();
+        long lastModified = latestFile.lastModified();
+
+        long ageInSeconds = (currentTime - lastModified) / 1000;
+        return ageInSeconds <= maxAgeSeconds;
     }
 
 
