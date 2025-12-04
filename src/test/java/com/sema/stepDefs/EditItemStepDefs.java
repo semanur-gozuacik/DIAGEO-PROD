@@ -60,6 +60,7 @@ public class EditItemStepDefs extends BaseStep {
     @Given("The user go to edit item")
     public void theUserGoToEditItem() {
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/2451749");
+        BrowserUtils.wait(3);
     }
 
     @When("The user click ai button")
@@ -118,4 +119,44 @@ public class EditItemStepDefs extends BaseStep {
 
     }
 
+    @Given("The user go to edit item {string}")
+    public void theUserGoToEditItem(String itemId) {
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/" + itemId);
+    }
+
+    @When("The user click add comment button")
+    public void theUserClickAddCommentButton() {
+        pages.editItemPage().getAddCommentButton().click();
+    }
+
+    @When("The user select comment type {string}")
+    public void theUserSelectCommentType(String commentType) {
+        BrowserUtils.wait(2);
+        BrowserUtils.selectDropdownOptionByVisibleText(pages.editItemPage().getCommentTypeSelect(),commentType);
+        BrowserUtils.wait(18);
+        pages.editItemPage().getCommentSaveButton().click();
+        BrowserUtils.wait(2);
+    }
+
+    @When("The user select first yetkili option {string}")
+    public void theUserSelectFirstYetkiliOption(String option) {
+        pages.editItemPage().getFirstYetkiliSelectContainer().click();
+        BrowserUtils.wait(10);
+        BrowserUtils.selectDropdownOptionByVisibleText(pages.editItemPage().getFirstYetkiliSelect(),option);
+    }
+
+    @When("The user select second yetkili option {string}")
+    public void theUserSelectSecondYetkiliOption(String option) {
+        BrowserUtils.selectDropdownOptionByVisibleText(pages.editItemPage().getSecondYetkiliSelect(),option);
+    }
+
+    @When("The user click send comment button")
+    public void theUserClickSendCommentButton() {
+        pages.editItemPage().getCommentSendButton().click();
+    }
+
+    @Then("The user delete the comment")
+    public void theUserDeleteTheComment() {
+        pages.editItemPage().getCommentDeleteButton().click();
+    }
 }

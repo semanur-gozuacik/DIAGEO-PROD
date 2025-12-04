@@ -209,21 +209,21 @@ Feature: MDM Smoke
     Then The user verify "Fletum Kod" text filter with value "test" in "overviewTable"
 
   Scenario:User edit - Planlı Ziyaretler Tab Control
-    Given the user go in the item '3534074'
+    Given the user go in the item '3578662'
     And The user clicks "Planlı Ziyaretler" tab
     Then The user verify 'plannedVisitsTable' table is visible
 
-  Scenario:User edit - PreviewMRP Tab Control
-    Given the user go in the item '3534074'
-    And The user clicks "PreviewMRP" tab
+  Scenario:User edit - Önizleme Tab Control
+    Given the user go in the item '3578662'
+    And The user clicks "Önizleme" tab
 
   Scenario:User edit - Rotalar Tab Control
-    Given the user go in the item '3534074'
+    Given the user go in the item '3578662'
     And The user clicks "Rotalar" tab
     Then The user verify 'associationTable' table is visible
 
   Scenario:User edit - Satış Organizasyonu Kullanıcı Tab Control
-    Given the user go in the item '3534074'
+    Given the user go in the item '3578662'
     And The user clicks "Satış Organizasyonu Kullanıcı" tab
     Then The user verify 'associationTable' table is visible
 
@@ -252,8 +252,8 @@ Feature: MDM Smoke
 # --------------------------------------------------------------------------------
   Scenario:  Görev Listesi - Verify "Search All" Button Control
     When The user go to task list
-    When The user enters 'Ahmet Kaya' into search all
-    Then The user verify "Oluşturan" text filter with value "Ahmet Kaya" in "taskListTable"
+    When The user enters 'Haktan Kaçar' into search all
+    Then The user verify "Oluşturan" text filter with value "Haktan Kaçar" in "taskListTable"
 
   Scenario:  Görev Listesi - Form Redirect Control
     When The user go to task list
@@ -299,6 +299,18 @@ Feature: MDM Smoke
     Given The user go to edit item
     When The user click 'NBA' tab
     When The user take screenshot
+
+  Scenario: Comment Meeting Notes
+    Given The user go to edit item '3568666'
+    And The user clicks "Yorumlar" tab
+    When The user click add comment button
+    When The user select comment type 'Toplantı Notu'
+    When The user select first yetkili option 'İSTANBUL TEKEL-BERAT AKÇİN - 999999999 - test sema sema'
+    When The user select second yetkili option 'Semanur Gozuacik'
+    When The user click send comment button
+    Then The user verifies info "MailSended" appears
+    Then The user delete the comment
+    Then The user verifies info "Yorum başarıyla silindi." appears
 
 
 

@@ -10,3 +10,7 @@ Feature: Karne Scenarios
     When The user click siralamalar tab
     When The user click excel button
     Then The user verify 'excel' file is downloaded
+
+  Scenario: Reserve Karne Table Control
+    Given The user go to reserve karne screen
+    Then The user verify table has value

@@ -34,6 +34,7 @@ public class GeneralStepDefs extends BaseStep {
     @And("The user enters {string} into {string} filter text input box")
     public void theUserEntersIntoFilterTextInputBox(String value, String columnName) {
         pages.generalPage().useTextFilter(value,columnName);
+        BrowserUtils.wait(7);
     }
 
     @And("The user reset the basic filters")
@@ -41,7 +42,7 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.wait(10);
         BrowserUtils.waitForClickability(pages.generalPage().getBasicResetButton(),20);
         pages.generalPage().getBasicResetButton().click();
-        BrowserUtils.wait(10);
+        BrowserUtils.wait(15);
     }
 
     @When("The user go to {string} overview page")
@@ -117,6 +118,7 @@ public class GeneralStepDefs extends BaseStep {
     @When("The user go to ReportCardAnalysis page")
     public void theUserGoToReportCardAnalysisPage() {
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/ReportCardAnalysis");
+        BrowserUtils.wait(4);
     }
 
     @Then("The user verify table is displayed")
@@ -163,7 +165,7 @@ public class GeneralStepDefs extends BaseStep {
     @When("The user click excel export button")
     public void theUserClickExcelExportButton() {
         Driver.getDriver().findElement(By.xpath("//button[@id='export-reserve']/span")).click();
-        BrowserUtils.wait(1);
+        BrowserUtils.wait(2);
     }
 
     @Then("The user verify {string} file is downloaded")
@@ -194,5 +196,21 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.wait(6);
         Driver.getDriver().findElement(By.xpath("//span[.='Excel']")).click();
         BrowserUtils.wait(1);
+    }
+
+    @Given("The user go to reserve karne screen")
+    public void theUserGoToReserveKarneScreen() {
+        Driver.getDriver().get("https://diageo.efectura.com:8112/KarnePilotReserve.html?token=4FouYUf23OgGnWsrRMnweYAVwx7bNFzjeo7kqmKJZZREXUBUHKnfTMzxOHLkPRgU4hwmMHTtVNt5X%2bcaNbtlXPUqoXKOImlYDY3pgt4axqMNqUPcwdskLx5OW0iWsRqMpXBOi9poVK54eRxcg3SIKw%3d%3d&bolge=Reserve%20Istanbul%201");
+        BrowserUtils.wait(2);
+    }
+
+    @Then("The user verify table has value")
+    public void theUserVerifyTableHasValue() {
+        BrowserUtils.wait(5);
+        By locate = By.xpath("//td[.='İlgili Döneme Ait Veri Bulunamadı']");
+        boolean hasNoValueText = BrowserUtils.isElementDisplayed(locate);
+
+        Assert.assertFalse("İlgili Döneme Ait Veri Bulunamadı Uyarısı Geldi",hasNoValueText);
+
     }
 }

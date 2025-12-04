@@ -352,6 +352,22 @@ public class BrowserUtils {
         }
     }
 
+
+    /**
+     * Checks if the element located by the given By locator is displayed on the page.
+     *
+     * @param locator the By locator of the element to check
+     * @return true if the element is displayed, false if the element is not found or not displayed
+     */
+    public static boolean isElementDisplayed(By locator) {
+        try {
+            WebElement element = Driver.getDriver().findElement(locator);
+            return element.isDisplayed();
+        } catch (org.openqa.selenium.NoSuchElementException | StaleElementReferenceException e) {
+            return false;
+        }
+    }
+
     public static boolean isButtonActive(WebElement button) {
         String classAttribute = button.getAttribute("class");
         return !classAttribute.contains("disabled");

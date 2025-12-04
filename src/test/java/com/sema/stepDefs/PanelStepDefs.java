@@ -14,6 +14,7 @@ public class PanelStepDefs extends BaseStep {
     public void theUserGoInFlowHistory(String flowName) {
         WebElement flowRow = Driver.getDriver().findElement(By.xpath("//td[contains(text(),'" + flowName + "')]"));
         flowRow.click();
+        BrowserUtils.wait(3);
     }
 
     @Then("The  user verify history page is open")

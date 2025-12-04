@@ -46,6 +46,37 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//div[@id='preview-nba']/div/ul/li/a")
     private List<WebElement> nbaTabs;
 
+    @FindBy(xpath = "//button[@class='btn-filter-primary comment-add-btn']")
+    private WebElement addCommentButton;
+
+    @FindBy(xpath = "//select[@id='comment-type']")
+    private WebElement commentTypeSelect;
+
+    @FindBy(xpath = "//button[@id='addCommentBtn']")
+    private WebElement commentSaveButton;
+
+    @FindBy(xpath = "//select[@id='send-email-notes']")
+    private WebElement firstYetkiliSelect;
+
+    @FindBy(xpath = "//span[@id='select2-send-email-notes-container']")
+    private WebElement firstYetkiliSelectContainer;
+
+    @FindBy(xpath = "//select[@id='additional-recipients']")
+    private WebElement secondYetkiliSelect;
+
+    @FindBy(xpath = "//button[@id='meeting-note-confirm']")
+    private WebElement commentSendButton;
+
+    @FindBy(xpath = "//button[@class='btn-filter-secondary comment-delete-btn']")
+    private WebElement commentDeleteButton;
+
+    @FindBy(xpath = "//button[@id='deleteComment']")
+    private WebElement lastCommentDeleteButton;
+
+    @FindBy(xpath = "//div[@id='chat-bubble']")
+    private WebElement chatBubble;
+
+
     int itemIdToBeAssociated;
     public void selectItemAtOrderInAssociationTab(int assocCheckboxOrder) {
         BrowserUtils.wait(2);

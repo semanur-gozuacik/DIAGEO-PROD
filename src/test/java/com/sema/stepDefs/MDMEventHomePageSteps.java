@@ -58,11 +58,12 @@ pages.eventHomePage().onTheEventPage();
     @When("The user go to Calendar page")
     public void theUserGoToCalendarPage() {
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/EmbedDashboardCalendar");
+        BrowserUtils.wait(3);
     }
 
     @Then("The user verify calendar page is open")
     public void theUserVerifyCalendarPageIsOpen() {
-        WebElement mainFrame = Driver.getDriver().findElement(By.xpath("//iframe[@src='/Enrich/EmbedDashboard?dashboardName=preview-general-events&expand_filters=0&baslangic_tarih_from=20240701']"));
+        WebElement mainFrame = Driver.getDriver().findElement(By.xpath("//iframe[@id='general-events']"));
         Driver.getDriver().switchTo().frame(mainFrame);
         Driver.getDriver().switchTo().frame(pages.eventHomePage().getEventCalendarIframe());
         Assert.assertTrue(BrowserUtils.isElementDisplayed

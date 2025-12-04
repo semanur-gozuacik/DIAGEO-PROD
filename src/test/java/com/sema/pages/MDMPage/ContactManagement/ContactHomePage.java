@@ -109,7 +109,7 @@ public class ContactHomePage extends BasePage {
     private List<WebElement> entriesLength;
     @FindBy(xpath = "//select[@name='items_length']//option")
     private List<WebElement> entriesNumber;
-    @FindBy(xpath = "//a[@title='Düzenle']")
+    @FindBy(xpath = "//tbody/tr/td[12]/a[1]")
     private WebElement editButton;
     @FindBy(xpath = "//a[@href='/Enrich/Items?ItemType=Contact' and contains(text(), 'Kişiler Overview')]")
     private WebElement verifyContactEditButton;
@@ -414,9 +414,9 @@ public class ContactHomePage extends BasePage {
     }
 
     public void clickEditButton() {
-        BrowserUtils.wait(6);
-        BrowserUtils.hoverOver(editButton);
-        BrowserUtils.wait(8);
+//        BrowserUtils.wait(6);
+//        BrowserUtils.hoverOver(editButton);
+//        BrowserUtils.wait(8);
         editButton.click();
     }
 

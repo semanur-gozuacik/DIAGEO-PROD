@@ -23,7 +23,7 @@ public class GeneralPage extends BasePage {
     @FindBy(xpath = "//div[@class='notyf__message']")
     private WebElement infoMessage;
 
-    @FindBy(xpath = "//iframe[@src='https://diageoms.efectura.com:9010/hangfire']")
+    @FindBy(xpath = "//iframe")
     private WebElement jobsFrame;
 
     @FindBy(xpath = "//h1[text()='Overview']")
@@ -35,10 +35,10 @@ public class GeneralPage extends BasePage {
     @FindBy(xpath = "//iframe[contains(@src,'https://dia-dashboard.efectura.com/embedded/')]")
     private WebElement reportCardAnalysisSecondFrame;
 
-    @FindBy(xpath = "/html/body/div[1]/div/div[2]/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div/div/div[2]/div/div[1]/div/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/table")
+    @FindBy(xpath = "/html/body/div[1]/div/div[4]/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div/div/div[2]/div/div[1]/div/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[1]/table")
     private WebElement cardAnalysisTable;
 
-    @FindBy(xpath = "//*[@id='impersonate']/span[2]")
+    @FindBy(xpath = "//*[@id='impersonate']")
     public WebElement impersonateHoverBtn;
 
     @FindBy(xpath = "//a[@id='impersonate-fletum']")
