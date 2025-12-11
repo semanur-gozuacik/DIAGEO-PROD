@@ -313,7 +313,6 @@ public class GeneralStepDefs extends BaseStep {
     @When("The user click penetration tab")
     public void theUserClickPenetrationTab() {
         WebElement penetrationTab = Driver.getDriver().findElement(By.xpath("//p[contains(text(),'Q2 Penetrasyon Offtrade Dashboard')]/preceding-sibling::a[1]"));
-
         penetrationTab.click();
         BrowserUtils.wait(30);
     }
