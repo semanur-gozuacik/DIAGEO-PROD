@@ -76,6 +76,18 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//div[@id='chat-bubble']")
     private WebElement chatBubble;
 
+    @FindBy(xpath = "//input[@id='message-input']")
+    private WebElement chatInputBox;
+
+    @FindBy(xpath = "//div[contains(text(),'Kanal Geliştirme Uzmanı')]")
+    private WebElement mentionOption;
+
+    @FindBy(xpath = "//div[4]/div[2]/div[3]/button")
+    private WebElement chatMsgSubmitButton;
+
+    @FindBy(xpath = "//a[@id='_calendar-tab']")
+    private WebElement calendarTab;
+
 
     int itemIdToBeAssociated;
     public void selectItemAtOrderInAssociationTab(int assocCheckboxOrder) {

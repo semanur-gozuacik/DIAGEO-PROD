@@ -435,4 +435,89 @@ public class databaseMethods {
 
         return projectedSalesS39;
     }
+
+
+    public static String getEventCityRoof() {
+        String query = "SELECT tr_TR as AttrOption FROM AttributeOptions\n" +
+                "WHERE AttributeId = (\n" +
+                "\tSELECT Id FROM [Attributes] \n" +
+                "\tWHERE Code = 'City_Roof' AND ItemType = 70\n" +
+                ")\n" +
+                " AND Id  = (\n" +
+                " \t\t\tSELECT ValueInt FROM ItemValues\n" +
+                "WHERE ItemId = (\n" +
+                "  \tSELECT TOP 1 ItemId FROM ItemValues\n" +
+                "WHERE  AttributeId = (\n" +
+                "\tSELECT Id FROM [Attributes] \n" +
+                "\tWHERE Code = 'DIA_Start_Date_E' AND ItemType = 70\n" +
+                ")\n" +
+                "ORDER BY ValueDateTime DESC\n" +
+                ")\n" +
+                "AND AttributeId = (\n" +
+                "\tSELECT Id FROM [Attributes] \n" +
+                "\tWHERE Code = 'City_Roof' AND ItemType = 70\n" +
+                ")\n" +
+                " )";
+
+        String cityRoof = null;
+
+        try (Connection conn = DatabaseManager.getConnection(
+                DbConfigs.DIA_SQLSERVER, DbConfigs.DIA_SQLSERVER_USERNAME, DbConfigs.DB_PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                // Kolon adlarıyla güvenli okuma
+                cityRoof = rs.getString("AttrOption");
+            }
+
+            // İsteğe bağlı: log
+            System.out.println("-----\ncityRoof: " + cityRoof + "\n-----");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cityRoof;
+    }
+
+
+    public static String getEventFamily() {
+        String query = "SELECT tr_TR as Family FROM Families\n" +
+                "WHERE Id = (\n" +
+                "\tSELECT TOP 1 FamilyId FROM Items\n" +
+                "WHERE Id = (\n" +
+                "\t\tSELECT TOP 1 ItemId FROM ItemValues\n" +
+                "WHERE  AttributeId = (\n" +
+                "\tSELECT Id FROM [Attributes] \n" +
+                "\tWHERE Code = 'DIA_Start_Date_E' AND ItemType = 70\n" +
+                ")\n" +
+                "ORDER BY ValueDateTime DESC\n" +
+                "\t)\n" +
+                ")";
+
+        String family = null;
+
+        try (Connection conn = DatabaseManager.getConnection(
+                DbConfigs.DIA_SQLSERVER, DbConfigs.DIA_SQLSERVER_USERNAME, DbConfigs.DB_PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                // Kolon adlarıyla güvenli okuma
+                family = rs.getString("Family");
+            }
+
+            // İsteğe bağlı: log
+            System.out.println("-----\nEvent family: " + family + "\n-----");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return family;
+
+    }
+
+
 }

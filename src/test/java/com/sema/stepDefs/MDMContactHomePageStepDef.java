@@ -207,7 +207,7 @@ public class MDMContactHomePageStepDef extends BaseStep {
 
     @Then("The user clicks on Edit Button")
     public void the_user_clicks_on_editButton() {
-        BrowserUtils.adjustScreenSize(55,Driver.getDriver());
+        BrowserUtils.adjustScreenSize(42,Driver.getDriver());
         BrowserUtils.wait(17);
         pages.contactHomePage().clickEditButton();
     }

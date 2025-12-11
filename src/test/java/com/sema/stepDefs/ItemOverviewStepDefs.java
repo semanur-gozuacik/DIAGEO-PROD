@@ -3,6 +3,8 @@ package com.sema.stepDefs;
 import com.sema.utilities.BrowserUtils;
 import com.sema.utilities.Driver;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -30,4 +32,20 @@ public class ItemOverviewStepDefs extends BaseStep {
         pages.generalPage().verifyButtonStatus(btnName,btnStatus);
     }
 
+    @Given("The user go to calender page")
+    public void theUserGoToCalenderPage() {
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EmbedDashboardCalendar");
+        BrowserUtils.wait(1);
+        pages.editItemPage().getCalendarTab().click();
+        BrowserUtils.wait(35);
+    }
+
+    @Then("The user verify calendar")
+    public void theUserVerifyCalendar() {
+
+        pages.generalPage().verifyNextDayChangesDate();
+        pages.generalPage().verifyPrevDayChangesDate();
+        pages.generalPage().verifyTodayButtonGoesToToday();
+
+    }
 }

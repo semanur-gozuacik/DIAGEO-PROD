@@ -109,7 +109,7 @@ public class ContactHomePage extends BasePage {
     private List<WebElement> entriesLength;
     @FindBy(xpath = "//select[@name='items_length']//option")
     private List<WebElement> entriesNumber;
-    @FindBy(xpath = "//tbody/tr/td[12]/a[1]")
+    @FindBy(xpath = "//a[@class='t-edit edit-btn']")
     private WebElement editButton;
     @FindBy(xpath = "//a[@href='/Enrich/Items?ItemType=Contact' and contains(text(), 'Kişiler Overview')]")
     private WebElement verifyContactEditButton;

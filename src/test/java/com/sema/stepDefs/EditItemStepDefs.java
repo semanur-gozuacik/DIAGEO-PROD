@@ -7,7 +7,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.util.UUID;
 
 public class EditItemStepDefs extends BaseStep {
 
@@ -31,7 +34,7 @@ public class EditItemStepDefs extends BaseStep {
     @Then("The user verifies info {string} appears")
     public void theUserVerifiesInfoAppears(String expectedMessage) {
         BrowserUtils.wait(1);
-        BrowserUtils.waitForVisibility(pages.generalPage().getInfoMessage(),20);
+        BrowserUtils.waitForVisibility(pages.generalPage().getInfoMessage(),60);
         Assert.assertEquals(expectedMessage, pages.generalPage().getInfoMessage().getText());
         BrowserUtils.wait(1);
     }
@@ -65,8 +68,9 @@ public class EditItemStepDefs extends BaseStep {
 
     @When("The user click ai button")
     public void theUserClickAiButton() {
+        BrowserUtils.adjustScreenSize(60,Driver.getDriver());
         pages.editItemPage().getAiAssistanceButton().click();
-        BrowserUtils.wait(30);
+        BrowserUtils.wait(49);
     }
 
     @Then("The user verify ai modal")
@@ -119,8 +123,10 @@ public class EditItemStepDefs extends BaseStep {
 
     }
 
+    String chatItemId;
     @Given("The user go to edit item {string}")
     public void theUserGoToEditItem(String itemId) {
+        chatItemId = itemId;
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/" + itemId);
     }
 
@@ -140,9 +146,11 @@ public class EditItemStepDefs extends BaseStep {
 
     @When("The user select first yetkili option {string}")
     public void theUserSelectFirstYetkiliOption(String option) {
+        BrowserUtils.wait(2);
         pages.editItemPage().getFirstYetkiliSelectContainer().click();
-        BrowserUtils.wait(10);
-        BrowserUtils.selectDropdownOptionByVisibleText(pages.editItemPage().getFirstYetkiliSelect(),option);
+        BrowserUtils.wait(12);
+        Driver.getDriver().findElement(By.xpath("//li[contains(.,'999999999')]")).click();
+//        BrowserUtils.selectDropdownOptionByVisibleText(pages.editItemPage().getFirstYetkiliSelect(),option);
     }
 
     @When("The user select second yetkili option {string}")
@@ -157,6 +165,63 @@ public class EditItemStepDefs extends BaseStep {
 
     @Then("The user delete the comment")
     public void theUserDeleteTheComment() {
+        BrowserUtils.wait(2);
         pages.editItemPage().getCommentDeleteButton().click();
+        BrowserUtils.wait(1);
+        Driver.getDriver().findElement(By.xpath("//button[@id='deleteComment']")).click();
     }
+
+    String uniqueChatValue;
+    @When("The user mention {string} in chat")
+    public void theUserMentionInChat(String mentionValue) {
+        BrowserUtils.wait(2);
+        uniqueChatValue = UUID.randomUUID().toString();
+        System.out.println("uniqueChatValue: " + uniqueChatValue);
+        pages.editItemPage().getChatBubble().click();
+        pages.editItemPage().getChatInputBox().sendKeys(mentionValue);
+        BrowserUtils.wait(25);
+        pages.editItemPage().getMentionOption().click();
+        pages.editItemPage().getChatInputBox().sendKeys(" " + uniqueChatValue);
+        pages.editItemPage().getChatMsgSubmitButton().click();
+    }
+
+
+    int notificationIndex;
+    @When("The user verify notification")
+    public void theUserVerifyNotification() {
+        pages.generalPage().getNotificationIcon().click();
+        BrowserUtils.wait(3);
+
+        System.out.println(pages.generalPage().getNotificationValues());
+
+        for (WebElement value : pages.generalPage().getNotificationValues()) {
+            System.out.println(value.getText());
+        }
+
+        boolean contains = pages.generalPage().getNotificationValues().stream()
+                .anyMatch(e -> e.getText().contains(uniqueChatValue.substring(0,15)));
+
+        Assert.assertTrue("Notification gelmedi",contains);
+
+        notificationIndex = -1;
+        for (int i = 0; i < pages.generalPage().getNotificationValues().size(); i++) {
+            if (pages.generalPage().getNotificationValues().get(i).getText().contains(uniqueChatValue.substring(0,15))) {
+                notificationIndex = i;
+                break;
+            }
+        }
+        System.out.println("İçeren elemanın index'i: " + notificationIndex);
+
+    }
+
+    @When("The user verify link")
+    public void theUserVerifyLink() {
+        pages.generalPage().getMentionLinks().get(notificationIndex).click();
+        BrowserUtils.wait(5);
+        String navigatedItemId = Driver.getDriver().getCurrentUrl().split("/")[5];
+
+        Assert.assertEquals("Link yönlendirmesi yanlış",chatItemId,navigatedItemId.split("\\?")[0]);
+
+    }
+
 }

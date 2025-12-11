@@ -14,3 +14,11 @@ Feature: Karne Scenarios
   Scenario: Reserve Karne Table Control
     Given The user go to reserve karne screen
     Then The user verify table has value
+
+
+  Scenario: MY 360 Penetration
+    When The user go to redirection link
+    When The user click penetration tab
+    Then The user take screenshot for penetration
+
+

@@ -13,4 +13,7 @@ public class DbConfigs {
     public static final String DIA_CLICKHOUSE_PASSWORD = "6KQlSamV4D2x7T9179STCK";
     public static final String DIA_CLICKHOUSE = "jdbc:clickhouse://212.68.49.250:8180/default";
 
+    public static final String DIA_SQLSERVER = "jdbc:sqlserver://;serverName=212.68.49.16:1433;databaseName=DEV_MDM";
+    public static final String DIA_SQLSERVER_USERNAME = "dev_hero";
+
 }

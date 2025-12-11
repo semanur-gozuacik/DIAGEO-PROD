@@ -313,4 +313,39 @@ Feature: MDM Smoke
     Then The user verifies info "Yorum başarıyla silindi." appears
 
 
+  Scenario: Chat Scenarios
+    Given The user go to edit item '3568666'
+    When The user mention '@kgu' in chat
+    Given The user login with "kgu"
+    Then The user verify notification
+    Then The user verify link
+
+
+  Scenario: EmbedDashboardCalendar
+    Given The user go to EmbedDashboardCalendar
+    When The user verify 'No Data'
+    When The user take screenshot for EmbedDashboardCalendar
+
+  Scenario: Calender Scenarios
+    Given The user go to calender page
+    Then The user verify calendar
+
+  Scenario: Event-File Assoc
+    Given The user go to 'Event' overview page
+    When The User clicks on the createButton element
+
+  Scenario: MY 360 Redirection
+    When The user go to MY360 page
+    When The user select customer 'AKIN BÜFE -- 965005'
+    Then The user take screenshot for my
+    And The user clicks "Ziyaret Listesi" tab
+    When The user wait '25' seconds
+    Then The user verify 'visitListTable' table is visible
+
+
+
+
+
+
+
 

@@ -10,9 +10,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.List;
 
 public class GeneralStepDefs extends BaseStep {
@@ -164,8 +169,9 @@ public class GeneralStepDefs extends BaseStep {
 
     @When("The user click excel export button")
     public void theUserClickExcelExportButton() {
+        BrowserUtils.wait(1);
         Driver.getDriver().findElement(By.xpath("//button[@id='export-reserve']/span")).click();
-        BrowserUtils.wait(2);
+        BrowserUtils.wait(3);
     }
 
     @Then("The user verify {string} file is downloaded")
@@ -211,6 +217,165 @@ public class GeneralStepDefs extends BaseStep {
         boolean hasNoValueText = BrowserUtils.isElementDisplayed(locate);
 
         Assert.assertFalse("İlgili Döneme Ait Veri Bulunamadı Uyarısı Geldi",hasNoValueText);
+
+    }
+
+
+    @Given("The user go to EmbedDashboardCalendar")
+    public void theUserGoToEmbedDashboardCalendar() {
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EmbedDashboardCalendar");
+        BrowserUtils.wait(34);
+        // === IFRAME'LER ===
+        Driver.getDriver().switchTo().frame(Driver.getDriver().findElement(By.id("general-events")));
+        Driver.getDriver().switchTo().frame(Driver.getDriver().findElement(
+                By.xpath("//iframe[contains(@src,'6e294a66-6956-4f68-935e-59212fc5dbed')]")
+        ));
+    }
+
+
+
+    @When("The user take screenshot for EmbedDashboardCalendar")
+    public void theUserTakeScreenshotForEmbedDashboardCalendar() {
+
+        BrowserUtils.adjustScreenSize(55, Driver.getDriver());
+        BrowserUtils.wait(2);
+
+        String testChatId = "-1002156506449";
+
+        String path = BrowserUtils.getScreenshot("EmbedDashboard-Grafikler");
+        System.out.println("Path: " + path);
+
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+
+        BrowserUtils.wait(2);
+
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(15));
+
+        By veriTabLocator = By.xpath(
+                "//div[contains(@class,'ant-tabs-nav')]//div[@role='tab' and .//span[contains(.,'Veri Tablosu')]]"
+        );
+
+        WebElement veriTablosuTab = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(veriTabLocator)
+        );
+
+        System.out.println("veri tablosu tab text: " + veriTablosuTab.getText());
+        System.out.println("before aria-selected: " + veriTablosuTab.getAttribute("aria-selected"));
+
+        // Görüş alanına getir
+        ((JavascriptExecutor) Driver.getDriver()).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", veriTablosuTab
+        );
+
+        // 1) Normal click dene
+        try {
+            veriTablosuTab.click();
+            System.out.println("try block: normal click denendi.");
+        } catch (Exception e) {
+            System.out.println("normal click hata verdi: " + e.getClass().getSimpleName());
+        }
+
+        BrowserUtils.wait(2);
+        System.out.println("after aria-selected (normal click sonrası): " + veriTablosuTab.getAttribute("aria-selected"));
+
+        // 2) aria-selected hâlâ false ise JS click dene
+        if (!"true".equalsIgnoreCase(veriTablosuTab.getAttribute("aria-selected"))) {
+            ((JavascriptExecutor) Driver.getDriver()).executeScript("arguments[0].click();", veriTablosuTab);
+            System.out.println("JS click denendi.");
+            BrowserUtils.wait(2);
+            System.out.println("after aria-selected (JS click sonrası): " + veriTablosuTab.getAttribute("aria-selected"));
+        }
+
+        // 3) Hâlâ false ise ENTER / SPACE ile tab’ı tetikle
+        if (!"true".equalsIgnoreCase(veriTablosuTab.getAttribute("aria-selected"))) {
+            veriTablosuTab.sendKeys(Keys.ENTER);
+            System.out.println("ENTER gönderildi.");
+            BrowserUtils.wait(2);
+            System.out.println("after aria-selected (ENTER sonrası): " + veriTablosuTab.getAttribute("aria-selected"));
+        }
+
+        BrowserUtils.wait(26);
+        path = BrowserUtils.getScreenshot("EmbedDashboard-VeriTablosu");
+        System.out.println("Path: " + path);
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+
+        Driver.getDriver().switchTo().defaultContent();
+    }
+
+    @When("The user go to redirection link")
+    public void theUserGoToRedirectionLink() {
+        Driver.getDriver().get(
+                "https://diageo.efectura.com:8112/DiageoRedirection.html?token=eZeHsIqYiiKBuydOq1DOBKU9WCbQ1KZXVTWHY8pTxhQyLjSnmliYngKJKsz%2fDDmh0Gv%2fW2ntl4ohDyR2FyqfDxf0kuDGRE4ObmSVZ9%2bQTy2iZunwSOMd3YfXQFkNdGbnUVl%2b%2bXWhL5AnSW9n%2f3ZU%2bHgxE%2ba0NTdFyaZ63UAAgVcURGBVeFNyXQqPQAIMjl6F"
+        );
+    }
+
+
+    @When("The user click penetration tab")
+    public void theUserClickPenetrationTab() {
+        WebElement penetrationTab = Driver.getDriver().findElement(By.xpath("//p[contains(text(),'Q2 Penetrasyon Offtrade Dashboard')]/preceding-sibling::a[1]"));
+
+        penetrationTab.click();
+        BrowserUtils.wait(30);
+    }
+
+    @Then("The user take screenshot for penetration")
+    public void theUserTakeScreenshotForPenetration() {
+        BrowserUtils.adjustScreenSize(55, Driver.getDriver());
+        BrowserUtils.wait(10);
+
+        String testChatId = "-1002156506449";
+
+        String path = BrowserUtils.getScreenshot("Penetrasyon");
+        System.out.println("Path: " + path);
+
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+    }
+
+    @When("The user go to MY360 page")
+    public void goToMYPage360() {
+        Driver.getDriver().get("https://diageo.efectura.com/Guest?id=eZeHsIqYiiKBuydOq1DOBKU9WCbQ1KZXVTWHY8pTxhQyLjSnmliYngKJKsz%2FDDmh0Gv%2FW2ntl4ohDyR2FyqfDxf0kuDGRE4ObmSVZ9%20QTy2iZunwSOMd3YfXQFkNdGbnUVl%20%20XWhL5AnSW9n%2F3ZU%20HgxE%20a0NTdFyaZ63UAAgVcURGBVeFNyXQqPQAIMjl6F&routeCode=PR_BAKIRKOY&myName=MAZLUM%20S%C3%96NMEZ&userName=mazlums&userEmailAddress=mazlum.sonmez1%40diageo.com");
+
+        BrowserUtils.wait(3);
+    }
+
+    @When("The user select customer {string}")
+    public void theUserSelectCustomer(String customerName) {
+        WebElement selectCustomerElement = Driver.getDriver().findElement(By.xpath("//select[@id='item-select']"));
+        BrowserUtils.selectDropdownOptionByVisibleText(selectCustomerElement,customerName);
+        BrowserUtils.wait(26);
+    }
+
+    @Then("The user take screenshot for my")
+    public void theUserTakeScreenshotForMy() {
+        BrowserUtils.adjustScreenSize(55, Driver.getDriver());
+        BrowserUtils.wait(30);
+
+        String testChatId = "-1002156506449";
+
+        String path = BrowserUtils.getScreenshot("Ömizleme-GenelBilgi");
+        System.out.println("Path: " + path);
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+
+
+//        Driver.getDriver().findElement(By.xpath("/html/body/div[2]/div/div[4]/div/div[1]/ul/li[12]/a")).click();
+//        BrowserUtils.wait(25);
+//        path = BrowserUtils.getScreenshot("Ömizleme-BorçYaşlandırmaAnalizi");
+//        System.out.println("Path: " + path);
+//        BrowserUtils.sendFileToTelegram(path,testChatId);
+
+    }
+
+    @When("The user wait {string} seconds")
+    public void theUserWaitSeconds(int second) {
+        BrowserUtils.wait(second);
+    }
+
+    @When("The user verify {string}")
+    public void theUserVerifyNoData(String text) {
+        List<WebElement> noDataElements = Driver.getDriver().
+                findElements(By.xpath("//*[contains(normalize-space(.), '" + text + "')]"));
+
+        Assert.assertEquals("No Data Yazan Element Mevcut!", 0, noDataElements.size());
 
     }
 }
