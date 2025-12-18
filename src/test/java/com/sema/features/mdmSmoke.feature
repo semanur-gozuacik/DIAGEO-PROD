@@ -149,7 +149,7 @@ Feature: MDM Smoke
 
   Scenario:Asset edit - ACCOUNT_COOLER Tab Associated
     Given The user go to 'Event' overview page
-    And The user enters "Etkinlik-3531304" into "Fletum Kod" filter text input box
+    And The user enters "Etkinlik-3568666" into "Fletum Kod" filter text input box
     And The user clicks on edit button in table
     And The user clicks "Dijital İçerik" tab
 #    And The user Assocaited All filter
