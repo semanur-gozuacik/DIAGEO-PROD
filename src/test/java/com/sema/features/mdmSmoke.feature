@@ -339,8 +339,48 @@ Feature: MDM Smoke
     When The user select customer 'AKIN BÜFE -- 965005'
     Then The user take screenshot for my
     And The user clicks "Ziyaret Listesi" tab
-    When The user wait '25' seconds
+    When The user wait 25 seconds
     Then The user verify 'visitListTable' table is visible
+
+  Scenario: Support Mail Test
+    When The user click support button
+    When The user fill support inputs
+    When The user upload support file
+    When The user click send ticket button
+    Then The user verifies info "Ticket Başarıyla Gönderildi" appears
+    Then The user verify mail is sent
+
+  Scenario: Global Search
+    When The user search in global input
+
+  Scenario: Transaction Tables Export
+#    Given The user go to edit item '3495770'
+#    And The user clicks "TRX_ICHEDEF_PLANLAMA" tab
+#    When The user click 'Dışarı Aktar' button
+#    When The user get selected export options
+#    When The user complete the export
+#    When The user wait 1 second
+#    Then The user verifies info "Başarılı" appears
+#    When The user wait 1 second
+#    Then The user verify file is downloaded
+#    When The user wait 8 second
+    Given The user go to edit item '1782611'
+    And The user clicks "Faturalar" tab
+    When The user wait 20 second
+    When The user click 'Dışarı Aktar' button
+    When The user get selected export options
+    When The user complete the export
+    Then The user verifies info "Başarılı" appears
+    When The user wait 1 second
+    Then The user verify file is downloaded
+    And The user clicks "Siparişler" tab
+    When The user wait 20 second
+    When The user click 'Dışarı Aktar' button
+    When The user get selected export options
+    When The user complete the export
+    Then The user verifies info "Başarılı" appears
+    When The user wait 1 second
+    Then The user verify file is downloaded
 
 
 

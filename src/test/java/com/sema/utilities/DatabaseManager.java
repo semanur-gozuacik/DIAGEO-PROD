@@ -18,6 +18,8 @@ public class DatabaseManager {
                 instance = new DatabaseManager(dbUrl, username, password);
             }
         } catch (SQLException e) {
+            System.out.println("db url: " + dbUrl);
+            System.out.println("db username: " + username);
             throw new RuntimeException("DB connection error", e);
         }
 

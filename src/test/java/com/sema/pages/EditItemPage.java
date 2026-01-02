@@ -73,7 +73,7 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//button[@id='deleteComment']")
     private WebElement lastCommentDeleteButton;
 
-    @FindBy(xpath = "//div[@id='chat-bubble']")
+    @FindBy(xpath = "//button[@id='chat-bubble']")
     private WebElement chatBubble;
 
     @FindBy(xpath = "//input[@id='message-input']")
@@ -82,7 +82,7 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(),'Kanal Geliştirme Uzmanı')]")
     private WebElement mentionOption;
 
-    @FindBy(xpath = "//div[4]/div[2]/div[3]/button")
+    @FindBy(xpath = "//*[@id=\"chat-window\"]/div[3]/button")
     private WebElement chatMsgSubmitButton;
 
     @FindBy(xpath = "//a[@id='_calendar-tab']")

@@ -18,7 +18,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.SQLException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import static com.sema.utilities.CommonExcelReader.getExcelPath;
 
 public class GeneralStepDefs extends BaseStep {
 
@@ -225,6 +229,7 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserGoToEmbedDashboardCalendar() {
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/EmbedDashboardCalendar");
         BrowserUtils.wait(34);
+        Driver.getDriver().findElement(By.xpath("//a[@id='_general-events-tab']")).click();
         // === IFRAME'LER ===
         Driver.getDriver().switchTo().frame(Driver.getDriver().findElement(By.id("general-events")));
         Driver.getDriver().switchTo().frame(Driver.getDriver().findElement(
@@ -238,7 +243,7 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserTakeScreenshotForEmbedDashboardCalendar() {
 
         BrowserUtils.adjustScreenSize(55, Driver.getDriver());
-        BrowserUtils.wait(2);
+        BrowserUtils.wait(10);
 
         String testChatId = "-1002156506449";
 
@@ -354,6 +359,7 @@ public class GeneralStepDefs extends BaseStep {
         String path = BrowserUtils.getScreenshot("Ömizleme-GenelBilgi");
         System.out.println("Path: " + path);
         BrowserUtils.sendFileToTelegram(path,testChatId);
+        BrowserUtils.wait(2);
 
 
 //        Driver.getDriver().findElement(By.xpath("/html/body/div[2]/div/div[4]/div/div[1]/ul/li[12]/a")).click();
@@ -364,7 +370,7 @@ public class GeneralStepDefs extends BaseStep {
 
     }
 
-    @When("The user wait {string} seconds")
+    @When("The user wait {int} seconds")
     public void theUserWaitSeconds(int second) {
         BrowserUtils.wait(second);
     }
@@ -377,4 +383,89 @@ public class GeneralStepDefs extends BaseStep {
         Assert.assertEquals("No Data Yazan Element Mevcut!", 0, noDataElements.size());
 
     }
+
+    @When("The user click support button")
+    public void theUserClickSupportButton() {
+        Driver.getDriver().findElement(By.xpath("//a[@id='userSupportBtn']")).click();
+    }
+
+    String uniqueMailBody;
+    @When("The user fill support inputs")
+    public void theUserFillSupportInputs() {
+        uniqueMailBody = UUID.randomUUID().toString();
+        System.out.println("uniqueMailBody: " + uniqueMailBody);
+
+        Driver.getDriver().findElement(By.xpath("//input[@id='ticketTitle']")).
+                sendKeys("Test Automation Title");
+
+        Driver.getDriver().findElement(By.xpath("//textarea[@id='explanationTicket']")).
+                sendKeys("test automation ticket explanation - " + uniqueMailBody);
+
+    }
+
+    @When("The user upload support file")
+    public void theUserUploadSupportFile() {
+        Driver.getDriver().findElement(By.xpath("//input[@id='file-upload']")).
+                sendKeys(getExcelPath("Attribute"));
+    }
+
+    @When("The user click send ticket button")
+    public void theUserClickSendTicketButton() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='sendTicket']")).click();
+        BrowserUtils.wait(1);
+    }
+
+    @Then("The user verify mail is sent")
+    public void theUserVerifyMailIsSent() {
+        BrowserUtils.wait(5);
+        boolean iSent = pages.dbProcess().isSupportMailSent(uniqueMailBody);
+
+        Assert.assertTrue("Support Maili Db'ye düşmedi!!", iSent);
+
+    }
+
+
+    @When("The user search in global input")
+    public void theUserSearchInGlobalInput() {
+        Driver.getDriver().findElement(By.xpath("//input[@id='globalSearchInput']")).sendKeys();
+    }
+
+    @When("The user click {string} button")
+    public void theUserClickButton(String buttonName) {
+        String locate = "//button[contains(normalize-space(),'" + buttonName + "')]";
+        Driver.getDriver().findElement(By.xpath(locate)).click();
+
+    }
+
+    List<String> selectedTexts = new ArrayList<>();
+    @When("The user get selected export options")
+    public void theUserGetSelectedExportOptions() {
+        selectedTexts = pages.itemOverviewPage().getSelectedExportOptions().stream()
+                .map(WebElement::getText)
+                .map(String::trim)
+                .map(t -> t.equalsIgnoreCase("Kod") ? "Fletum Kod" : t).toList();
+    }
+
+    @When("The user complete the export")
+    public void theUserCompleteTheExport() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='export-columns-next']")).click();
+        BrowserUtils.wait(1);
+//        Driver.getDriver().findElement(By.xpath("//button[@id='export-columns-done']")).click();
+//        BrowserUtils.wait(2);
+    }
+
+    @When("The user wait {int} second")
+    public void theUserWaitSecond(int secondAmount) {
+        BrowserUtils.wait(secondAmount);
+    }
+
+    @Then("The user verify file is downloaded")
+    public void theUserVerifyFileIsDownloaded() {
+        boolean isDownloaded = BrowserUtils.isNewExcelDownloaded
+                (System.getProperty("user.home") + "/Downloads",10);
+        Assert.assertTrue("Dosya indirilmedi",isDownloaded);
+        Driver.getDriver().navigate().refresh();
+
+    }
+
 }

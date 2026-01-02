@@ -68,6 +68,7 @@ public class Pages {
     private EditItemPage editItemPage;
     private TaskList taskList;
     private ReportsPage reportsPage;
+    private DbProcess dbProcess;
 
 
     public Pages() {
@@ -106,6 +107,8 @@ public class Pages {
             this.editItemPage = new EditItemPage();
             this.taskList = new TaskList();
             this.reportsPage = new ReportsPage();
+            this.dbProcess = new DbProcess();
+
 
     }
     // Getter metotları
@@ -145,6 +148,7 @@ public class Pages {
     public EditItemPage editItemPage() {return editItemPage;}
     public TaskList taskList() {return taskList;}
     public ReportsPage reportsPage() {return reportsPage;}
+    public DbProcess dbProcess() {return  dbProcess;}
 
 }
 

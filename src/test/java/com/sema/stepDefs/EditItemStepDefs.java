@@ -174,12 +174,17 @@ public class EditItemStepDefs extends BaseStep {
     String uniqueChatValue;
     @When("The user mention {string} in chat")
     public void theUserMentionInChat(String mentionValue) {
-        BrowserUtils.wait(2);
+        BrowserUtils.wait(3);
         uniqueChatValue = UUID.randomUUID().toString();
         System.out.println("uniqueChatValue: " + uniqueChatValue);
         pages.editItemPage().getChatBubble().click();
-        pages.editItemPage().getChatInputBox().sendKeys(mentionValue);
-        BrowserUtils.wait(25);
+
+        for (int i = 0; i < mentionValue.length(); i++) {
+            pages.editItemPage().getChatInputBox().sendKeys(mentionValue.charAt(i) + "");
+            BrowserUtils.wait(1);
+        }
+
+        BrowserUtils.wait(20);
         pages.editItemPage().getMentionOption().click();
         pages.editItemPage().getChatInputBox().sendKeys(" " + uniqueChatValue);
         pages.editItemPage().getChatMsgSubmitButton().click();
