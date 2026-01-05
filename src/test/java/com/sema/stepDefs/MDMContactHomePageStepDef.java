@@ -310,9 +310,10 @@ public class MDMContactHomePageStepDef extends BaseStep {
 
     @Then("The user clicks {string} tab")
     public void the_user_clicks_tab(String tabName) {
-        BrowserUtils.adjustScreenSize(50, Driver.getDriver());
+        BrowserUtils.adjustScreenSize(40, Driver.getDriver());
         BrowserUtils.wait(1);
         pages.contactHomePage().clickEditItemTab(tabName);
+        BrowserUtils.wait(3);
     }
 
     @Then("The user verifies preview tab details is displayed")

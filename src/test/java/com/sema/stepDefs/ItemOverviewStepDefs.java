@@ -25,6 +25,7 @@ public class ItemOverviewStepDefs extends BaseStep {
     @When("The user clicks {string} pagination button")
     public void theUserClicksLastPageTablePaginationButton(String btnName) {
         pages.generalPage().clickPaginationButton(btnName);
+        BrowserUtils.wait(20);
     }
 
     @And("The user verifies {string} button is {string}")

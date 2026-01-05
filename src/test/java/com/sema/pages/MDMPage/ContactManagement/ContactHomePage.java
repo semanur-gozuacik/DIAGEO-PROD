@@ -145,7 +145,7 @@ public class ContactHomePage extends BasePage {
     private WebElement showEntries;
     @FindBy(id = "inputCode")
     private WebElement uniqueCodeElement;
-    @FindBy(xpath = "//ul[@class='nav nav-tabs current_nav_tabs']//li//a")
+    @FindBy(xpath = "//ul[@id='ulScroll']/li/a")
     private List<WebElement> editItemTabs;
     @FindBy(xpath = "//b[normalize-space()='Özet']")
     private WebElement verifyPreviewTab;

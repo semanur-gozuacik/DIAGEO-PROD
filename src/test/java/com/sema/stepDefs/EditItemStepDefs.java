@@ -46,6 +46,9 @@ public class EditItemStepDefs extends BaseStep {
 
     @When("The user click import redirect button")
     public void theUserClickImportRedirectButton() {
+        BrowserUtils.wait(1);
+        Driver.getDriver().findElement(By.xpath("//button[@id='rightSidebarToggleBtn']")).click();
+        BrowserUtils.wait(1);
         pages.editItemPage().getImportRedirectButton().click();
         BrowserUtils.wait(1);
         BrowserUtils.switchToTabByTitleAndCloseOld("DIA: İçe aktarım");

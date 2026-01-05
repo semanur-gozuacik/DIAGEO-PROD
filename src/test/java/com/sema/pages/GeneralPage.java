@@ -85,12 +85,12 @@ public class GeneralPage extends BasePage {
         String locate = "//div[@class='pagination-container']//*[contains(translate(@id, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '" +
                 btnName + "')]";
         System.out.println(locate);
-//        WebElement btn = driver.findElement(By.xpath(locate));
-        WebElement button = driver.findElement(By.xpath("//button[@title='" + btnName + "']"));
+        WebElement btn = driver.findElement(By.xpath(locate));
+//        WebElement button = driver.findElement(By.xpath("//button[@title='" + btnName + "']"));
         if(btnStatus.equalsIgnoreCase("Active")) {
-            Assert.assertTrue(isButtonActive(button));
+            Assert.assertTrue(isButtonActive(btn));
         } else if (btnStatus.equalsIgnoreCase("Passive")) {
-            Assert.assertFalse(isButtonActive(button));
+            Assert.assertFalse(isButtonActive(btn));
         }
     }
 

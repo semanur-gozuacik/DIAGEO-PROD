@@ -58,7 +58,7 @@ Feature: MDM Smoke
 
   Scenario:Account Home Page Verify Previous Page Button Clickable Condition
     Given The user go to 'Account' overview page
-    When The user clicks 'lastpage' pagination button
+    When The user clicks 'next' pagination button
     And  The user verifies "previous" button is "Active"
 
   Scenario: Account Home Page Map Control
@@ -150,7 +150,7 @@ Feature: MDM Smoke
   Scenario:Asset edit - ACCOUNT_COOLER Tab Associated
     Given The user go to 'Event' overview page
     And The user enters "Etkinlik-3568666" into "Fletum Kod" filter text input box
-    And The user clicks on edit button in table
+    And The user clicks on Edit Button
     And The user clicks "Dijital İçerik" tab
 #    And The user Assocaited All filter
     And The user select "Hayır" in "IsAssociated" select filter
@@ -182,7 +182,7 @@ Feature: MDM Smoke
     Given The user go to 'Product' overview page
     And The user enters "RA070TE037" into "Fletum Kod" filter text input box
     And The user clicks on Edit Button
-    And The user clicks "PRODUCT_CATALOG" tab
+    And The user clicks "Katalog" tab
     Then The user verify 'associationTable' table is visible
 
   Scenario:Product edit - Dijital Varlıklar Tab Control
@@ -199,7 +199,7 @@ Feature: MDM Smoke
 
   Scenario:Sales Organization edit - Satış Organizasyonu Kullanıcı Tab Control
     Given The user go to 'SalesOrganization' overview page
-    And The user clicks on edit button in table
+    And The user clicks on Edit Button
     And The user clicks "Satış Organizasyonu Kullanıcı" tab
     Then The user verify 'associationTable' table is visible
 
@@ -338,6 +338,7 @@ Feature: MDM Smoke
     When The user go to MY360 page
     When The user select customer 'AKIN BÜFE -- 965005'
     Then The user take screenshot for my
+    When The user wait 15 seconds
     And The user clicks "Ziyaret Listesi" tab
     When The user wait 25 seconds
     Then The user verify 'visitListTable' table is visible

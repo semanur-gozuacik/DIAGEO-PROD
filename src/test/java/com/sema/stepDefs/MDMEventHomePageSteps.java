@@ -59,6 +59,8 @@ pages.eventHomePage().onTheEventPage();
     public void theUserGoToCalendarPage() {
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/EmbedDashboardCalendar");
         BrowserUtils.wait(3);
+        Driver.getDriver().findElement(By.xpath("//a[@id='_general-events-tab']")).click();
+        BrowserUtils.wait(3);
     }
 
     @Then("The user verify calendar page is open")
