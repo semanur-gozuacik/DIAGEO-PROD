@@ -81,7 +81,9 @@ public class EditItemStepDefs extends BaseStep {
         boolean isModalVisible = BrowserUtils.isElementDisplayed(pages.editItemPage().getAiSummaryBody());
         Assert.assertTrue("AI Modalı açılmadı",isModalVisible);
 
-        boolean isAiModalSectionsVisible = pages.editItemPage().getAiSections().size() > 0;
+//        boolean isAiModalSectionsVisible = pages.editItemPage().getAiSections().size() > 0;
+        boolean isAiModalSectionsVisible = Driver.getDriver().
+                findElements(By.xpath("//div[contains(@id,'ai-summary-body')]/div/h2")).size() > 0;
         Assert.assertTrue("AI Modal bölümleri gelmedi",isAiModalSectionsVisible);
 
     }
@@ -232,4 +234,10 @@ public class EditItemStepDefs extends BaseStep {
 
     }
 
+    @When("The user click nba ai button")
+    public void theUserClickNbaAiButton() {
+        BrowserUtils.adjustScreenSize(60,Driver.getDriver());
+        pages.editItemPage().getNbaAiAssistanceButton().click();
+        BrowserUtils.wait(49);
+    }
 }

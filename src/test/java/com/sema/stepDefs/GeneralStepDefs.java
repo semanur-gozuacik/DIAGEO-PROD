@@ -468,4 +468,9 @@ public class GeneralStepDefs extends BaseStep {
 
     }
 
+    @Given("The user go to rota edit item")
+    public void theUserGoToRotaEditItem() {
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/3577492");
+        BrowserUtils.wait(3);
+    }
 }

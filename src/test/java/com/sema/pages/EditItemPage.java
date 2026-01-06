@@ -34,6 +34,9 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//span[@id='ai-assistance']")
     private WebElement aiAssistanceButton;
 
+    @FindBy(xpath = "//span[@id='nba-assistance']")
+    private WebElement nbaAiAssistanceButton;
+
     @FindBy(xpath = "//div[@class='ai-section']")
     private List<WebElement> aiSections;
 

@@ -295,6 +295,11 @@ Feature: MDM Smoke
     When The user click ai button
     Then The user verify ai modal
 
+  Scenario: Rota AI Assistance
+    Given The user go to rota edit item
+    When The user click nba ai button
+    Then The user verify ai modal
+
   Scenario: NBA Tables
     Given The user go to edit item
     When The user click 'NBA' tab
