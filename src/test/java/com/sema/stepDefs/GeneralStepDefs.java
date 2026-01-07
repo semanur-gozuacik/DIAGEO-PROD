@@ -9,10 +9,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -25,6 +22,7 @@ import java.util.UUID;
 import static com.sema.utilities.CommonExcelReader.getExcelPath;
 
 public class GeneralStepDefs extends BaseStep {
+    WebDriver driver = Driver.getDriver();
 
     @Then("The user verify {string} text filter with value {string} in {string}")
     public void theUserVerifyTextFilterWithValueIn(String columnName, String expectedValue, String table) {
@@ -472,5 +470,43 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserGoToRotaEditItem() {
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/3577492");
         BrowserUtils.wait(3);
+    }
+
+    @When("The user click network export button")
+    public void theUserClickNetworkExportButton() {
+        BrowserUtils.wait(18);
+        driver.findElement(By.xpath("//button[@id='exportNetworkBtn']")).click();
+    }
+
+    String searchInput;
+    List<WebElement> networkTitles;
+    @When("The user use filter with title")
+    public void theUserUseFilterWithTitle() {
+        networkTitles = driver.findElements(By.xpath("//*[local-name()='svg']//*[local-name()='text' and contains(@class,'node-title')]"));
+        searchInput = networkTitles.get(0).getText();
+        driver.findElement(By.xpath("//input[@id='networkSearchInput']")).sendKeys(searchInput);
+
+        driver.findElement(By.xpath("//button[@id='searchNetworkBtn']")).click();
+
+    }
+
+    @Then("The user verify search result")
+    public void theUserVerifySearchResult() {
+        String actualText = driver.findElement(By.xpath("//div[@class='search-result-title']")).getText();
+
+        Assert.assertEquals("arama sonucu yanlis!",searchInput,actualText);
+
+    }
+
+    @When("The user click list icon")
+    public void theUserClickListIcon() {
+        List<WebElement> listIcons = driver.findElements(By.xpath("//*[local-name()='svg']//div[contains(@class,'node-settings-icon')]/i[contains(@class,'fi-rr-list')]"));
+        listIcons.get(0).click();
+        BrowserUtils.wait(2);
+
+        String actualTitle = driver.findElement(By.xpath("//h4[@id='association-attributes-title']")).getText();
+        String expectedTitle = networkTitles.get(0).getText();
+        Assert.assertEquals("Öge bilgisi açılmadı ve ya yanlis",expectedTitle,actualTitle);
+
     }
 }

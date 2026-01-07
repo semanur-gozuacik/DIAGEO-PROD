@@ -388,6 +388,15 @@ Feature: MDM Smoke
     When The user wait 1 second
     Then The user verify file is downloaded
 
+  Scenario: Network Graph
+    Given The user go to edit item '1782611'
+    And The user clicks "Ağ Grafiği" tab
+    When The user click network export button
+    Then The user verifies info "PDFExportedSuccessfully" appears
+    When The user use filter with title
+    Then The user verify search result
+    When The user click list icon
+
 
 
 
