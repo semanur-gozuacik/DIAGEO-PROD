@@ -306,7 +306,7 @@ Feature: MDM Smoke
     When The user take screenshot
 
   Scenario: Comment Meeting Notes
-    Given The user go to edit item '3568666'
+    Given The user go to edit item '3581424'
     And The user clicks "Yorumlar" tab
     When The user click add comment button
     When The user select comment type 'Toplantı Notu'
@@ -319,7 +319,7 @@ Feature: MDM Smoke
 
 
   Scenario: Chat Scenarios
-    Given The user go to edit item '3568666'
+    Given The user go to edit item '3581424'
     When The user mention '@kgu' in chat
     Given The user login with "kgu"
     Then The user verify notification
@@ -357,6 +357,7 @@ Feature: MDM Smoke
     Then The user verify mail is sent
 
   Scenario: Global Search
+#    When The user impersonate to selected user
     When The user search in global input
 
   Scenario: Transaction Tables Export
@@ -396,6 +397,37 @@ Feature: MDM Smoke
     When The user use filter with title
     Then The user verify search result
     When The user click list icon
+
+  Scenario: NBA Dashboards
+    When The user go to 'nba-general-embed-dashboard'
+    When The user take nba screenshot
+    When The user go to 'nba-payment-embed-dashboard'
+    When The user take nba screenshot
+    When The user go to 'nba-proximity-embed-dashboard'
+    When The user take nba screenshot
+    When The user go to 'nba-win10-embed-dashboard'
+    When The user take nba screenshot
+    When The user go to 'nba-penetration-embed-dashboard'
+    When The user take nba screenshot
+
+  Scenario: Event - Agent Assoc
+    Given The user go to 'Event' overview page
+    When The User clicks on the createButton element
+    When The user select create item family 'WALKERS'
+    When The user fill event create attributes
+    When The user select category for create
+    When The user complete create
+#    Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
+    When The user verify created event edit page is open
+
+  Scenario: Event - File Assoc
+    Given The user go to 'Event' overview page
+    When The User clicks on the createButton element
+    When The user select create item family 'WALKERS'
+    When The user fill event create attributes
+    When The user select category for create
+    When The user complete create
+    Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
 
 
 

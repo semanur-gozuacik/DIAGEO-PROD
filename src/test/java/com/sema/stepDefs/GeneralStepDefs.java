@@ -509,4 +509,73 @@ public class GeneralStepDefs extends BaseStep {
         Assert.assertEquals("Öge bilgisi açılmadı ve ya yanlis",expectedTitle,actualTitle);
 
     }
+
+//    @When("The user impersonate to selected user")
+//    public void theUserImpersonateToSelectedUser() {
+//
+//        if (environment.equalsIgnoreCase("Prod"))
+//            Driver.getDriver().get("https://mm-admin.efectura.com/UserManage");
+//        else if(environment.equalsIgnoreCase("PreProd"))
+//            Driver.getDriver().get("https://mediamarkt-ui-preprod.efectura.com/UserManage");
+//        BrowserUtils.wait(2);
+//
+//        pages.sicilControlPage().sicilNoFilterInputBox.sendKeys(sicilNo + Keys.ENTER);
+//        BrowserUtils.wait(3);
+//        System.out.println("//tr/td[3][text()='" + sicilNo + "']");
+//        BrowserUtils.waitForVisibility(Driver.getDriver().findElement(By.xpath("//tr/td[3][text()='" + sicilNo + "']")),30);
+//        Driver.getDriver().findElement(By.xpath("//tr/td[3][text()='" + sicilNo + "']")).click();
+//
+//        BrowserUtils.waitForVisibility(pages.dashboard().impersonateHoverBtn, 30);
+//        BrowserUtils.hoverOver(pages.dashboard().impersonateHoverBtn);
+//        pages.dashboard().impersonateButton.click();
+//        BrowserUtils.wait(3);
+//
+//    }
+
+    @When("The user go to {string}")
+    public void theUserGoToDashboard(String name) {
+        Driver.getDriver().get("https://diageo.efectura.com/Enrich/EmbedDashboard?dashboardName=" + name);
+        BrowserUtils.wait(5);
+    }
+
+    @When("The user take nba screenshot")
+    public void theUserTakeNbaScreenshot() {
+        BrowserUtils.adjustScreenSize(80,Driver.getDriver());
+        String testChatId = "-1002156506449";
+        BrowserUtils.wait(20);
+
+        String locate = ".//*[contains(\n" +
+                "      translate(text(),\n" +
+                "      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',\n" +
+                "      'abcdefghijklmnopqrstuvwxyz'),\n" +
+                "      'error')\n" +
+                "   or contains(\n" +
+                "      translate(text(),\n" +
+                "      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',\n" +
+                "      'abcdefghijklmnopqrstuvwxyz'),\n" +
+                "      'failed')]\n";
+
+
+
+        Driver.getDriver().switchTo().frame(driver.findElement(By.xpath("//div[@id='my-superset-container']/iframe")));
+
+        boolean isThereError = BrowserUtils.isElementDisplayed(By.xpath(locate));
+
+
+        String pageName = driver.getTitle().split(":")[1].trim();
+
+        if (isThereError) {
+            pageName += "HATA_VAR";
+        }
+
+        String path = BrowserUtils.getScreenshot(pageName);
+        System.out.println("Path: " + path);
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+
+        Assert.assertFalse("Error Var",isThereError);
+
+
+        Driver.getDriver().switchTo().parentFrame(); // içten dışa
+        Driver.getDriver().switchTo().defaultContent();
+    }
 }

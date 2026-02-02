@@ -36,9 +36,10 @@ public class ModuleFlowsStepDefs extends BaseStep {
         BrowserUtils.wait(7);
     }
 
+    String formNumber;
     @Given("The user fill start form with musteri code {string}")
     public void theUserFillStartFormWithMusteriCode(String lastCustomerCode) {
-        pages.modulFlows().fillModuleFlowForm(lastCustomerCode);
+        formNumber = pages.modulFlows().fillModuleFlowForm(lastCustomerCode);
     }
 
     @Given("The user verify blocked budget with {string}")
@@ -162,4 +163,61 @@ public class ModuleFlowsStepDefs extends BaseStep {
     public void theUserVerifyFormIsOpen() {
         Assert.assertEquals("Form Açılmadı", "DIA: ConfirmationForm",Driver.getDriver().getTitle());
     }
+
+    int blockedBudgetBeforeFlow;
+    @Given("The user get blocked budget for stand")
+    public void theUserGetBlockedBudgetForStand() {
+        blockedBudgetBeforeFlow = pages.modulFlows().getBlockedBudgetForStand();
+    }
+
+    int actualStandBudgetBeforeFlow;
+    @Given("The user get actual budget for stand")
+    public void theUserGetActualBudgetForStand() {
+//        pages.modulFlows().getActualBudget();
+        actualStandBudgetBeforeFlow = pages.modulFlows().getActualBudgetForStand();
+    }
+
+    @Given("The user fill start form for {string} and markaisi {int}")
+    public void theUserFillStartFormForAndMarkaisi(String customerCode, int markaisi) {
+        formNumber = pages.modulFlows().fillStandFlowForm(customerCode,markaisi);
+    }
+
+    @Given("The user get total price")
+    public void theUserGetTotalPrice() {
+        pages.modulFlows().addKalemAndGetTotalPrice();
+    }
+
+    @Given("The user fill vendor1 form")
+    public void theUserFillVendorForm() {
+        pages.modulFlows().fillVendor1Form();
+    }
+
+    @Given("The user verify new total price")
+    public void theUserVerifyNewTotalPrice() {
+        pages.modulFlows().verifyNewPrice();
+    }
+
+    @Given("The user fill vendor2 form and submit")
+    public void theUserFillVendor2FormAndSubmit() {
+        pages.modulFlows().fillVendor2Form();
+    }
+
+    @Given("The user verify stand blocked budget with {string}")
+    public void theUserVerifyStandBlockedBudgetWith(String budget) {
+        BrowserUtils.wait(2);
+        boolean isBudgetOk = pages.modulFlows().verifyStandBlockedBudget(budget,blockedBudgetBeforeFlow);
+    }
+
+    @Given("The user fill vendor3 form and submit")
+    public void theUserFillVendor3FormAndSubmit() {
+        pages.modulFlows().fillVendor3Form();
+    }
+
+    @Given("The user verify stand actual budget with {string}")
+    public void theUserVerifyStandActualBudgetWith(String budget) {
+        boolean isBudgetOk = pages.modulFlows().verifyStandActualBudget(budget,actualStandBudgetBeforeFlow);
+        Assert.assertTrue(isBudgetOk);
+        BrowserUtils.wait(3);
+    }
+
 }

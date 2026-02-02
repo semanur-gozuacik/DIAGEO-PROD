@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -18,10 +19,8 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.NoSuchElementException;
+import java.util.*;
+
 import static java.time.Duration.*;
 import static org.junit.Assert.assertTrue;
 
@@ -210,6 +209,36 @@ public class BrowserUtils {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), ofSeconds(timeToWaitInSec));
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
+
+    public static void waitForTabCount(WebDriver driver, int expectedTabs, int timeoutSec) {
+
+        Instant start = Instant.now();
+
+        while (Duration.between(start, Instant.now()).getSeconds() < timeoutSec) {
+
+            Set<String> windowHandles = driver.getWindowHandles();
+
+            if (windowHandles.size() == expectedTabs) {
+                return; // başarıyla bulundu
+            }
+
+            try {
+                Thread.sleep(300); // polling interval
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Thread interrupted while waiting for tab count", e);
+            }
+        }
+
+        throw new RuntimeException(
+                "Beklenen tab sayısına ulaşılamadı. Beklenen: "
+                        + expectedTabs
+                        + ", Mevcut: "
+                        + driver.getWindowHandles().size()
+        );
+    }
+
+
     /**
      * Selects an option from a dropdown by visible text.
      *

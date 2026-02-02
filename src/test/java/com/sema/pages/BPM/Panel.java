@@ -17,7 +17,7 @@ public class Panel extends BasePage {
     @FindBy(xpath = "//td/a")
     private List<WebElement> flowStartButtons;
 
-    @FindBy(xpath = "//select[@id='formType']")
+    @FindBy(xpath = "//select[contains(@id,'formType')]")
     private WebElement formTypeSelect;
 
     @FindBy(xpath = "//button[contains(@class, 'edit-dashboard-bpm') and span[contains(text(), 'Devam Etmekte')]]")
@@ -44,7 +44,7 @@ public class Panel extends BasePage {
                 flowStartButtons.get(i).click();
             }
         }
-        BrowserUtils.waitForVisibility(formTypeSelect,5);
+        BrowserUtils.waitForVisibility(formTypeSelect,60);
     }
 
 }

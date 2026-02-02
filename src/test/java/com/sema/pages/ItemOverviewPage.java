@@ -20,6 +20,9 @@ public class ItemOverviewPage extends BasePage {
     @FindBy(xpath = "//li[contains(@class,'is-selected')]/div[2]")
     private List<WebElement> selectedExportOptions;
 
+    @FindBy(xpath = "//div/div/div[3]/div[2]/div/div[2]")
+    List<WebElement> createItemFamilies;
+
     public void goToItemOverviewPage(String item) {
         driver.get(ConfigurationReader.getProperty("itemLinkWithoutItemName") + item);
     }
