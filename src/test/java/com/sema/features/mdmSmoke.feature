@@ -148,9 +148,7 @@ Feature: MDM Smoke
     And The user clicks "Yorumlar" tab
 
   Scenario:Asset edit - ACCOUNT_COOLER Tab Associated
-    Given The user go to 'Event' overview page
-    And The user enters "Etkinlik-3568666" into "Fletum Kod" filter text input box
-    And The user clicks on Edit Button
+    Given The user go to edit item '3584197'
     And The user clicks "Dijital İçerik" tab
 #    And The user Assocaited All filter
     And The user select "Hayır" in "IsAssociated" select filter
@@ -306,7 +304,7 @@ Feature: MDM Smoke
     When The user take screenshot
 
   Scenario: Comment Meeting Notes
-    Given The user go to edit item '3581424'
+    Given The user go to edit item '3584197'
     And The user clicks "Yorumlar" tab
     When The user click add comment button
     When The user select comment type 'Toplantı Notu'
@@ -319,7 +317,7 @@ Feature: MDM Smoke
 
 
   Scenario: Chat Scenarios
-    Given The user go to edit item '3581424'
+    Given The user go to edit item '3584197'
     When The user mention '@kgu' in chat
     Given The user login with "kgu"
     Then The user verify notification

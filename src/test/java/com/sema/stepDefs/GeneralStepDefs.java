@@ -102,6 +102,7 @@ public class GeneralStepDefs extends BaseStep {
     @Given("The user go to DB module page")
     public void theUserGoToDBModulePage() {
         Driver.getDriver().get("https://diageo.efectura.com/Settings/DBModuleMonitor");
+        BrowserUtils.wait(2);
     }
 
     @Given("The user go to Jobs page")
@@ -425,7 +426,7 @@ public class GeneralStepDefs extends BaseStep {
 
     @When("The user search in global input")
     public void theUserSearchInGlobalInput() {
-        Driver.getDriver().findElement(By.xpath("//input[@id='globalSearchInput']")).sendKeys();
+        Driver.getDriver().findElement(By.xpath("//input[@id='globalSearchInput']")).sendKeys("test");
     }
 
     @When("The user click {string} button")

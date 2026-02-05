@@ -19,6 +19,8 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.sema.utilities.CommonExcelReader.getExcelPath;
+
 @Getter
 public class ModulFlows extends BasePage {
 
@@ -240,7 +242,7 @@ public class ModulFlows extends BasePage {
             BrowserUtils.selectDropdownOptionByVisibleText(docTypeSelect,docTypes.get(i));
             docDateInput.click();
             todayDate.click();
-            fileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DIAGEO-PROD\\src\\test\\java\\com\\sema\\pages\\BPM\\ModulFlows.java");
+            fileInput.sendKeys(getExcelPath("Attribute"));
             BrowserUtils.wait(2);
 
             WebElement file = driver.findElement(By.xpath("//td[contains(text(),'" + docTypes.get(i) +"')]"));
@@ -342,7 +344,7 @@ public class ModulFlows extends BasePage {
             BrowserUtils.selectDropdownOptionByVisibleText(vendorDocTypeSelect, docType);
             vendorDocDateInput.click();
             vendorTodayDate.click();
-            vendorFileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DIAGEO-PROD\\src\\test\\java\\com\\sema\\pages\\BPM\\ModulFlows.java");
+            vendorFileInput.sendKeys(getExcelPath("Attribute"));
 //            BrowserUtils.wait(2);
 
             WebElement file = driver.findElement(By.xpath("//td[contains(text(),'" + docType +"')]"));
@@ -378,14 +380,14 @@ public class ModulFlows extends BasePage {
         invoiceNoInput.sendKeys("555");
         vendorDocDateInput.click();
         vendorTodayDate.click();
-        vendorFileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DIAGEO-PROD\\src\\test\\java\\com\\sema\\pages\\BPM\\ModulFlows.java");
+        vendorFileInput.sendKeys(getExcelPath("Attribute"));
         BrowserUtils.wait(2);
         BrowserUtils.waitForVisibility(vendorInvoiceUploadInfo,60);
 
         BrowserUtils.selectDropdownOptionByVisibleText(vendorDocTypeSelect, "Montaj Görseli");
         vendorDocDateInput.click();
         vendorTodayDate.click();
-        vendorFileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DIAGEO-PROD\\src\\test\\java\\com\\sema\\pages\\BPM\\ModulFlows.java");
+        vendorFileInput.sendKeys(getExcelPath("Attribute"));
         BrowserUtils.wait(2);
 
         BrowserUtils.waitForVisibility(montajImageUploadInfo,60);
@@ -523,7 +525,7 @@ public class ModulFlows extends BasePage {
             modulBudgetDocDateInput.click();
             BrowserUtils.wait(1);
             modulBudgetDocTodayDate.click();
-            modulBudgetFileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DIAGEO-PROD\\src\\test\\java\\com\\sema\\pages\\BPM\\ModulFlows.java");
+            modulBudgetFileInput.sendKeys(getExcelPath("Attribute"));
 //            BrowserUtils.wait(1);
             WebElement file = driver.findElement(By.xpath("//td[contains(text(),'" + docTypes.get(i) +"')]"));
             BrowserUtils.waitForVisibility(file,30);
@@ -558,7 +560,7 @@ public class ModulFlows extends BasePage {
                 invoiceNoInput.sendKeys("6767");
             }
 
-            modulBudgetFileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DIAGEO-PROD\\src\\test\\java\\com\\sema\\pages\\BPM\\ModulFlows.java");
+            modulBudgetFileInput.sendKeys(getExcelPath("Attribute"));
             BrowserUtils.wait(2);
 
         }
@@ -782,7 +784,7 @@ public class ModulFlows extends BasePage {
         BrowserUtils.selectDropdownOptionByVisibleText(vendorDocTypeSelect, "Teslimat Kanıt Belgeleri");
         vendorDocDateInput.click();
         vendorTodayDate.click();
-        vendorFileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DiaPreprodTestAutomation\\src\\test\\java\\com\\efectura\\pages\\BPM\\ModulFlows.java");
+        vendorFileInput.sendKeys(getExcelPath("Attribute"));
 //            BrowserUtils.wait(2);
 
         WebElement file = driver.findElement(By.xpath("//td[contains(text(),'" + "Teslimat Kanıt Belgeleri" +"')]"));
@@ -863,7 +865,7 @@ public class ModulFlows extends BasePage {
         BrowserUtils.selectDropdownOptionByVisibleText(vendorDocTypeSelect, "Tedarikçi Faturası");
         vendorDocDateInput.click();
         vendorTodayDate.click();
-        vendorFileInput.sendKeys("C:\\Users\\fkara\\Desktop\\workspace\\DiaPreprodTestAutomation\\src\\test\\java\\com\\efectura\\pages\\BPM\\ModulFlows.java");
+        vendorFileInput.sendKeys(getExcelPath("Attribute"));
 //            BrowserUtils.wait(2);
 
         WebElement file = driver.findElement(By.xpath("//td[contains(text(),'" + "Tedarikçi Faturası" +"')]"));
