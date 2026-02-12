@@ -156,4 +156,23 @@ public class ItemOverviewStepDefs extends BaseStep {
 //        driver.findElement(By.xpath("//button[@id='last-step-preview']")).click();
         driver.findElement(By.xpath("//button[@id='create-segment']")).click();
     }
+
+    @When("The user click event calendar tab")
+    public void theUserClickEventCalendarTab() {
+        driver.findElement(By.xpath("//a[@id='event-calendar-tab']")).click();
+        BrowserUtils.wait(3);
+    }
+
+    @When("The user take screenshot for event calendar")
+    public void theUserTakeScreenshotForEventCalendar() {
+        BrowserUtils.adjustScreenSize(80, Driver.getDriver());
+        BrowserUtils.wait(25);
+
+        String testChatId = "-1002156506449";
+
+        String path = BrowserUtils.getScreenshot("Event - Calendar");
+        System.out.println("Path: " + path);
+
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+    }
 }

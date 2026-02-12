@@ -333,6 +333,11 @@ Feature: MDM Smoke
     Given The user go to calender page
     Then The user verify calendar
 
+  Scenario: Event Calender Scenario
+    Given The user go to 'Event' overview page
+    When The user click event calendar tab
+    When The user take screenshot for event calendar
+
   Scenario: Event-File Assoc
     Given The user go to 'Event' overview page
     When The User clicks on the createButton element
