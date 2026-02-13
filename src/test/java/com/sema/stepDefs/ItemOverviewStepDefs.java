@@ -175,4 +175,18 @@ public class ItemOverviewStepDefs extends BaseStep {
 
         BrowserUtils.sendFileToTelegram(path,testChatId);
     }
+
+    String itemId;
+    @When("The user verify created event edit page is open")
+    public void theUserVerifyCreatedEventEditPageIsOpen() {
+        BrowserUtils.wait(10);
+        String url = Driver.getDriver().getCurrentUrl();
+        Assert.assertTrue(url.contains("https://diageo.efectura.com/Enrich/EditItem/"));
+        itemId = url.replace("https://diageo.efectura.com/Enrich/EditItem/", "");
+    }
+
+    @Then("The user tear down the created item")
+    public void theUserTearDownTheCreatedItem() {
+        pages.dbProcess().deleteCreatedItem(itemId);
+    }
 }

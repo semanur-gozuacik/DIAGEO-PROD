@@ -338,9 +338,6 @@ Feature: MDM Smoke
     When The user click event calendar tab
     When The user take screenshot for event calendar
 
-  Scenario: Event-File Assoc
-    Given The user go to 'Event' overview page
-    When The User clicks on the createButton element
 
   Scenario: MY 360 Redirection
     When The user go to MY360 page
@@ -420,8 +417,8 @@ Feature: MDM Smoke
     When The user fill event create attributes
     When The user select category for create
     When The user complete create
-#    Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
     When The user verify created event edit page is open
+    Then The user tear down the created item
 
   Scenario: Event - File Assoc
     Given The user go to 'Event' overview page
@@ -430,12 +427,18 @@ Feature: MDM Smoke
     When The user fill event create attributes
     When The user select category for create
     When The user complete create
-    Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
+    When The user verify created event edit page is open
+    Then The user tear down the created item
 
-
-
-
-
+  Scenario: Account Role Control
+    Given The user impersonate ege cevre user
+    Given The user go to 'Account' overview page
+    When The user click "*Müşteri Bölge 2" select header
+    When The user wait 20 seconds
+    Then The user verify "*Müşteri Bölge 2" select filter with value "Ege Çevre" in "items"
+    When The user click "*Müşteri Bölge 2" select header
+    When The user wait 20 seconds
+    Then The user verify "*Müşteri Bölge 2" select filter with value "Ege Çevre" in "items"
 
 
 

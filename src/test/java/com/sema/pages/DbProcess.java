@@ -6,10 +6,7 @@ import com.sema.utilities.Database;
 import com.sema.utilities.DatabaseManager;
 import com.sema.utilities.DbConfigs;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -759,4 +756,48 @@ public class DbProcess extends BasePage {
         return body.contains(uniqueMailBody);
 
     }
+
+    public void deleteCreatedItem(String itemId) {
+
+        String query1 = "DELETE FROM Associations WHERE FirstItemId = ?";
+        String query2 = "DELETE FROM ItemValues WHERE ItemId = ?";
+        String query3 = "DELETE FROM Items WHERE Id = ?";
+
+        try (Connection conn = Database.getInstance()) {
+
+            conn.setAutoCommit(false); // transaction başlat
+
+            try (
+                    PreparedStatement ps1 = conn.prepareStatement(query1);
+                    PreparedStatement ps2 = conn.prepareStatement(query2);
+                    PreparedStatement ps3 = conn.prepareStatement(query3)
+            ) {
+                // 1️⃣ Associations sil
+                ps1.setString(1, itemId);
+                int affected1 = ps1.executeUpdate();
+                System.out.println("Associations silinen: " + affected1);
+
+                // 2️⃣ ItemValues sil
+                ps2.setString(1, itemId);
+                int affected2 = ps2.executeUpdate();
+                System.out.println("ItemValues silinen: " + affected2);
+
+                // 3️⃣ Items sil (en son parent)
+                ps3.setString(1, itemId);
+                int affected3 = ps3.executeUpdate();
+                System.out.println("Items silinen: " + affected3);
+
+                conn.commit(); // hepsi başarılıysa kaydet
+
+            } catch (SQLException e) {
+                conn.rollback(); // biri fail olursa geri al
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

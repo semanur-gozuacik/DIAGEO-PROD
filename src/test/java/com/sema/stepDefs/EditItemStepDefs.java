@@ -241,10 +241,4 @@ public class EditItemStepDefs extends BaseStep {
         BrowserUtils.wait(49);
     }
 
-    @When("The user verify created event edit page is open")
-    public void theUserVerifyCreatedEventEditPageIsOpen() {
-        BrowserUtils.wait(10);
-        String url = Driver.getDriver().getCurrentUrl();
-        Assert.assertTrue(url.contains("https://diageo.efectura.com/Enrich/EditItem/"));
-    }
 }

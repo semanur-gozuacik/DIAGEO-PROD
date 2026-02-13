@@ -579,4 +579,39 @@ public class GeneralStepDefs extends BaseStep {
         Driver.getDriver().switchTo().parentFrame(); // içten dışa
         Driver.getDriver().switchTo().defaultContent();
     }
+
+    @Given("The user impersonate ege cevre user")
+    public void theUserImpersonateEgeCevreUser() {
+        Driver.getDriver().get("https://diageo.efectura.com/UserManage/Edit/ffe74e63-6921-4e87-9ab1-284ccccd45d0");
+        BrowserUtils.waitForVisibility(pages.generalPage().impersonateHoverBtn, 30);
+        BrowserUtils.hoverOver(pages.generalPage().impersonateHoverBtn);
+        pages.generalPage().impersonateButton.click();
+        BrowserUtils.wait(3);
+    }
+
+    @Then("The user verify {string} select filter with value {string} in {string}")
+    public void theUserVerifySelectFilterWithValue(String columnName, String expectedValue, String table) {
+        BrowserUtils.wait(2);
+        WebElement tableElement = Driver.getDriver().findElement(By.id(table));
+        List<String> values =  BasePage.getColumnData(tableElement,columnName);
+
+        System.out.println(values);
+        BrowserUtils.wait(7);
+        for (String actualValue : values) {
+            Assert.assertEquals(expectedValue,actualValue);
+        }
+    }
+
+    @When("The user click {string} select header")
+    public void theUserClickSelectHeader(String headerName) {
+        List<WebElement> headers = driver.findElements(By.xpath("//table[@id='items']/thead/tr/th[contains(@class,'sorting')]"));
+        WebElement headerToClick = headers.stream()
+                .filter(h -> h.getText().trim().equalsIgnoreCase(headerName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Header not found: " + headerName));
+
+        headerToClick.click();
+
+
+    }
 }
