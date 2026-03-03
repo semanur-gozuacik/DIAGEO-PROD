@@ -440,5 +440,11 @@ Feature: MDM Smoke
     When The user wait 20 seconds
     Then The user verify "*Müşteri Bölge 2" select filter with value "Ege Çevre" in "items"
 
+  Scenario: Edit Item Attribute Navigation
+    When The user go to edit item '3592142'
+    When The user clicks "Ürün Grubu" attribute group
+    When The user click 'Ürün Adı' attribute header
+    Then The user verifies 'Ürün Adı' attribute edit page is open
+
 
 

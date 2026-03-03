@@ -8,11 +8,13 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.UUID;
 
 public class EditItemStepDefs extends BaseStep {
+    WebDriver driver = Driver.getDriver();
 
     @And("The user select item at order {int} in association tab")
     public void theUserSelectItemAtOrderInAssociationTab(int assocCheckboxOrder) {
@@ -239,6 +241,28 @@ public class EditItemStepDefs extends BaseStep {
         BrowserUtils.adjustScreenSize(60,Driver.getDriver());
         pages.editItemPage().getNbaAiAssistanceButton().click();
         BrowserUtils.wait(49);
+    }
+
+    @When("The user clicks {string} attribute group")
+    public void theUserClicksAttributeGroup(String attrGroup) {
+        BrowserUtils.adjustScreenSize(55,Driver.getDriver());
+        pages.editItemPage().clickAttributeGroup(attrGroup);
+    }
+
+    @When("The user click {string} attribute header")
+    public void theUserClickAttributeHeader(String attributeHeader) {
+        driver.findElement(By.xpath("//a[contains(text(),'" + attributeHeader + "')]")).click();
+        BrowserUtils.wait(2);
+        BrowserUtils.switchToTabByTitleAndCloseOld("DIA: Özellik Düzenle");
+    }
+
+    @Then("The user verifies {string} attribute edit page is open")
+    public void theUserVerifiesAttributeEditPageIsOpen(String attributeName) {
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("https://diageo.efectura.com/Settings/EditAttribute/4542"));
+        Assert.assertTrue(currentUrl.contains("4542"));
+        WebElement pageInfo = driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/nav/a[4]"));
+        Assert.assertTrue(pageInfo.getText().contains(attributeName));
     }
 
 }

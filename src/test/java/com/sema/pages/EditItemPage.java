@@ -2,8 +2,11 @@ package com.sema.pages;
 
 import com.sema.utilities.BrowserUtils;
 import com.sema.utilities.Database;
+import com.sema.utilities.Driver;
 import com.sema.utilities.Pages;
 import lombok.Getter;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -91,6 +94,9 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//a[@id='_calendar-tab']")
     private WebElement calendarTab;
 
+    @FindBy(xpath = "//a[contains(@class,'s_localizable')]")
+    private List<WebElement> attributeGroups;
+
 
     int itemIdToBeAssociated;
     public void selectItemAtOrderInAssociationTab(int assocCheckboxOrder) {
@@ -159,4 +165,22 @@ public class EditItemPage extends BasePage {
     public void unassociate(Pages pages) {
         pages.generalPage().useTextFilter(itemIdToBeAssociated + "","Öğe Kimliği");
     }
+
+    public void clickAttributeGroup(String attrGroup) {
+        BrowserUtils.wait(7);
+        for (WebElement attributeGroup : attributeGroups) {
+            if (attributeGroup.getText().contains(attrGroup)) {
+                attributeGroup.click();
+                BrowserUtils.wait(2);
+            }
+        }
+    }
+
+    public void updateAttribute(String attrLabel, String value) {
+        WebElement attrInput = Driver.getDriver().
+                findElement(By.xpath("//header[contains(.,'" + attrLabel + "')]/following-sibling::div/input"));
+        attrInput.sendKeys(Keys.CONTROL + "A");
+        attrInput.sendKeys(value);
+    }
+
 }
