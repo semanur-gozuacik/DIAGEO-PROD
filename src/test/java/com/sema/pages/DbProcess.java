@@ -800,4 +800,78 @@ public class DbProcess extends BasePage {
     }
 
 
+    public List<String> getActiveDistIdList() {
+        String query = "select DISTINCT\n" +
+                "  i.Id\n" +
+                "from\n" +
+                "  DEV_MDM.dbo.Items i\n" +
+                "JOIN DEV_MDM.dbo.ItemValues iv ON iv.ItemId = i.Id \n" +
+                "    AND iv.AttributeId = (SELECT Id FROM DEV_MDM.dbo.Attributes WHERE Code = 'DIA_DIST_STATUS' )\n" +
+                "JOIN DEV_MDM.dbo.ItemValues iv2 ON iv2.ItemId = i.Id \n" +
+                "    AND iv2.AttributeId = (SELECT Id FROM DEV_MDM.dbo.Attributes WHERE Code = 'DIA_DIST_REFERANCE' )\n" +
+                "WHERE\n" +
+                "  i.[Type] = 67 AND iv.ValueDecimal = 1 AND iv2.ValueString NOT LIKE '%TEST%'";
+
+        List<String> distIds = new ArrayList<>();
+
+        try (Connection conn = Database.getInstance();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                distIds.add(rs.getInt("Id") + "");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("distIds: " + distIds);
+        return distIds;
+    }
+
+    public String getUserIdOfRelatedMrp(String activeDistCode) {
+        String query = "SELECT UserId FROM Items\n" +
+                "  WHERE Id = (\n" +
+                "  SELECT TOP 1 FirstItemId FROM Associations\n" +
+                "  WHERE AssociationTypeId  = 293 And SecondItemId = " + activeDistCode + "\n" +
+                "  )";
+
+        String userId = null;
+
+        try (Connection conn = Database.getInstance();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                userId = rs.getString("UserId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userId;
+
+    }
+
+    public String getUserForSalesCocpit() {
+        String query = "select DISTINCT FM from my_database.EstSalesAndCurrStocksFM esacsf\n" +
+                "WHERE DISTRIBUTOR_KOD IN (select * from my_database.ActiveDistributors)\n" +
+                "AND (FM Not Like '%Yönetici%' AND FM Not like '%Reserve%' AND FM Not Like '%Şef%')\n" +
+                "ORDER BY FM DESC";
+
+
+        String user = null;
+
+        try (Connection conn = DatabaseManager.getConnection(DbConfigs.DIA_CLICKHOUSE, DbConfigs.DIA_CLICKHOUSE_USERNAME, DbConfigs.DB_PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                user = rs.getString("FM");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

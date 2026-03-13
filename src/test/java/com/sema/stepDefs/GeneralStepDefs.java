@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -376,6 +377,10 @@ public class GeneralStepDefs extends BaseStep {
 
     @When("The user verify {string}")
     public void theUserVerifyNoData(String text) {
+        BrowserUtils.wait(30);
+
+        System.out.println(driver.findElement(By.xpath("//a[contains(.,'Günlük İç Hedef')]")).getText());
+
         List<WebElement> noDataElements = Driver.getDriver().
                 findElements(By.xpath("//*[contains(normalize-space(.), '" + text + "')]"));
 
@@ -613,5 +618,71 @@ public class GeneralStepDefs extends BaseStep {
         headerToClick.click();
 
 
+    }
+
+    List<String> activeDistributorIds = new ArrayList<>();
+    @Given("The user get active distributor list")
+    public void theUserGetActiveDistributorList() {
+        activeDistributorIds = pages.dbProcess().getActiveDistIdList();
+    }
+
+    String userId;
+    @Given("The user get related mrp")
+    public void theUserGetRelatedMrp() {
+        // activeDistributorIds içinden rasgele birini al
+        String activeDistCode = activeDistributorIds.get((int)(Math.random() * activeDistributorIds.size()));
+        userId = pages.dbProcess().getUserIdOfRelatedMrp(activeDistCode);
+    }
+
+
+    @When("The user impersonate related mrp")
+    public void theUserImpersonateRelatedMrp() {
+        Driver.getDriver().get("https://diageo.efectura.com/UserManage/Edit/" + userId);
+        BrowserUtils.waitForVisibility(pages.generalPage().impersonateHoverBtn, 30);
+        BrowserUtils.hoverOver(pages.generalPage().impersonateHoverBtn);
+        pages.generalPage().impersonateButton.click();
+        BrowserUtils.wait(3);
+    }
+
+    @When("The user go to sales cocpit")
+    public void theUserGoToSalesCocpit() {
+        driver.get("https://diageo.efectura.com/Enrich/SalesDashboards");
+        BrowserUtils.wait(10);
+        driver.findElement(By.xpath("//a[contains(text(),'Stok')]")).click();
+        BrowserUtils.wait(10);
+
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"dashboardStock-iframe\"]")));
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
+    }
+
+    String fullNameForSalesCocpit;
+    @Given("The user get user for sales cocpit")
+    public void theUserGetUserForSalesCocpit() {
+        fullNameForSalesCocpit = pages.dbProcess().getUserForSalesCocpit();
+    }
+
+    @Given("The user go in user for sales cocpit")
+    public void theUserGoInUserForSalesCocpit() {
+        String[] nameParts = fullNameForSalesCocpit.split(" ");
+        pages.generalPage().useTextFilter(nameParts[0],"Adı");
+        pages.generalPage().useTextFilter(nameParts[nameParts.length - 1],"Soyadı");
+        BrowserUtils.wait(7);
+        driver.findElement(By.xpath("//td[contains(.,'SALES&FIELD1 , SALESFLOW')]")).click();
+    }
+
+    @Given("The user impersonate the user")
+    public void theUserImpersonateTheUser() {
+        BrowserUtils.waitForVisibility(pages.generalPage().impersonateHoverBtn, 30);
+        BrowserUtils.hoverOver(pages.generalPage().impersonateHoverBtn);
+        pages.generalPage().impersonateButton.click();
+        BrowserUtils.wait(3);
+    }
+
+    @When("The user go to target cocpit")
+    public void theUserGoToTargetCocpit() {
+        driver.get("https://diageo.efectura.com/Enrich/TargetCockpit");
+        BrowserUtils.wait(10);
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"dashboardSm-iframe\"]")));
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
     }
 }

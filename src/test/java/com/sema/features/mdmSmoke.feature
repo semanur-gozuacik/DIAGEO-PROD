@@ -250,7 +250,7 @@ Feature: MDM Smoke
 # --------------------------------------------------------------------------------
   Scenario:  Görev Listesi - Verify "Search All" Button Control
     When The user go to task list
-    When The user enters 'Haktan Kaçar' into search all
+    When The user enters 'Alper Şahin' into search all
     Then The user verify "Oluşturan" text filter with value "Haktan Kaçar" in "taskListTable"
 
   Scenario:  Görev Listesi - Form Redirect Control
@@ -445,6 +445,25 @@ Feature: MDM Smoke
     When The user clicks "Ürün Grubu" attribute group
     When The user click 'Ürün Adı' attribute header
     Then The user verifies 'Ürün Adı' attribute edit page is open
+
+  Scenario: Sales Cocpit Control
+    Given The user get user for sales cocpit
+    Given The user go to User Manage page
+    Given The user go in user for sales cocpit
+    Given The user impersonate the user
+#    Given The user get active distributor list
+#    Given The user get related mrp
+#    When The user impersonate related mrp
+    When The user go to sales cocpit
+    When The user verify 'No Data'
+    When The user verify 'No result'
+#    Then The user verify sales cocpit is open
+
+  Scenario: TargetCockpit
+    When The user go to target cocpit
+    When The user verify 'No Data'
+    When The user verify 'No result'
+
 
 
 
