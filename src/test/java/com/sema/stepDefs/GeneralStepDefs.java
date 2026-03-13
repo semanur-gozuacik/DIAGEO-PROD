@@ -377,14 +377,14 @@ public class GeneralStepDefs extends BaseStep {
 
     @When("The user verify {string}")
     public void theUserVerifyNoData(String text) {
-        BrowserUtils.wait(30);
+        BrowserUtils.wait(20);
 
-        System.out.println(driver.findElement(By.xpath("//a[contains(.,'Günlük İç Hedef')]")).getText());
+//        System.out.println(driver.findElement(By.xpath("//a[contains(.,'Toplam Stand Akışı Sayısı')]")).getText());
 
         List<WebElement> noDataElements = Driver.getDriver().
                 findElements(By.xpath("//*[contains(normalize-space(.), '" + text + "')]"));
 
-        Assert.assertEquals("No Data Yazan Element Mevcut!", 0, noDataElements.size());
+        Assert.assertEquals(text + " Yazan Element Mevcut!", 0, noDataElements.size());
 
     }
 
@@ -684,5 +684,53 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.wait(10);
         driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"dashboardSm-iframe\"]")));
         driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
+    }
+
+    @When("The user go to reserve karne analysis")
+    public void theUserGoToReserveKarneAnalysis() {
+        driver.get("https://diageo.efectura.com/Enrich/ReserveKarneAnalysis");
+        BrowserUtils.wait(10);
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"renderBodyWrap\"]/div/div/iframe")));
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
+    }
+
+    @When("The user click tablo tab")
+    public void theUserClickTabloTab() {
+        driver.findElement(By.xpath("//div/div/span/span[contains(.,'Tablo')]")).click();
+        BrowserUtils.wait(10);
+    }
+
+    @When("The user click mail tab")
+    public void theUserClickMailTab() {
+        driver.findElement(By.xpath("//div/div/span/span[contains(.,'Mail')]")).click();
+        BrowserUtils.wait(10);
+    }
+
+    @When("The user go to process module dashboard")
+    public void theUserGoToProcessModuleDashboard() {
+        driver.get("https://diageo.efectura.com/Enrich/ProcessModuleDashboard");
+        BrowserUtils.wait(10);
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"process-module-dashboard\"]")));
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
+    }
+
+    @When("The user click Detay Tablo")
+    public void theUserClickDetayTablo() {
+        driver.findElement(By.xpath("//div/div/span/span[contains(.,'Detay Tablo')]")).click();
+        BrowserUtils.wait(10);
+    }
+
+    @When("The user go to menu stand flow dashboard")
+    public void theUserGoToMenuStandFlowDashboard() {
+        driver.get("https://diageo.efectura.com/Enrich/StandFlowDashboard");
+        BrowserUtils.wait(10);
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"stand-flow-dashboard\"]")));
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
+    }
+
+    @When("The user click {string} dashboard tab")
+    public void theUserClickStandDashboardTab(String tabName) {
+        driver.findElement(By.xpath("//div/div/span/span[contains(.,'" + tabName + "')]")).click();
+        BrowserUtils.wait(10);
     }
 }

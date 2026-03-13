@@ -451,16 +451,39 @@ Feature: MDM Smoke
     Given The user go to User Manage page
     Given The user go in user for sales cocpit
     Given The user impersonate the user
-#    Given The user get active distributor list
-#    Given The user get related mrp
-#    When The user impersonate related mrp
     When The user go to sales cocpit
     When The user verify 'No Data'
     When The user verify 'No result'
-#    Then The user verify sales cocpit is open
 
   Scenario: TargetCockpit
     When The user go to target cocpit
+    When The user verify 'No Data'
+    When The user verify 'No result'
+
+  Scenario: ReserveKarneAnalysis
+    When The user go to reserve karne analysis
+    When The user verify 'No Data'
+    When The user verify 'No result'
+    When The user click tablo tab
+    When The user verify 'No Data'
+    When The user verify 'No result'
+    When The user click mail tab
+    When The user verify 'No Data'
+    When The user verify 'No result'
+
+  Scenario: ProcessModuleDashboard
+    When The user go to process module dashboard
+    When The user verify 'No Data'
+    When The user verify 'No result'
+    When The user click Detay Tablo
+    When The user verify 'No Data'
+    When The user verify 'No result'
+
+  Scenario: MenuStandFlowDashboard
+    When The user go to menu stand flow dashboard
+    When The user verify 'No Data'
+    When The user verify 'No result'
+    When The user click 'Stand' dashboard tab
     When The user verify 'No Data'
     When The user verify 'No result'
 
