@@ -189,4 +189,52 @@ public class ItemOverviewStepDefs extends BaseStep {
     public void theUserTearDownTheCreatedItem() {
         pages.dbProcess().deleteCreatedItem(itemId);
     }
+
+    @When("The user select category for create {string}")
+    public void theUserSelectCategoryForCreateOnTrade(String category) {
+        //driver.findElement(By.xpath("//a[@id='_fast-categories']")).click();
+        BrowserUtils.adjustScreenSize(70,driver);
+        BrowserUtils.wait(3);
+        BrowserUtils.moveToElement(driver.findElement(By.xpath("//div[@class='category-tree']//div[contains(text(),'" + category + "')]/preceding-sibling::div[1]")));
+
+        System.out.println("//div[@class='category-tree']//div[contains(text(),'" + category + "')]/preceding-sibling::div[1]");
+        driver.findElement(By.xpath("//div[@class='category-tree']//div[contains(text(),'" + category + "')]/preceding-sibling::div[1]")).click();
+
+        driver.findElement(By.xpath("//button[@id='next-step-btn']")).click();
+    }
+
+    @When("The user complete create for agency budget")
+    public void theUserCompleteCreateForAgencyBudget() {
+        BrowserUtils.wait(1);
+        driver.findElement(By.xpath("//button[@id='next-step-segment-build']")).click();
+        BrowserUtils.wait(3);
+        driver.findElement(By.xpath("//input[@data-attribute-code='Ajans_Etkinlik_Butcesi']")).sendKeys("1");
+
+        driver.findElement(By.xpath("//input[@id='ib-99999']")).sendKeys(getExcelPath("Attribute"));
+        driver.findElement(By.xpath("//input[@id='ib-99998']")).sendKeys(getExcelPath("Attribute"));
+
+        BrowserUtils.moveToElement(driver.findElement(By.xpath("//button[@id='next-step-segment-budget']")));
+        driver.findElement(By.xpath("//button[@id='next-step-segment-budget']")).click();
+        BrowserUtils.wait(4);
+
+//        driver.findElement(By.xpath("//button[@id='last-step-preview']")).click();
+//        BrowserUtils.wait(2);
+        driver.findElement(By.xpath("//button[@id='create-segment']")).click();
+
+    }
+
+    int agencyGerceklesenBudgetBeforeFlow;
+    @Given("The user get agency budgets before flow")
+    public void theUserGetAgencyBudgetsBeforeFlow() {
+        agencyGerceklesenBudgetBeforeFlow = pages.dbProcess().getAgencyBudgetBeforeFlow();
+        System.out.println("önce: " + agencyGerceklesenBudgetBeforeFlow);
+    }
+
+    int agencyGerceklesenBudgetAfterFlow;
+    @Then("The user verify budget")
+    public void theUserVerifyBudget() {
+        agencyGerceklesenBudgetAfterFlow = pages.dbProcess().getAgencyBudgetBeforeFlow();
+        System.out.println("sonra: " + agencyGerceklesenBudgetAfterFlow);
+        Assert.assertEquals(agencyGerceklesenBudgetBeforeFlow + 1, agencyGerceklesenBudgetAfterFlow);
+    }
 }

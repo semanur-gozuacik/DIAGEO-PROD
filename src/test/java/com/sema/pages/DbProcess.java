@@ -874,4 +874,31 @@ public class DbProcess extends BasePage {
         }
         return user;
     }
+
+    public int getAgencyBudgetBeforeFlow() {
+        String query = "SELECT \n" +
+                "        Code,\n" +
+                "        TRY_CAST(\n" +
+                "            TRIM(REPLACE(dbo.DecryptText(Value), '\"', '')) \n" +
+                "        AS DECIMAL(18, 2)) AS NumericValue\n" +
+                "    FROM DEV_MDM.dbo.Settings\n" +
+                "    WHERE Code IN (\n" +
+                "        'AJANS_GERCEKLESEN_BUTCE_CALCULATED'\n" +
+                "    )";
+
+        int gerceklesen = 0;
+
+        try (Connection conn = DatabaseManager.getConnection(DbConfigs.DIA_SQLSERVER, DbConfigs.DIA_SQLSERVER_USERNAME, DbConfigs.DB_PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                gerceklesen = rs.getInt("NumericValue");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gerceklesen;
+
+    }
 }

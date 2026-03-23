@@ -487,6 +487,17 @@ Feature: MDM Smoke
     When The user verify 'No Data'
     When The user verify 'No result'
 
+  Scenario: Agency Budget
+    Given The user get agency budgets before flow
+    Given The user go to 'Event' overview page
+    When The User clicks on the createButton element
+    When The user select create item family 'WALKERS'
+    When The user fill event create attributes
+    When The user select category for create 'On-Trade'
+    When The user complete create for agency budget
+    When The user verify created event edit page is open
+    Then The user verify budget
+
 
 
 
