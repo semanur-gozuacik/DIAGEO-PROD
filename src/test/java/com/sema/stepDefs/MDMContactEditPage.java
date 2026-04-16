@@ -1,8 +1,10 @@
 package com.sema.stepDefs;
 
+import com.sema.utilities.BrowserUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
 
 public class MDMContactEditPage extends BaseStep{
     public MDMContactEditPage() {
@@ -23,6 +25,14 @@ public class MDMContactEditPage extends BaseStep{
     @When("The user enters {string} in comment area")
     public void the_user_enters_in_comment_area(String comment) {
         pages.contactEditPage().uploadCommentArea(comment);
+
+        //        pages.contactEditPage().setChangeCommentArea(comment);
+        BrowserUtils.wait(2);
+//        BrowserUtils.waitForVisibility(pages.generalPage().getChangeSaveCommentTextArea(),15);
+        if (BrowserUtils.isElementDisplayed(By.xpath("//textarea[@id='comment']"))) {
+            pages.generalPage().getChangeSaveCommentTextArea().sendKeys(comment);
+        }
+
     }
     @When("The user clicks upload photo cancel button")
     public void the_user_clicks_upload_photo_cancel_button() {

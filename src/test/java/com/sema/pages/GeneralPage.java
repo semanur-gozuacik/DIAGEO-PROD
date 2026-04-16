@@ -47,7 +47,7 @@ public class GeneralPage extends BasePage {
     @FindBy(xpath = "//a[@id='impersonate-fletum']")
     public WebElement impersonateButton;
 
-    @FindBy(xpath = "/html/body/div[2]/nav/div/div[3]/form/ul/li[2]/a")
+    @FindBy(xpath = "//a[@id='announcementLogo']")
     private WebElement notificationIcon;
 
     @FindBy(xpath = "//div[contains(@id,'notification')]/div/div/div/p")
@@ -55,6 +55,9 @@ public class GeneralPage extends BasePage {
 
     @FindBy(xpath = "//a[contains(@href,'/Enrich/EditItem/')]")
     private List<WebElement> mentionLinks;
+
+    @FindBy(xpath = "//textarea[@id='comment']")
+    private WebElement changeSaveCommentTextArea;
 
 
 

@@ -25,7 +25,7 @@ public class EditItemPage extends BasePage {
     @FindBy(id = "association-table")
     private WebElement associationTable;
 
-    @FindBy(xpath = "//div[@id='saveChangeButton']")
+    @FindBy(xpath = "//button[@id='saveChangeButton']")
     private WebElement saveButton;
 
     @FindBy(xpath = "//button[contains(@id,'floatingSaveButton')]")

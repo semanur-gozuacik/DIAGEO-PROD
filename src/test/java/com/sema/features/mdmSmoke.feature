@@ -148,14 +148,14 @@ Feature: MDM Smoke
     And The user clicks "Yorumlar" tab
 
   Scenario:Asset edit - ACCOUNT_COOLER Tab Associated
-    Given The user go to edit item '3584197'
+    Given The user go to edit item '3636625'
     And The user clicks "Dijital İçerik" tab
 #    And The user Assocaited All filter
     And The user select "Hayır" in "IsAssociated" select filter
 #    And The user clicks item
     And The user select item at order 1 in association tab
     And The user clicks save button in edit item
-    And The user enters "-------" in comment area
+    And The user enters "update by automation" in comment area
     And The user clicks save button in edit item save modal
     Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
     And the user unassociate the item
@@ -251,7 +251,7 @@ Feature: MDM Smoke
   Scenario:  Görev Listesi - Verify "Search All" Button Control
     When The user go to task list
     When The user enters 'Alper Şahin' into search all
-    Then The user verify "Oluşturan" text filter with value "Haktan Kaçar" in "taskListTable"
+    Then The user verify "Oluşturan" text filter with value "Alper Şahin" in "taskListTable"
 
   Scenario:  Görev Listesi - Form Redirect Control
     When The user go to task list
@@ -304,7 +304,7 @@ Feature: MDM Smoke
     When The user take screenshot
 
   Scenario: Comment Meeting Notes
-    Given The user go to edit item '3584197'
+    Given The user go to edit item '1958781'
     And The user clicks "Yorumlar" tab
     When The user click add comment button
     When The user select comment type 'Toplantı Notu'
@@ -317,7 +317,7 @@ Feature: MDM Smoke
 
 
   Scenario: Chat Scenarios
-    Given The user go to edit item '3584197'
+    Given The user go to edit item '3636625'
     When The user mention '@kgu' in chat
     Given The user login with "kgu"
     Then The user verify notification
@@ -341,7 +341,7 @@ Feature: MDM Smoke
 
   Scenario: MY 360 Redirection
     When The user go to MY360 page
-    When The user select customer 'AKIN BÜFE -- 965005'
+    When The user select customer 'ARAS GIDA  -- 495949'
     Then The user take screenshot for my
     When The user wait 15 seconds
     And The user clicks "Ziyaret Listesi" tab
@@ -483,9 +483,11 @@ Feature: MDM Smoke
     When The user go to menu stand flow dashboard
     When The user verify 'No Data'
     When The user verify 'No result'
+    When The user verify 'fail'
     When The user click 'Stand' dashboard tab
     When The user verify 'No Data'
     When The user verify 'No result'
+    When The user verify 'fail'
 
   Scenario: Agency Budget
     Given The user get agency budgets before flow

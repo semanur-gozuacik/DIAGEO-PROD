@@ -182,10 +182,10 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserVerifyExcelFileIsDownloaded(String fileType) {
         if (fileType.equals("excel")) {
             Assert.assertTrue("Dosya indirilemedi!",
-                    BrowserUtils.isNewExcelDownloaded(System.getProperty("user.home") + "/Downloads",5));
+                    BrowserUtils.isNewExcelDownloaded("C:\\Downloads",5));
         } else if (fileType.equals("pdf")) {
             Assert.assertTrue("Dosya indirilemedi!",
-                    BrowserUtils.isNewPdfDownloaded(System.getProperty("user.home") + "/Downloads",8));
+                    BrowserUtils.isNewPdfDownloaded("C:\\Downloads",8));
         }
     }
 
@@ -720,17 +720,32 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.wait(10);
     }
 
+    String testChatId = "-1002156506449";
     @When("The user go to menu stand flow dashboard")
     public void theUserGoToMenuStandFlowDashboard() {
+
         driver.get("https://diageo.efectura.com/Enrich/StandFlowDashboard");
-        BrowserUtils.wait(10);
+        BrowserUtils.wait(15);
         driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"stand-flow-dashboard\"]")));
         driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
+
+        String path = BrowserUtils.getScreenshot("menu-dasboard");
+        BrowserUtils.wait(2);
+        System.out.println(path);
+        BrowserUtils.wait(2);
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+        BrowserUtils.deleteFile(path);
+
+
     }
 
     @When("The user click {string} dashboard tab")
     public void theUserClickStandDashboardTab(String tabName) {
         driver.findElement(By.xpath("//div/div/span/span[contains(.,'" + tabName + "')]")).click();
-        BrowserUtils.wait(10);
+        BrowserUtils.wait(15);
+
+        String path = BrowserUtils.getScreenshot("stand-dashboard");
+        BrowserUtils.sendFileToTelegram(path,testChatId);
+        BrowserUtils.deleteFile(path);
     }
 }

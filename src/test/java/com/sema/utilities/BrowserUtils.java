@@ -555,6 +555,17 @@ public class BrowserUtils {
         }
     }
 
+    public static boolean deleteFile(String filePath) {
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            return file.delete();
+        } else {
+            System.out.println("Dosya bulunamadı: " + filePath);
+            return false;
+        }
+    }
+
     public static Path renameFile(String oldFilePath, String newFileName) {
         try {
             File oldFile = new File(oldFilePath);
