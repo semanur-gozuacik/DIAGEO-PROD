@@ -748,4 +748,16 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.sendFileToTelegram(path,testChatId);
         BrowserUtils.deleteFile(path);
     }
+
+    @Given("The user go to FES report page")
+    public void theUserGoToFESReportPage() {
+        driver.get("https://diageo.efectura.com/Enrich/EmbedDashboard?dashboardName=mm-admin-dashboard");
+        BrowserUtils.wait(15);
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@id=\"my-superset-container\"]/iframe")));
+        BrowserUtils.wait(10);
+
+        WebElement text = driver.findElement(By.xpath("/html/body/div[1]/div/div[4]/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div/div/div/div/div[1]/div/div[2]/div/div/div/div/div/div/div[2]/div[2]/table/tbody/tr[16]/td[3]"));
+        System.out.println(text.getText());
+
+    }
 }

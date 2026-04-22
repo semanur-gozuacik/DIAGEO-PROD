@@ -500,6 +500,13 @@ Feature: MDM Smoke
     When The user verify created event edit page is open
     Then The user verify budget
 
+  Scenario: FES Report
+    Given The user go to FES report page
+    When The user verify 'No Data'
+    When The user verify 'No result'
+    When The user verify 'fail'
+    When The user verify 'Fail'
+
 
 
 

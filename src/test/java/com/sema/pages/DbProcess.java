@@ -886,6 +886,8 @@ public class DbProcess extends BasePage {
                 "        'AJANS_GERCEKLESEN_BUTCE_CALCULATED'\n" +
                 "    )";
 
+        System.out.println("query: \n" + query);
+
         int gerceklesen = 0;
 
         try (Connection conn = DatabaseManager.getConnection(DbConfigs.DIA_SQLSERVER, DbConfigs.DIA_SQLSERVER_USERNAME, DbConfigs.DB_PASSWORD);

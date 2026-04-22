@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class Panel extends BasePage {
 
-    @FindBy(xpath = "//tr/td[3]")
+    @FindBy(xpath = "//tr/td[2]")
     private List<WebElement> formNames;
 
     @FindBy(xpath = "//td/a")

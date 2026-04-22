@@ -18,7 +18,7 @@ Feature: Module Flows Cases
     Given The user verify blocked budget with "0"
     Given The user change distributor help
     Given The user verify blocked budget with "10000"
-    Given The user submit the task
+    Given The user submit the task 'Başarılı'
     Given The user login with "Tedarikçi"
     Given The user fill vendor form with initial budget "5000"
     Given The user login with "sahamuduru"
@@ -104,7 +104,7 @@ Feature: Module Flows Cases
     Given The user verify blocked budget with "0"
     Given The user change distributor help
     Given The user verify blocked budget with "1250"
-    Given The user submit the task
+    Given The user submit the task 'Başarılı'
     Given The user login with "sahamuduru"
     Given The user go in Task "DIA: SalesFlowForm"
     Given The user fill invoice form with amount "1100"
