@@ -1,6 +1,7 @@
 package com.sema.runners;
 
 import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.ConfigurationReader;
 import com.sema.utilities.ReportPathResolver;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
@@ -53,7 +54,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
         }
 
         // 4) Telegram'a gönder
-        BrowserUtils.sendFileToTelegram(finalReportPath.toString(), "-1002156506449");
+        BrowserUtils.sendFileToTelegram(finalReportPath.toString(), ConfigurationReader.getProperty("chatId"));
 
         BrowserUtils.wait(1);
         BrowserUtils.renameFile(

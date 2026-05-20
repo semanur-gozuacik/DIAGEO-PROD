@@ -245,7 +245,7 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.adjustScreenSize(55, Driver.getDriver());
         BrowserUtils.wait(10);
 
-        String testChatId = "-1002156506449";
+//        String testChatId = "-5097889346";
 
         String path = BrowserUtils.getScreenshot("EmbedDashboard-Grafikler");
         System.out.println("Path: " + path);
@@ -349,12 +349,13 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.wait(26);
     }
 
+    String getTestChatId = ConfigurationReader.getProperty("chatId");
     @Then("The user take screenshot for my")
     public void theUserTakeScreenshotForMy() {
         BrowserUtils.adjustScreenSize(55, Driver.getDriver());
         BrowserUtils.wait(30);
 
-        String testChatId = "-1002156506449";
+//        String testChatId = "-5097889346";
 
         String path = BrowserUtils.getScreenshot("Ömizleme-GenelBilgi");
         System.out.println("Path: " + path);
@@ -547,7 +548,7 @@ public class GeneralStepDefs extends BaseStep {
     @When("The user take nba screenshot")
     public void theUserTakeNbaScreenshot() {
         BrowserUtils.adjustScreenSize(80,Driver.getDriver());
-        String testChatId = "-1002156506449";
+//        String testChatId = "-5097889346";
         BrowserUtils.wait(20);
 
         String locate = ".//*[contains(\n" +

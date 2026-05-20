@@ -1,6 +1,7 @@
 package com.sema.stepDefs;
 
 import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.ConfigurationReader;
 import com.sema.utilities.Driver;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -99,12 +100,13 @@ public class EditItemStepDefs extends BaseStep {
     }
 
 
+    String testChatId = ConfigurationReader.getProperty("chatId");
     @When("The user take screenshot")
     public void theUserTakeScreenshot() {
 //        BrowserUtils.setZoom(Driver.getDriver(),60);
 
         BrowserUtils.adjustScreenSize(50,Driver.getDriver());
-        String testChatId = "-1002156506449";
+//        String testChatId = "-5097889346";
         BrowserUtils.wait(20);
         String path = BrowserUtils.getScreenshot("Tamamlayıcı Ürün");
         System.out.println("Path: " + path);
