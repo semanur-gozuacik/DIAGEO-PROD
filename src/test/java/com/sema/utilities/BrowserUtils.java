@@ -555,6 +555,7 @@ public class BrowserUtils {
         }
     }
 
+
     public static boolean deleteFile(String filePath) {
         File file = new File(filePath);
 
