@@ -507,6 +507,15 @@ Feature: MDM Smoke
     When The user verify 'fail'
     When The user verify 'Fail'
 
+  Scenario: NBA Preview
+    When The user go to edit item '1782611'
+    And The user clicks "NBA Önizleme" tab
+    And The user verify customer 'Sedat Dabakoglu'
+
+#  Scenario: BackupPage
+#    Given The user go to BackupPage
+#    When The user select table 'my_database.staging_account_dummy'
+
 
 
 

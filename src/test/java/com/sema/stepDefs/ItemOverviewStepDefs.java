@@ -239,4 +239,10 @@ public class ItemOverviewStepDefs extends BaseStep {
         System.out.println("sonra: " + agencyGerceklesenBudgetAfterFlow);
         Assert.assertEquals(agencyGerceklesenBudgetBeforeFlow + 1, agencyGerceklesenBudgetAfterFlow);
     }
+
+    @And("The user verify customer {string}")
+    public void theUserVerifyCustomer(String customerName) {
+        WebElement actualCustomer = driver.findElement(By.xpath("//div[@id='customerName']"));
+        Assert.assertEquals(customerName, actualCustomer.getText());
+    }
 }
