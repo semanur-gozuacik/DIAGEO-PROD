@@ -267,4 +267,89 @@ public class EditItemStepDefs extends BaseStep {
         Assert.assertTrue(pageInfo.getText().contains(attributeName));
     }
 
+    @Given("The user go to BackupPage")
+    public void theUserGoToBackupPage() {
+        Driver.getDriver().get("https://diageo.efectura.com/Reports/BackupPage");
+    }
+
+    @When("The user select table {string}")
+    public void theUserSelectTable(String option) {
+        Driver.getDriver().findElement(By.xpath("//*[@id=\"renderBodyWrap\"]/div[2]/div/span/span[1]/span/span[2]")).click();
+        BrowserUtils.wait(1);
+        WebElement select = Driver.getDriver().findElement(By.xpath("//select[@id='dropdownBackupTables']"));
+
+        BrowserUtils.selectDropdownOptionByVisibleText(select,option);
+        BrowserUtils.wait(3);
+
+    }
+
+    @When("The user go to user manage page")
+    public void theUserGoToUserManagePage() {
+        driver.get("https://diageo.efectura.com/UserManage");
+    }
+
+    @When("The user impersonate {string}")
+    public void theUserImpersonate(String userName) {
+        driver.findElement(By.xpath("//tr/td[2][text()='" + userName + "']")).click();
+        BrowserUtils.waitForVisibility(pages.generalPage().impersonateHoverBtn, 30);
+        BrowserUtils.hoverOver(pages.generalPage().impersonateHoverBtn);
+        pages.generalPage().impersonateButton.click();
+        BrowserUtils.wait(3);
+    }
+
+    @When("The user search in global search {string}")
+    public void theUserSearchInGlobalSearch(String searchInput) {
+        driver.findElement(By.xpath("//input[@id='globalSearchInput']")).sendKeys(searchInput);
+        BrowserUtils.wait(3);
+    }
+
+    @Then("The user verify no result")
+    public void theUserVerifyNoResult() {
+        boolean isNoResultTextVisible = BrowserUtils.isElementDisplayed(By.xpath("//*[@id=\"searchEmpty\"]/div"));
+        System.out.println(driver.findElement(By.xpath("//*[@id=\"searchEmpty\"]/div")).getText());
+        Assert.assertTrue("No Result Text gelmedi",isNoResultTextVisible);
+        Assert.assertEquals("Sonuç bulunamadı", driver.findElement(By.xpath("//*[@id=\"searchEmpty\"]/div")).getText());
+    }
+
+    @And("The user click columns button")
+    public void theUserClickColumnsButton() {
+        BrowserUtils.wait(2);
+        BrowserUtils.waitForVisibility(pages.itemOverviewPage().getConfigureColumnsButton(),20);
+        pages.itemOverviewPage().getConfigureColumnsButton().click();
+        BrowserUtils.wait(3);
+//        pages.userHomePage().columnsButton();
+    }
+
+    String removedColumn;
+    @When("The user remove one column")
+    public void theUserRemoveOneColumn() {
+        for (WebElement column : pages.itemOverviewPage().getAlreadySelectedColumns()) {
+            if (!column.getAttribute("class").contains("item-default-columns")) {
+                BrowserUtils.dragAndDrop(column, pages.itemOverviewPage().getToBeSelectedArea());
+                BrowserUtils.wait(3);
+                removedColumn = column.getText();
+                System.out.println("Removed Column: " + removedColumn);
+                break;
+            }
+        }
+    }
+
+    @And("The user add the removed column")
+    public void theUserAddTheRemovedColumn() {
+        BrowserUtils.wait(2);
+        WebElement matchingElement = pages.itemOverviewPage().getToBeSelectedColumns().stream()
+                .filter(el -> el.getText().trim().equalsIgnoreCase(removedColumn))
+                .findFirst()
+                .orElse(null);
+
+        BrowserUtils.dragAndDrop(matchingElement, pages.itemOverviewPage().getAlreadySelectedColumns().get(0));
+        BrowserUtils.wait(1);
+    }
+
+    @And("The user clicks overview save button")
+    public void theUserClicksOverviewSaveButton() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='EfSaveColumns']")).click();
+        BrowserUtils.wait(4);
+    }
+
 }

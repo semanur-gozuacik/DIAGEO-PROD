@@ -512,9 +512,25 @@ Feature: MDM Smoke
     And The user clicks "NBA Önizleme" tab
     And The user verify customer 'Sedat Dabakoglu'
 
-#  Scenario: BackupPage
-#    Given The user go to BackupPage
-#    When The user select table 'my_database.staging_account_dummy'
+  Scenario: BackupPage
+    Given The user go to BackupPage
+    When The user select table 'my_database.staging_account_dummy'
+
+  Scenario: Global Search 2
+    When The user go to user manage page
+    And The user enters "burcu.bulut" into "UserName" filter text input box
+    When The user impersonate 'burcu.bulut'
+    When The user search in global search 'Hare Meyveli'
+    Then The user verify no result
+
+#  Scenario: Remove and Adding column
+#    Given The user go to 'Contact' overview page
+#    And  The user click columns button
+#    When The user remove one column
+#    And  The user clicks overview save button
+#    And  The user click columns button
+#    And The user add the removed column
+#    And  The user clicks overview save button
 
 
 

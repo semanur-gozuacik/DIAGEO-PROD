@@ -23,6 +23,39 @@ public class ItemOverviewPage extends BasePage {
     @FindBy(xpath = "//div/div/div[3]/div[2]/div/div[2]")
     List<WebElement> createItemFamilies;
 
+    @FindBy(xpath = "//button[@id='configure-columns']")
+    private WebElement configureColumnsButton;
+
+    @FindBy(xpath = "//button[@id='cancelColumn']")
+    private WebElement columnsCancelButton;
+
+    @FindBy(xpath = "//button[@id='EfSaveColumns']")
+    private WebElement columnsSaveButton;
+
+    @FindBy(xpath = "//ul[@id='sortable2']/li")
+    private List<WebElement> alreadySelectedColumns;
+
+    @FindBy(xpath = "//ul[contains(@id,'sortableAssociation2')]/li")
+    private List<WebElement> alreadySelectedAssocColumns;
+
+    @FindBy(xpath = "//ul[@id='sortableAssociation2']")
+    private WebElement alreadySelectedAssocArea;
+
+    @FindBy(xpath = "//ul[@id='sortable1']/li")
+    private List<WebElement> toBeSelectedColumns;
+
+    @FindBy(xpath = "//ul[@id='sortableAssociation']/li")
+    private List<WebElement> toBeSelectedAssocColumns;
+
+    @FindBy(xpath = "//ul[@id='atg-list']/li")
+    private List<WebElement> columnSelectAttributeGroups;
+
+    @FindBy(xpath = "//ul[@id='sortable1']")
+    private WebElement toBeSelectedArea;
+
+    @FindBy(xpath = "//ul[@id='sortableAssociation']")
+    private WebElement toBeSelectedAssocArea;
+
     public void goToItemOverviewPage(String item) {
         driver.get(ConfigurationReader.getProperty("itemLinkWithoutItemName") + item);
     }
