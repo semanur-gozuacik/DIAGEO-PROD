@@ -516,6 +516,7 @@ Feature: MDM Smoke
     Given The user go to BackupPage
     When The user select table 'my_database.staging_account_dummy'
 
+
   Scenario: Global Search 2
     When The user go to user manage page
     And The user enters "burcu.bulut" into "UserName" filter text input box
