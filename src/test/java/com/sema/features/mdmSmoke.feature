@@ -524,14 +524,19 @@ Feature: MDM Smoke
     When The user search in global search 'Hare Meyveli'
     Then The user verify no result
 
-#  Scenario: Remove and Adding column
-#    Given The user go to 'Contact' overview page
-#    And  The user click columns button
-#    When The user remove one column
-#    And  The user clicks overview save button
-#    And  The user click columns button
-#    And The user add the removed column
-#    And  The user clicks overview save button
+  Scenario: Remove and Adding column
+    Given The user go to 'Contact' overview page
+    And  The user click columns button
+    When The user remove one column
+    And  The user clicks overview save button
+    And  The user click columns button
+    And The user add the removed column
+    And  The user clicks overview save button
+
+  Scenario: Bulk Action Number Format
+    Given The user go to 'Contact' overview page
+    When The user select first two items
+    Then The user verifies total record count is displayed with thousand separator
 
 
 

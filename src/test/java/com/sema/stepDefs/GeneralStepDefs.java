@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.sema.utilities.CommonExcelReader.getExcelPath;
+import static org.junit.Assert.assertTrue;
 
 public class GeneralStepDefs extends BaseStep {
     WebDriver driver = Driver.getDriver();
@@ -761,4 +762,21 @@ public class GeneralStepDefs extends BaseStep {
         System.out.println(text.getText());
 
     }
+
+    @When("The user select first two items")
+    public void theUserSelectFirstTwoItems() {
+//        BrowserUtils.adjustScreenSize(30,driver);
+        List<WebElement> checkboxes = driver.findElements(By.xpath("//td[1]/div/div/input/following-sibling::label"));
+        BrowserUtils.moveToElement(checkboxes.get(0));
+        checkboxes.get(0).click();
+        checkboxes.get(1).click();
+    }
+
+    @Then("The user verifies total record count is displayed with thousand separator")
+    public void theUserVerifiesTotalRecordCountWithThousandSeparator() {
+        String countText = driver.findElement(By.xpath("//div[@class='bulk-container']/div/span")).getText();
+        assertTrue("Binlik ayraç (.) bulunamadı: " + countText,
+                countText.matches(".*\\d{1,3}(\\.\\d{3})+.*"));
+    }
+
 }
