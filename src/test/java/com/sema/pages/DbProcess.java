@@ -903,4 +903,46 @@ public class DbProcess extends BasePage {
         return gerceklesen;
 
     }
+
+    public void deleteTestAttributes() {
+        String query = "DELETE FROM Attributes WHERE Code LIKE '%TestAutomation%'";
+
+        try (Connection conn = Database.getInstance();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+//            ps.setString(1, "%Test Automation%");
+
+            int affectedRows = ps.executeUpdate();
+            System.out.println("Silinen kayıt sayısı: " + affectedRows);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isAttributeCreated() {
+        String query = "SELECT * FROM Attributes\n" +
+                "WHERE Code LIKE '%TestAutomation%'";
+
+        String code = null;
+        int i = 0;
+
+        try (Connection conn = Database.getInstance();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            while (rs.next()) {
+                code = rs.getString("Code");
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Code: " + code);
+
+        return i == 7;
+
+
+    }
+
 }

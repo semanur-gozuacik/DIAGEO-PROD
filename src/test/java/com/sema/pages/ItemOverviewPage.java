@@ -56,6 +56,18 @@ public class ItemOverviewPage extends BasePage {
     @FindBy(xpath = "//ul[@id='sortableAssociation']")
     private WebElement toBeSelectedAssocArea;
 
+    @FindBy(xpath = "//button[@id='attributes_table-Import']")
+    private WebElement attributeImportButton;
+
+    @FindBy(xpath = "//input[@id='dynamic-import-file-input']")
+    private WebElement importInput;
+
+    @FindBy(xpath = "//button[contains(@id,'import-step-two')]")
+    private WebElement itemImportStep2NextButton;
+
+    @FindBy(xpath = "//button[@id='import-step-three']")
+    private WebElement itemImportStep3NextButton;
+
     public void goToItemOverviewPage(String item) {
         driver.get(ConfigurationReader.getProperty("itemLinkWithoutItemName") + item);
     }

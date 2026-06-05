@@ -46,7 +46,7 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//div[contains(@id,'ai-summary-body')]")
     private WebElement aiSummaryBody;
 
-    @FindBy(xpath = "//ul[contains(@class,'preview-tabs')]/li/a")
+    @FindBy(xpath = "//ul[@id='ulScroll']/li/a")
     private List<WebElement> editItemSubTabs;
 
     @FindBy(xpath = "//div[@id='preview-nba']/div/ul/li/a")

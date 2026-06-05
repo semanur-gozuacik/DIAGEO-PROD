@@ -2,6 +2,7 @@ package com.sema.stepDefs;
 
 import com.sema.pages.BasePage;
 import com.sema.utilities.BrowserUtils;
+import com.sema.utilities.CommonExcelReader;
 import com.sema.utilities.ConfigurationReader;
 import com.sema.utilities.Driver;
 import io.cucumber.java.en.And;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 import static com.sema.utilities.CommonExcelReader.getExcelPath;
 import static org.junit.Assert.assertTrue;
@@ -61,6 +63,7 @@ public class GeneralStepDefs extends BaseStep {
 
     @Then("The user verify {string} table is visible")
     public void theUserVerifyTableTableIsVisible(String tableName) {
+        BrowserUtils.wait(2);
         System.out.println("tableName " + tableName);
         Assert.assertTrue(tableName + "tablosu Bulunamadı",
                 BrowserUtils.isElementDisplayed
@@ -777,6 +780,140 @@ public class GeneralStepDefs extends BaseStep {
         String countText = driver.findElement(By.xpath("//div[@class='bulk-container']/div/span")).getText();
         assertTrue("Binlik ayraç (.) bulunamadı: " + countText,
                 countText.matches(".*\\d{1,3}(\\.\\d{3})+.*"));
+    }
+
+    @Given("The user go to family edit page")
+    public void theUserGoToFamilyEditPage() {
+        Driver.getDriver().get("https://diageo.efectura.com/Settings/EditFamily/27");
+    }
+
+    @And("The user clicks {string} tab in edit family")
+    public void theUserClicksTabInEditFamily(String tabName) {
+        List<WebElement> tabs = pages.generalPage().getEditFamilyTabs();
+
+        IntStream.range(1, tabs.size())   // 0 yerine 1 → ilk eleman atlandı
+                .mapToObj(tabs::get)
+                .filter(el -> el.getText().trim().equalsIgnoreCase(tabName))
+                .findFirst()
+                .ifPresent(WebElement::click);
+        BrowserUtils.wait(3);
+    }
+
+    @And("The user click {string} attribute group")
+    public void theUserClickAttributeGroup(String attributeGroup) {
+        for (WebElement element : pages.generalPage().getEditFamilyAttributeGroups()) {
+            if (element.getText().trim().equalsIgnoreCase(attributeGroup)) {
+                element.click();
+                break;
+            }
+        }
+        BrowserUtils.wait(3);
+    }
+
+    String status;
+    @And("The user click {string} check box")
+    public void theUserClickCheckBox(String attribute) {
+        BrowserUtils.adjustScreenSize(75,driver);
+        WebElement element = Driver.getDriver().findElement(By.xpath("//span[normalize-space(text())='" + attribute +
+                "']     /ancestor::label     //input[@type='checkbox']"));
+
+        System.out.println("//span[normalize-space(text())='" + attribute +
+                "']     /ancestor::label     //input[@type='checkbox']");
+
+        BrowserUtils.moveToElement(element);
+
+        element.click();
+
+        status = element.getAttribute("change");
+
+    }
+
+    @And("The user click Save button in family edit page")
+    public void theUserClickSaveButtonInFamilyEditPage() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='saveChangeButton']")).click();
+    }
+
+    @And("The user clicks save button in edit family save modal")
+    public void theUserClicksSaveButtonInEditFamilySaveModal() {
+        BrowserUtils.wait(1);
+        Driver.getDriver().findElement(By.xpath("//button[@id='saveButtonFamily']")).click();
+    }
+
+    @When("The user click bulk action button")
+    public void theUserClickBulkActionButton() {
+        driver.findElement(By.xpath("//button[@data-original-title='TOPLU EYLEMLER']")).click();
+        BrowserUtils.waitForVisibility(By.xpath("//p[.='TOPLU EYLEMLER']"),70);
+        BrowserUtils.wait(3);
+        BrowserUtils.waitForVisibility(By.id("bulkActionModal"),45);
+        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='bulkActionIframe']")));
+
+    }
+
+    @When("The user select {string} in bulk actions")
+    public void theUserSelectInBulkActions(String bulkOption) {
+//        BrowserUtils.adjustScreenSize(80,driver);
+        BrowserUtils.wait(3);
+//        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='bulkActionIframe']")));
+        String locate = "//div[.='" + bulkOption + "']";
+//        driver.findElement(By.xpath("//div[.='Kategori Ekle']")).click();
+
+        By kategoriEkle = By.xpath("//*[normalize-space(.)='Kategori Ekle']");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement el = wait.until(ExpectedConditions.elementToBeClickable(kategoriEkle));
+
+//        driver.findElement(By.xpath(locate)).click();
+        driver.findElement(By.xpath("/html/body/div/div/div[2]/div/div/div[4]/div[2]")).click();
+
+        // Bazı UI'larda element görünür ama üstünde başka layer olur -> önce scroll
+//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el);
+//        el.click();
+
+        BrowserUtils.moveToElement(driver.findElement(By.xpath("//button[.='İleri']")));
+        driver.findElement(By.xpath("//button[.='İleri']")).click();
+    }
+
+    @Then("The user tear down all changes in Attribute Case")
+    public void theUserTearDownAllChangesInAttributeCase() {
+        pages.dbProcess().deleteTestAttributes();
+    }
+
+    @When("The user go to attribute page")
+    public void theUserGoToAttributePage() {
+        Driver.getDriver().get("https://diageo.efectura.com/Settings/Attributes");
+    }
+
+    @When("The user click attribute import button")
+    public void theUserClickAttributeImportButton() {
+        pages.itemOverviewPage().getAttributeImportButton().click();
+    }
+
+    @When("The user upload the {string} file")
+    public void theUserUploadTheFile(String fileName) {
+        BrowserUtils.wait(2);
+        pages.itemOverviewPage().getImportInput().sendKeys(CommonExcelReader.getExcelPath(fileName));
+        BrowserUtils.wait(2);
+    }
+
+    @When("The user import attribute file")
+    public void theUserImportAttributeFile() {
+        BrowserUtils.adjustScreenSize(70,driver);
+        BrowserUtils.moveToElement(pages.itemOverviewPage().getItemImportStep2NextButton());
+        BrowserUtils.wait(1);
+        pages.itemOverviewPage().getItemImportStep2NextButton().click();
+        BrowserUtils.wait(5);
+        BrowserUtils.waitForVisibility(By.xpath("//button[contains(@id,'import-step-edit')]"),40);
+        Driver.getDriver().findElement(By.xpath("//button[contains(@id,'import-step-edit')]")).click();
+        BrowserUtils.wait(1);
+        BrowserUtils.waitForVisibility(By.xpath("//button[contains(@id,'import-apply-button')]"),40);
+        Driver.getDriver().findElement(By.xpath("//button[contains(@id,'import-apply-button')]")).click();
+        BrowserUtils.wait(10);
+    }
+
+    @Then("The user verifies that attributes are created")
+    public void theUserVerifiesThatAttributesAreCreated() {
+        boolean isCreated = pages.dbProcess().isAttributeCreated();
+        Assert.assertTrue("Attribute'lar oluşturulmadı!!",isCreated);
     }
 
 }

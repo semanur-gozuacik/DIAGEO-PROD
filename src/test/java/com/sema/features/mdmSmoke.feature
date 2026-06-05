@@ -538,6 +538,38 @@ Feature: MDM Smoke
     When The user select first two items
     Then The user verifies total record count is displayed with thousand separator
 
+  Scenario: Account Attribute Adding From Item Type
+    Given The user go to family edit page
+    And  The user clicks "Özellikler" tab in edit family
+    And The user click 'Son Rota Adı' check box
+    And The user click Save button in family edit page
+    And The user enters "update for family attribute by automation" in comment area
+    And The user clicks save button in edit family save modal
+    And The user go to edit item '1782611'
+
+  Scenario: User Group Permission
+    And The user go to edit item '3639561'
+    And The user click "Kullanıcı İzinleri" tab
+    Then The user verify 'user-permissions-table' table is visible
+    And The user click "Kullanıcı Grubu İzinleri" tab
+    Then The user verify 'group-permissions-table' table is visible
+
+  Scenario: Bulk Action Category Change
+    Given The user go to 'Contact' overview page
+    When The user select first two items
+    When The user click bulk action button
+    When The user select 'Kategori Değiştir' in bulk actions
+
+  Scenario: Attribute Import
+    Then The user tear down all changes in Attribute Case
+    When The user go to attribute page
+    When The user click attribute import button
+    When The user upload the 'Attribute' file
+    When The user import attribute file
+    Then The user verifies that attributes are created
+    Then The user tear down all changes in Attribute Case
+
+
 
 
 

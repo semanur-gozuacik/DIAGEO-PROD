@@ -59,6 +59,12 @@ public class GeneralPage extends BasePage {
     @FindBy(xpath = "//textarea[@id='comment']")
     private WebElement changeSaveCommentTextArea;
 
+    @FindBy(xpath = "//ul[contains(@class,'nav-tabs')]/li")
+    private List<WebElement> editFamilyTabs;
+
+    @FindBy(xpath = "//div[contains(@class,'panel-heading')]/a")
+    private List<WebElement> editFamilyAttributeGroups;
+
 
 
     public void useTextFilter(String value, String columnName) {

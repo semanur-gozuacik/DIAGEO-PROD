@@ -137,6 +137,7 @@ public class EditItemStepDefs extends BaseStep {
     public void theUserGoToEditItem(String itemId) {
         chatItemId = itemId;
         Driver.getDriver().get("https://diageo.efectura.com/Enrich/EditItem/" + itemId);
+        BrowserUtils.wait(2);
     }
 
     @When("The user click add comment button")
