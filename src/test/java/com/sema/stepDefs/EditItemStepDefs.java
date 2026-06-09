@@ -353,4 +353,66 @@ public class EditItemStepDefs extends BaseStep {
         BrowserUtils.wait(4);
     }
 
+    @When("The user remove one column in assoc tab")
+    public void theUserRemoveOneColumnInAssocTab() {
+        for (WebElement column : pages.itemOverviewPage().getAlreadySelectedAssocColumns()) {
+            if (!column.getAttribute("class").contains("item-default-columns") &&
+                    !column.getAttribute("class").contains("ui-state-disabled")) {
+                System.out.println("Column to be removed: " + column.getText());
+                BrowserUtils.moveToElement(column);
+                BrowserUtils.dragAndDrop(column, pages.itemOverviewPage().getToBeSelectedAssocArea());
+                BrowserUtils.wait(3);
+                removedColumn = column.getText();
+                System.out.println("Removed Column: " + removedColumn);
+                break;
+            }
+        }
+    }
+
+    @And("The user add the removed column in assoc tab")
+    public void theUserAddTheRemovedColumnInAssocTab() {
+        BrowserUtils.wait(2);
+        WebElement matchingElement = pages.itemOverviewPage().getToBeSelectedAssocColumns().stream()
+                .filter(el -> el.getText().trim().equalsIgnoreCase(removedColumn))
+                .findFirst()
+                .orElse(null);
+
+        BrowserUtils.hoverOver(matchingElement);
+        driver.findElement(By.xpath("//li[contains(.,'" + removedColumn + "')]/div/button[@title='Kolon Ekle']")).click();
+//        BrowserUtils.dragAndDrop(matchingElement, pages.itemOverviewPage().getAlreadySelectedAssocArea());
+        BrowserUtils.wait(1);
+    }
+
+    @When("The user clicks {string} attribute group in column select")
+    public void theUserClicksAttributeGroupInColumnSelect(String attrGroup) {
+        BrowserUtils.adjustScreenSize(55,Driver.getDriver());
+        BrowserUtils.wait(7);
+        for (WebElement attributeGroup : pages.itemOverviewPage().getColumnSelectAttributeGroups()) {
+            if (attributeGroup.getText().contains(attrGroup)) {
+                attributeGroup.click();
+                BrowserUtils.wait(2);
+            }
+        }
+    }
+
+    @When("The user search removed column")
+    public void theUserSearchRemovedColumn() {
+        BrowserUtils.wait(1);
+        driver.findElement(By.xpath("//input[@id='search-sortable1']")).sendKeys(removedColumn);
+        BrowserUtils.wait(1);
+    }
+
+    @When("The user search added column")
+    public void theUserSearchAddedColumn() {
+        BrowserUtils.wait(1);
+        driver.findElement(By.xpath("//input[@id='search-sortable2']")).sendKeys("x");
+        BrowserUtils.wait(1);
+    }
+
+    @And("The user clicks assoc column save button")
+    public void theUserClicksAssocColumnSaveButton() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='saveChangeTest']")).click();
+        BrowserUtils.wait(4);
+    }
+
 }

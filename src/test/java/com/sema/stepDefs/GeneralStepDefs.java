@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
+import static com.sema.utilities.BrowserUtils.isButtonActive;
 import static com.sema.utilities.CommonExcelReader.getExcelPath;
 import static org.junit.Assert.assertTrue;
 
@@ -914,6 +915,117 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserVerifiesThatAttributesAreCreated() {
         boolean isCreated = pages.dbProcess().isAttributeCreated();
         Assert.assertTrue("Attribute'lar oluşturulmadı!!",isCreated);
+    }
+
+    @When("The user go to transaction page")
+    public void theUserGoToTransactionPage() {
+        driver.get("https://dia-preprod-ui.efectura.com/Settings/TransactionPage");
+    }
+
+    @When("The user click create transaction button")
+    public void theUserClickCreateTransactionButton() {
+        driver.findElement(By.xpath("//button[@id='transaction_pages_table-AddNew']")).click();
+    }
+
+    @When("The user select db type {string}")
+    public void theUserSelectDbType(String dbType) {
+        WebElement dbTypeSelect = driver.findElement(By.xpath("//select[@id='db-type-create']"));
+
+        BrowserUtils.selectDropdownOptionByVisibleText(dbTypeSelect, dbType);
+
+    }
+
+    String tableName;
+    @When("The user fill transaction create inputs")
+    public void theUserFillTransactionCreateInputs() {
+        tableName = "Automation_" + UUID.randomUUID().toString().replace("-","").substring(0,6);
+        System.out.println("Table Name: " + tableName);
+        driver.findElement(By.xpath("//input[@id='table-name-create']")).sendKeys(tableName);
+
+        WebElement itemTypeSelect = driver.findElement(By.xpath("//select[contains(@data-placeholder,'SelectItemType')]"));
+        BrowserUtils.selectDropdownOptionByVisibleText(itemTypeSelect,"Event");
+
+        driver.findElement(By.xpath("//input[@id='item-id-column-create']")).sendKeys("Id");
+
+        driver.findElement(By.xpath("//button[contains(.,'AddColumn')]")).click();
+        driver.findElement(By.xpath("//*[@id='columns-table-create']/tbody/tr/td[1]/input")).sendKeys("Id");
+
+        driver.findElement(By.xpath("//*[@id='columns-table-create']/tbody/tr/td[3]/input")).click();
+    }
+
+    @When("The user go to seatunnel page")
+    public void theUserGoToSeatunnelPage() {
+        driver.get("https://diageo.efectura.com/Settings/Sentinel");
+    }
+
+    String runningJobs;
+    String finishedJobs;
+    String pendingJobs;
+    String failedJobs;
+    @Then("The user verify dashboard")
+    public void theUserVerifyDashboard() {
+        driver.switchTo().frame(driver.findElement(By.id("seaTunnelFrame")));
+
+        runningJobs = driver.findElement(By.xpath("//p[text()='Running Jobs']/following-sibling::p")).getText();
+        System.out.println("runningJobs: " + runningJobs);
+        Assert.assertTrue("runningJobs sayısı negatif",Integer.parseInt(runningJobs) >= 0);
+
+        finishedJobs = driver.findElement(By.xpath("//p[text()='Finished Jobs']/following-sibling::p")).getText();
+        System.out.println("finishedJobs: " + finishedJobs);
+        Assert.assertTrue("finishedJobs sayısı negatif",Integer.parseInt(finishedJobs) >= 0);
+
+        pendingJobs = driver.findElement(By.xpath("//p[text()='Pending Jobs']/following-sibling::p")).getText();
+        System.out.println("pendingJobs: " + pendingJobs);
+        Assert.assertTrue("pendingJobs sayısı negatif",Integer.parseInt(pendingJobs) >= 0);
+
+        failedJobs = driver.findElement(By.xpath("//p[text()='Failed Jobs']/following-sibling::p")).getText();
+        System.out.println("failedJobs: " + failedJobs);
+        Assert.assertTrue("failedJobs sayısı negatif",Integer.parseInt(failedJobs) >= 0);
+
+
+        boolean recentJobsTableVisible = BrowserUtils.isElementDisplayed(By.xpath("/html/body/div/div/main/div/div/div[4]/div[2]/table"));
+        Assert.assertTrue("Recent Job Runs tablosu gelmedi", recentJobsTableVisible);
+
+    }
+
+    @When("The user click {string} seatunnel tab")
+    public void theUserClickRunningJobsSeatunnelTab(String tabName) {
+        driver.findElement(By.xpath("//a[normalize-space()='" + tabName + "']")).click();
+        BrowserUtils.wait(3);
+    }
+
+    @Then("The user verify finished jobs table")
+    public void theUserVerifyFinishedJobsTable() {
+        List<WebElement> finishedJobsRows = driver.findElements(By.xpath("//tbody[contains(@class,'divide-y')]//tr"));
+
+        int count = finishedJobsRows.size();
+
+
+        while (isButtonActive(driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div/div/div[3]/button[2]")))) {
+            driver.findElement(By.xpath("//*[@id=\"root\"]/div/main/div/div/div[3]/button[2]")).click();
+            BrowserUtils.wait(2);
+            count += finishedJobsRows.size();
+        }
+
+        System.out.println("Finished Jobs Count: " + count);
+
+    }
+
+
+    @When("The user click edit item side bar button")
+    public void theUserClickEditItemSideBarButton() {
+        pages.editItemPage().getSideBarButton().click();
+        BrowserUtils.wait(1);
+    }
+
+    @When("The user click addToComparison button")
+    public void theUserClickAddToComparisonButton() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='comparison-add-btn']")).click();
+    }
+
+    @When("The user click viewComparison button")
+    public void theUserClickviewComparisonButton() {
+        Driver.getDriver().findElement(By.xpath("//button[@id='compareBtn']")).click();
     }
 
 }

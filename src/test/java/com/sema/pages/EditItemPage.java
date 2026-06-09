@@ -97,6 +97,9 @@ public class EditItemPage extends BasePage {
     @FindBy(xpath = "//a[contains(@class,'s_localizable')]")
     private List<WebElement> attributeGroups;
 
+    @FindBy(xpath = "/html/body/div[2]/div/div[2]/button/i")
+    private WebElement sideBarButton;
+
 
     int itemIdToBeAssociated;
     public void selectItemAtOrderInAssociationTab(int assocCheckboxOrder) {

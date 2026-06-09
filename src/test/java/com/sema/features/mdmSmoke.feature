@@ -533,6 +533,19 @@ Feature: MDM Smoke
     And The user add the removed column
     And  The user clicks overview save button
 
+  Scenario: Edit Item Column Selection
+    When The user go to edit item '3528853'
+    When The user clicks 'İlgili Etkinlik' tab
+    And  The user click columns button
+    When The user remove one column in assoc tab
+    And  The user clicks assoc column save button
+    And  The user click columns button
+    When The user clicks "Etkinlik Grubu" attribute group in column select
+    When The user search removed column
+    When The user search added column
+    And The user add the removed column in assoc tab
+    And  The user clicks assoc column save button
+
   Scenario: Bulk Action Number Format
     Given The user go to 'Contact' overview page
     When The user select first two items
@@ -568,6 +581,27 @@ Feature: MDM Smoke
     When The user import attribute file
     Then The user verifies that attributes are created
     Then The user tear down all changes in Attribute Case
+
+  Scenario: Transaction Table Create
+    When The user go to transaction page
+    When The user click create transaction button
+    When The user select db type 'SQL Sunucusu'
+    When The user fill transaction create inputs
+
+#  Scenario: Prod Seatunnel
+#    When The user go to seatunnel page
+#    Then The user verify dashboard
+#    When The user click 'Finished Jobs' seatunnel tab
+#    Then The user verify finished jobs table
+
+  Scenario: Edit Item Compare Item
+    Given The user go to edit item '3648145'
+    When The user click edit item side bar button
+    When The user click addToComparison button
+    Given The user go to edit item '3648146'
+    When The user click edit item side bar button
+    When The user click addToComparison button
+    When The user click viewComparison button
 
 
 
