@@ -4,6 +4,8 @@ import lombok.Getter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 @Getter
 public class ReportsPage extends BasePage {
 
@@ -21,5 +23,20 @@ public class ReportsPage extends BasePage {
 
     @FindBy(xpath = "//a[@class='export-email']")
     private WebElement exportSendMail;
+
+    @FindBy(xpath = "//*[@id=\"tableReport\"]/tbody/tr/td/button")
+    private List<WebElement> flowsButtons;
+
+    @FindBy(xpath = "//*[@id=\"ek-dosyalar-tablosu\"]/tbody/tr/td[6]/i[2]")
+    private List<WebElement> flowDetailEyeIcons;
+
+    @FindBy(xpath = "//*[@id=\"preview-container\"]/a")
+    private WebElement filePreviewDownloadButton;
+
+    @FindBy(xpath = "//button[@id='closeModalButton']")
+    private WebElement closeFilePreviewModalButton;
+
+    @FindBy(xpath = "//button[@id='customCloseModalButton']")
+    private WebElement closeFlowDetailModalButton;
 
 }

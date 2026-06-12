@@ -26,10 +26,10 @@ public class GeneralPage extends BasePage {
     @FindBy(xpath = "//div[@class='notyf__message']")
     private WebElement infoMessage;
 
-    @FindBy(xpath = "//iframe")
+    @FindBy(xpath = "job-scheduler-frame")
     private WebElement jobsFrame;
 
-    @FindBy(xpath = "//h1[text()='Overview']")
+    @FindBy(xpath = "//h1[text()='Dashboard']")
     private WebElement jobsHeader;
 
     @FindBy(xpath = "//iframe[contains(@src,'/Enrich/EmbedDashboard?dashboardName=report-analysis')]")
@@ -65,6 +65,9 @@ public class GeneralPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'panel-heading')]/a")
     private List<WebElement> editFamilyAttributeGroups;
 
+    @FindBy(xpath = "//div[contains(@class,'button-filter-container')]")
+    private WebElement advancedFilterContainer;
+
 
 
     public void useTextFilter(String value, String columnName) {
@@ -86,6 +89,7 @@ public class GeneralPage extends BasePage {
 //        WebElement btn2 = driver.findElement(By.id(btnName));
 //        WebElement button = driver.findElement
 //                (By.xpath("//div[@class='pagination-container']//button[@id='" + btnName + "']"));
+        BrowserUtils.moveToElement(btn);
         btn.click();
     }
 

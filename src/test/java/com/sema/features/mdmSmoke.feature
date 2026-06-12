@@ -300,7 +300,8 @@ Feature: MDM Smoke
 
   Scenario: NBA Tables
     Given The user go to edit item
-    When The user click 'NBA' tab
+    When The user click 'NBA' preview sub tab
+#    When The user click 'NBA' tab
     When The user take screenshot
 
   Scenario: Comment Meeting Notes
@@ -341,7 +342,7 @@ Feature: MDM Smoke
 
   Scenario: MY 360 Redirection
     When The user go to MY360 page
-    When The user select customer 'ARAS GIDA  -- 495949'
+    When The user select customer 'ARAS GIDA -- 495949'
     Then The user take screenshot for my
     When The user wait 15 seconds
     And The user clicks "Ziyaret Listesi" tab
@@ -602,6 +603,89 @@ Feature: MDM Smoke
     When The user click edit item side bar button
     When The user click addToComparison button
     When The user click viewComparison button
+
+  Scenario: Module Tracking Report
+    Given The user go to "report" page
+    When The user select 'ModuleTrackingReports' report
+    Then The user verify 'tableReport' table displayed
+    Then The user verify advanced filter group displayed
+    Then The user verify 'tableReport' table has data
+    And The user enters "Zong" into "Şehir" filter text input box
+    And The user enters "Diamo" into "Segmentasyon" filter text input box
+    Then The user verify "Şehir" text filter with value "Zong" in "tableReport"
+    Then The user verify "Segmentasyon" text filter with value "Diamo" in "tableReport"
+    And The user reset the basic filters
+    And The user verify Reset button func for "Şehir" text filter
+    And The user verify Reset button func for "Segmentasyon" text filter
+    When The user click flows button in flow report
+    Then The user verify 'veri-tablosu' table displayed
+    When The user click eye icon
+    Then The user verify file preview displayed
+    When The user click ExportCurrentView button
+    Then The user verify warning message 'Başarılı'
+
+  Scenario: Menu Tracking Report
+    Given The user go to "report" page
+    When The user select 'MenuTrackingReports' report
+    Then The user verify 'tableReport' table displayed
+    Then The user verify advanced filter group displayed
+    Then The user verify 'tableReport' table has data
+    And The user enters "zafer" into "Müşteri Adı" filter text input box
+    Then The user verify "Müşteri Adı" text filter with value "zafer" in "tableReport"
+    And The user reset the basic filters
+    And The user verify Reset button func for "Müşteri Adı" text filter
+    When The user click flows button in flow report
+    Then The user verify 'veri-tablosu' table displayed
+    When The user click eye icon
+    Then The user verify file preview displayed
+    When The user click ExportCurrentView button
+    Then The user verify warning message 'Başarılı'
+
+  Scenario: Edit Item History
+    When The user go to edit item '3648524'
+    When The user clicks "Özellikler" tab
+    When The user clicks "Ürün Grubu" attribute group
+    When The user update 'Ürün Ek Grup Kodu' attribute with random value
+    When The user clicks "Önizleme" tab
+    And The user clicks save button in edit item
+    And The user enters random in comment area
+    And The user clicks save button in edit item save modal
+    Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
+    When The user clicks "Tarihçe" tab
+    When The user click 'Yenile' button
+    Then The user verify history table comment
+    And The user clicks "Dijital Varlıklar" tab
+    And The user select "Hayır" in "IsAssociated" select filter
+    And The user select item at order 1 in association tab
+    And The user clicks save button in edit item
+    And The user enters random in comment area
+    And The user clicks save button in edit item save modal
+    Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
+    When The user clicks "Tarihçe" tab
+    When The user click 'Yenile' button
+    Then The user verify history table comment
+
+  Scenario: StandBudgetGeneralReport Kalem Ekleme
+#    When The User opens the browser with the given url
+#    And  The User inputs a valid username "validUsername"
+#    And  The User inputs a valid password "validPassword"
+#    And  The User clicks the Submit button
+    Given The user go to StandBudgetGeneralReport page
+    When The user clicks 'Kalem Ekle' button
+    When The user fill customer code '999999999'
+    When The user clicks 'Kontrol' button
+    Then The user verifies info "Müşteri Kodu Geçerli" appears
+    When The user select 'Hayır' in marka isi select
+    When The user fill random kalem name with price '100'
+    When The user clicks 'Kaydet' button
+    Then The user verifies info "Değişiklikler başarıyla kaydedildi." appears
+
+  Scenario: Roller İzinler Export
+    When The user go to 'DIA_BASIC' edit role page
+    When The user clicks assoc type "İzinler" tab
+    When The user click permission export button
+    When The user complete the export
+    Then The user verifies info "Başarılı" appears
 
 
 

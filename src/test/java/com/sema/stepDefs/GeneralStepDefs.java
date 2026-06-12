@@ -1,10 +1,7 @@
 package com.sema.stepDefs;
 
 import com.sema.pages.BasePage;
-import com.sema.utilities.BrowserUtils;
-import com.sema.utilities.CommonExcelReader;
-import com.sema.utilities.ConfigurationReader;
-import com.sema.utilities.Driver;
+import com.sema.utilities.*;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -14,6 +11,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
+import static com.sema.pages.BasePage.getColumnData;
 import static com.sema.utilities.BrowserUtils.isButtonActive;
 import static com.sema.utilities.CommonExcelReader.getExcelPath;
 import static org.junit.Assert.assertTrue;
@@ -33,7 +32,7 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserVerifyTextFilterWithValueIn(String columnName, String expectedValue, String table) {
         BrowserUtils.wait(2);
         WebElement tableElement = Driver.getDriver().findElement(By.id(ConfigurationReader.getProperty(table)));
-        List<String> values =  BasePage.getColumnData(tableElement,columnName);
+        List<String> values =  getColumnData(tableElement,columnName);
 
         System.out.println(values);
         BrowserUtils.wait(2);
@@ -113,7 +112,7 @@ public class GeneralStepDefs extends BaseStep {
 
     @Given("The user go to Jobs page")
     public void theUserGoToJobsPage() {
-        Driver.getDriver().get("https://diageo.efectura.com/Job/Jobs");
+        Driver.getDriver().get("https://diageo.efectura.com/Job/Jobs");driver.findElement(By.xpath("//a[@id='job-scheduler-tab']")).click();
     }
 
     @Then("The user verify job page is open")
@@ -322,7 +321,7 @@ public class GeneralStepDefs extends BaseStep {
 
     @When("The user click penetration tab")
     public void theUserClickPenetrationTab() {
-        WebElement penetrationTab = Driver.getDriver().findElement(By.xpath("//p[contains(text(),'Q2 Penetrasyon Offtrade Dashboard')]/preceding-sibling::a[1]"));
+        WebElement penetrationTab = Driver.getDriver().findElement(By.xpath("//p[contains(text(),'Q4 Penetrasyon Offtrade Dashboard')]/preceding-sibling::a[1]"));
         penetrationTab.click();
         BrowserUtils.wait(30);
     }
@@ -352,6 +351,7 @@ public class GeneralStepDefs extends BaseStep {
         WebElement selectCustomerElement = Driver.getDriver().findElement(By.xpath("//select[@id='item-select']"));
         BrowserUtils.selectDropdownOptionByVisibleText(selectCustomerElement,customerName);
         BrowserUtils.wait(26);
+        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@id='content-iframe']")));
     }
 
     String getTestChatId = ConfigurationReader.getProperty("chatId");
@@ -604,7 +604,7 @@ public class GeneralStepDefs extends BaseStep {
     public void theUserVerifySelectFilterWithValue(String columnName, String expectedValue, String table) {
         BrowserUtils.wait(2);
         WebElement tableElement = Driver.getDriver().findElement(By.id(table));
-        List<String> values =  BasePage.getColumnData(tableElement,columnName);
+        List<String> values =  getColumnData(tableElement,columnName);
 
         System.out.println(values);
         BrowserUtils.wait(7);
@@ -726,7 +726,7 @@ public class GeneralStepDefs extends BaseStep {
         BrowserUtils.wait(10);
     }
 
-    String testChatId = "-1002156506449";
+    String testChatId = "-1003681783983";
     @When("The user go to menu stand flow dashboard")
     public void theUserGoToMenuStandFlowDashboard() {
 
@@ -919,7 +919,7 @@ public class GeneralStepDefs extends BaseStep {
 
     @When("The user go to transaction page")
     public void theUserGoToTransactionPage() {
-        driver.get("https://dia-preprod-ui.efectura.com/Settings/TransactionPage");
+        driver.get("https://diageo.efectura.com/Settings/TransactionPage");
     }
 
     @When("The user click create transaction button")
@@ -1026,6 +1026,120 @@ public class GeneralStepDefs extends BaseStep {
     @When("The user click viewComparison button")
     public void theUserClickviewComparisonButton() {
         Driver.getDriver().findElement(By.xpath("//button[@id='compareBtn']")).click();
+    }
+
+    @Then("The user verify {string} table displayed")
+    public void theUserVerifyTableReportTableDisplayed(String id) {
+        BrowserUtils.waitForVisibility(Driver.getDriver().findElement(By.id(id)),45);
+
+        Assert.assertTrue(id + " tablosu yüklenmedi",
+                BrowserUtils.isElementDisplayed(Driver.getDriver().findElement(By.id(id))));
+    }
+
+    @Then("The user verify advanced filter group displayed")
+    public void theUserVerifyAdvancedFilterGroupDisplayed() {
+
+        BrowserUtils.waitForVisibility(pages.generalPage().getAdvancedFilterContainer(),45);
+
+        Assert.assertTrue("Advanced Filter Group Gelmedi",
+                BrowserUtils.isElementDisplayed(pages.generalPage().getAdvancedFilterContainer()));
+    }
+
+    @Then("The user verify {string} table has data")
+    public void theUserVerifyTableReportTableHasData(String id) {
+        WebElement table = Driver.getDriver().findElement(By.id(id));
+        Assert.assertTrue("Tabloda veri yok", getColumnData(table,"Fletum Kimlik").size() > 1);
+    }
+
+    @When("The user click flows button in flow report")
+    public void theUserClickFlowsButtonInFlowReport() {
+        pages.reportsPage().getFlowsButtons().get(0).click();
+        BrowserUtils.wait(1);
+    }
+
+    @When("The user click eye icon")
+    public void theUserClickEyeIcon() {
+        pages.reportsPage().getFlowDetailEyeIcons().get(0).click();
+    }
+
+    @Then("The user verify file preview displayed")
+    public void theUserVerifyFilePreviewDisplayed() {
+        Assert.assertTrue("File preview indirme butonu gelmedi",
+                BrowserUtils.isElementDisplayed(pages.reportsPage().getFilePreviewDownloadButton()));
+        pages.reportsPage().getCloseFilePreviewModalButton().click();
+        BrowserUtils.wait(1);
+        pages.reportsPage().getCloseFlowDetailModalButton().click();
+    }
+
+    @Given("The user go to StandBudgetGeneralReport page")
+    public void theUserGoToStandBudgetGeneralReportPage() {
+        driver.get("https://dia-preprod-ui.efectura.com/Reports/StandBudgetGeneralReport");
+        BrowserUtils.wait(2);
+    }
+
+    @When("The user fill customer code {string}")
+    public void theUserFillCustomerCode(String customerCode) {
+        driver.findElement(By.xpath("//input[@id='standTrackKodu']")).sendKeys(customerCode);
+
+    }
+
+    @When("The user select {string} in marka isi select")
+    public void theUserSelectInMarkaIsiSelect(String markaOption) {
+        WebElement markaSelect = driver.findElement(By.xpath("//select[@id='standMarkaisi']"));
+        BrowserUtils.selectDropdownOptionByVisibleText(markaSelect,markaOption);
+    }
+
+    String randomKalem1;
+    @When("The user fill random kalem name with price {string}")
+    public void theUserFillRandomKalemNameWithPrice(String kalemPrice) {
+        randomKalem1 = UUID.randomUUID().toString();
+        System.out.println("randomKalem1: " + randomKalem1);
+        List<WebElement> kalemNameInputs = driver.findElements(By.xpath("//input[@placeholder='Kalem İsmi']"));
+        List<WebElement> kalemPriceInputs = driver.findElements(By.xpath("//input[@placeholder='Fiyat']"));
+
+
+        kalemNameInputs.get(kalemNameInputs.size()-1).sendKeys(randomKalem1);
+        kalemPriceInputs.get(kalemPriceInputs.size()-1).sendKeys(kalemPrice);
+        BrowserUtils.wait(4);
+    }
+
+    @When("The user clicks {string} button")
+    public void theUserClicksButton(String buttonName) {
+        driver.findElement(By.xpath("//button[.='" + buttonName + "']")).click();
+        BrowserUtils.wait(2);
+    }
+
+    @When("The user go to {string} edit role page")
+    public void theUserGoToEditRolePage(String roleName) throws SQLException {
+        String query = "SELECT Id FROM AspNetRoles WHERE Name = '" + roleName + "'";
+        ResultSet rs = Database.getInstance().createStatement().executeQuery(query);
+        rs.next();
+        String roleId = rs.getString("Id");
+        driver.get("https://dia-preprod-ui.efectura.com/UserManage/EditRole/" + roleId);
+    }
+
+    @When("The user clicks assoc type {string} tab")
+    public void theUserClicksAssocTypeTab(String tabName) {
+
+        List<WebElement> assocTypeTabs = driver.findElements(By.xpath("//ul[@class='nav nav-tabs']//li//a"));
+        BrowserUtils.adjustScreenSize(50, Driver.getDriver());
+
+        for (int i = 0; i < assocTypeTabs.size(); i++) {
+            if (assocTypeTabs.get(i).getText().contains(tabName)) {
+                BrowserUtils.moveToElement(assocTypeTabs.get(i));
+                assocTypeTabs.get(i).click();
+                BrowserUtils.wait(2);
+            }
+        }
+
+        BrowserUtils.wait(2);
+    }
+
+    @When("The user click permission export button")
+    public void theUserClickPermissionExportButton() {
+        driver.findElement(By.xpath("//button[@id='table-Main-export-dropdown']")).click();
+        BrowserUtils.wait(1);
+        driver.findElement(By.xpath("//a[@id='table-Main_export-all']")).click();
     }
 
 }

@@ -99,6 +99,14 @@ public class EditItemStepDefs extends BaseStep {
                 .ifPresent(WebElement::click);
     }
 
+    @When("The user click {string} preview sub tab")
+    public void theUserClickPreviewSubTab(String tabName) {
+        pages.editItemPage().getEditItemPreviewSubTabs().stream()
+                .filter(el -> el.getText().trim().contains(tabName))
+                .findFirst()
+                .ifPresent(WebElement::click);
+    }
+
 
     String testChatId = ConfigurationReader.getProperty("chatId");
     @When("The user take screenshot")
@@ -413,6 +421,33 @@ public class EditItemStepDefs extends BaseStep {
     public void theUserClicksAssocColumnSaveButton() {
         Driver.getDriver().findElement(By.xpath("//button[@id='saveChangeTest']")).click();
         BrowserUtils.wait(4);
+    }
+
+    String value;
+    @When("The user update {string} attribute with random value")
+    public void theUserUpdateAttributeWithRandomValue(String attrLabel) {
+        value = UUID.randomUUID().toString();
+        pages.editItemPage().updateAttribute(attrLabel,value);
+    }
+
+    String randomComment;
+    @And("The user enters random in comment area")
+    public void theUserEntersRandomInCommentArea() {
+        //        pages.contactEditPage().setChangeCommentArea(comment);
+        BrowserUtils.wait(2);
+//        BrowserUtils.waitForVisibility(pages.generalPage().getChangeSaveCommentTextArea(),15);
+        randomComment = UUID.randomUUID().toString();
+        if (BrowserUtils.isElementDisplayed(By.xpath("//textarea[@id='comment']"))) {
+            pages.generalPage().getChangeSaveCommentTextArea().sendKeys(randomComment);
+        }
+    }
+
+    @Then("The user verify history table comment")
+    public void theUserVerifyHistoryTableComment() {
+        String historyLastComment = driver.findElement(By.xpath("//*[@id='history_table_ItemNewHistory']/tbody/tr[1]/td[4]")).getText();
+
+        Assert.assertEquals(randomComment, historyLastComment);
+
     }
 
 }

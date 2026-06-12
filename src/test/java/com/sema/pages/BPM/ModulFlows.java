@@ -229,7 +229,7 @@ public class ModulFlows extends BasePage {
 
     String formNumber = "";
     public String fillModuleFlowForm(String lastCustomerCode) {
-        BrowserUtils.adjustScreenSize(80,Driver.getDriver());
+        BrowserUtils.adjustScreenSize(60,Driver.getDriver());
         formNumber = BrowserUtils.getValueInInputBox(formNumberInput);
         System.out.println("Form Number: " + formNumber);
         musteriNoInputBox.sendKeys(lastCustomerCode);
@@ -240,6 +240,7 @@ public class ModulFlows extends BasePage {
         startFormFifthCheckbox.click();
         BrowserUtils.wait(3);
         BrowserUtils.waitForVisibility(trackInfoHeader,20);
+        BrowserUtils.moveToElement(vendorSelect);
         vendorSelect.click();
         vendorInput.sendKeys("Efectura Vendor");
         efecturaVendorOption.click();
